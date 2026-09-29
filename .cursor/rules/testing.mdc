@@ -1,0 +1,41 @@
+---
+description: Testing guidelines for Java/Spring Boot and AI/RAG features
+globs: **/src/test/**
+alwaysApply: false
+---
+
+# Testing Guidelines
+
+Reusable testing guidelines for Java, Spring Boot, and AI/RAG features. Apply them when writing or changing tests.
+
+## Test pyramid
+
+- Prefer unit tests for domain and business logic.
+- Use Spring slice tests for one layer at a time: `@WebMvcTest` for the web layer, `@DataJpaTest` for persistence.
+- Use `@SpringBootTest` with Testcontainers when a test must exercise the application with real infrastructure.
+
+## Deterministic behaviour
+
+- Assert exact values for deterministic logic.
+- Cover every valid state transition and every invalid state transition with its own test.
+
+## Probabilistic AI output
+
+- Evaluate probabilistic AI output with an evaluation set and acceptance thresholds.
+- Do not assert exact string matches on generated text.
+- Run AI evaluation tests against a real model in a separate, explicitly tagged suite that is excluded from the default build.
+
+## External models
+
+- Tests never call paid or external LLM or embedding APIs.
+- Stub those clients.
+
+## Test design
+
+- Name tests after the behaviour they describe.
+- Structure each test as Arrange-Act-Assert.
+- Keep tests independent. Do not share mutable data between tests.
+
+## Failing tests
+
+- Never weaken, skip, or delete a failing test to make it pass.

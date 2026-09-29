@@ -208,3 +208,121 @@ The guidelines cover:
 _**User**_
 
 what skills are available?
+
+---
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The user is asking about available skills.
+
+I'm organizing the available agent skills from the system prompt into a clear list.
+
+Cursor skills include automation, autopilot, canvas, bugbot reviews, security checks, SDK guidance, sharing, splitting into PRs, statusline setup, and visualization. Claude-synced skills include docs, docx, memory import, morning, pdf, pptx, skill-creator, and xlsx.
+
+Additional project skills include speckit-analyze, speckit-checklist, speckit-clarify, speckit-converge, speckit-implement, speckit-plan, speckit-specify, speckit-tasks, and speckit-taskstoissues. A frontend design skill is also available.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+These agent skills are available in this session, grouped by where they live.
+
+**Cursor**
+
+- **automate** — create Cursor Automations
+- **autopilot** — keep a pull request merge-ready (comments, conflicts, CI)
+- **canvas** — live React canvases for analytical or visual artifacts
+- **create-hook** — create Cursor hooks
+- **create-rule** — create Cursor rules
+- **create-skill** — author a new Cursor Agent Skill
+- **loop** — run a prompt or skill on a recurring interval
+- **new-repo** — create a Cursor-hosted repository for this project
+- **origin** — install, sign in, or repair the Origin CLI
+- **review-bugbot** — review local changes with Bugbot
+- **review-security** — security review of local changes
+- **sdk** — build apps, scripts, or CI on the Cursor SDK
+- **share** — save, back up, or share the project on Cursor
+- **split-to-prs** — split current work into smaller pull requests
+- **statusline** — configure a custom CLI status line
+- **update-cursor-settings** — change Cursor or VS Code settings
+- **visualize** — inline charts and diagrams in the chat
+
+**This repository (Spec Kit)**
+
+- **speckit-specify** — create or update a feature spec
+- **speckit-clarify** — find gaps in the spec and encode answers
+- **speckit-plan** — generate the implementation plan
+- **speckit-tasks** — generate `tasks.md`
+- **speckit-implement** — execute the tasks
+- **speckit-analyze** — check spec, plan, and tasks for consistency
+- **speckit-checklist** — generate a feature checklist
+- **speckit-constitution** — create or update the project constitution
+- **speckit-converge** — compare the codebase to the spec and add remaining tasks
+- **speckit-taskstoissues** — turn tasks into GitHub issues
+
+**Documents and design**
+
+- **docs** — shared living documents
+- **docx** — Word documents
+- **pdf** — PDF files
+- **pptx** — PowerPoint decks
+- **xlsx** — spreadsheets
+- **frontend-design** — visual design guidance for UI work
+- **skill-creator** — create or improve skills
+- **import-memory** — import a memory export from another assistant
+- **morning** — morning brief
+
+The project folder `skills/documentation/` is empty. It is not one of these agent skills.
+
+---
+
+_**User**_
+
+Update only @.cursor/rules/testing.mdc 
+
+Add this frontmatter at the top:
+---
+description: Testing guidelines for Java/Spring Boot and AI/RAG features
+globs: **/src/test/**
+alwaysApply: false
+---
+
+Then write concise, reusable testing guidelines covering:
+- Test pyramid: unit tests, Spring slice tests (@WebMvcTest, @DataJpaTest), integration tests with @SpringBootTest and Testcontainers.
+- Deterministic logic uses exact assertions; every valid and every invalid state transition has a test.
+- Probabilistic AI output is tested with an evaluation set and thresholds, not exact string matches.
+- Tests never call paid or external LLM/embedding APIs; stub those clients.
+- Behaviour-describing test names, Arrange-Act-Assert, independent tests with no shared mutable data.
+- Never weaken, skip, or delete a failing test to make it pass.
+
+These should be reusable guidelines, not project requirements.
+Do not modify any other file.
+
+---
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Updating only `.cursor/rules/testing.mdc` with the requested frontmatter and testing guidelines.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
