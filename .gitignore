@@ -1,0 +1,16 @@
+# Secrets
+.env
+*.env
+application-local.yml
+application-local.properties
+
+# Build
+target/
+build/
+node_modules/
+.next/
+
+# IDE / OS
+.idea/
+.DS_Store
+*.log

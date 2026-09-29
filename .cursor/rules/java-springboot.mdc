@@ -1,3 +1,9 @@
+---
+description: Java 21 and Spring Boot engineering guidelines
+globs:
+alwaysApply: true
+---
+
 # Java and Spring Boot Guidelines
 
 Reusable engineering guidelines for Java 21 and Spring Boot. Apply them when writing or changing application code.
