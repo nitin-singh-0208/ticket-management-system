@@ -9,7 +9,7 @@ Reusable documentation guidelines. Apply them when creating or updating project 
 
 ## Where docs live
 
-- Put specifications in `spec/`.
+- Put specifications in `specs/`.
 - Put project notes in `docs/`.
 - Use `README.md` for setup and overview.
 
