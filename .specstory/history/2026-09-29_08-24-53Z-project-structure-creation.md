@@ -421,3 +421,62 @@ _**Agent (auto-smart)**_
 <summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/api-standards.mdc</summary>
 
 </details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The new file will follow the style of testing.mdc and java-springboot.mdc.
+
+The frontmatter will mirror java-springboot.mdc exactly. The draft stays under 50 lines. It covers resource-oriented URLs, HTTP methods, DTO boundaries, pagination, JSON naming, contract-first, and security.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/api-standards.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Updated `@.cursor/rules/api-standards.mdc` with the requested frontmatter and REST API standards. Only this file was modified.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+Updated `.cursor/rules/api-standards.mdc` only. No other files were changed.
+
+The rule always applies. It covers:
+
+- Plural resource URLs under `/api`, with no verbs in paths
+- Status codes `200`, `201` with a `Location` header, `204`, `400`, `404`, and `409`
+- One error format, including field-level validation errors
+- Request and response DTOs, with persistence entities kept off the API
+- Query-parameter conventions for pagination, sorting, filtering, and keyword search
+- camelCase JSON fields
+- The spec contract as the source of truth
+- No stack traces, internal exceptions, or secrets in responses
+
+---
+
+_**User**_
+
+Create only .cursor/skills/documentation/SKILL.md
+
+Use this frontmatter, matching the format of the existing speckit skills:
+---
+name: "documentation"
+description: "Use when creating or updating project documentation: specs, README, architecture decisions, or docs/ files."
+---
+
+Then write concise, reusable documentation guidelines covering:
+- Where docs live: spec/ for specifications, docs/ for project notes, README.md for setup and overview.
+- Update documentation in the same change as the code it describes.
+- Record significant decisions as short ADR-style entries: context, decision, alternatives considered, consequences.
+- Use Mermaid for diagrams.
+- Every factual statement must be traceable to code, a spec, or a cited source; never invent behaviour, APIs, or numbers.
+- Keep docs concise; prefer tables and lists over long prose.
+
+These should be reusable guidelines, not project requirements.
+Do not modify any other file.
