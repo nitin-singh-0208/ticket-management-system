@@ -480,3 +480,274 @@ Then write concise, reusable documentation guidelines covering:
 
 These should be reusable guidelines, not project requirements.
 Do not modify any other file.
+
+---
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Preparing to create `.cursor/skills/documentation/SKILL.md` with the specified frontmatter and documentation guidelines.
+
+Reviewing an existing speckit skill to match its structure and format exactly.
+
+Reading the create-skill skill and an existing speckit skill in parallel to match both formats exactly. The user's explicit constraints override any conflicting guidance from those skills.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+I'll create only `.cursor/skills/documentation/SKILL.md`, matching the frontmatter style of the existing Speckit skills.
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/skills/speckit-specify/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/.cursor/skills-cursor/create-skill/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The user provided exact frontmatter and requested the skill match the existing speckit format.
+
+The frontmatter will be copied verbatim. The body will be written concisely, covering the guidelines without paraphrasing.
+
+The body will follow the rules-file style. I will not create extra files like reference.md or examples. I am reviewing the skill structure recommendations to ensure the body is well-formed.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/.cursor/skills-cursor/create-skill/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The SKILL.md will use the exact frontmatter YAML provided, matching the existing speckit skill format.
+
+The frontmatter will remain exactly as provided, without adding extra fields like disable-model-invocation.
+
+The body will be concise guidelines covering the requested topics rather than verbatim sentences. It will use a title and short sections, matching the style of existing rule files.
+
+Only the `.cursor/skills/documentation/SKILL.md` file will be created. The existing `skills/documentation/` folder at the project root will remain untouched. This is a skill definition file, not a living document, so the docs connector will not be used.
+
+Checking whether the `.cursor/skills/documentation` directory exists before writing the file. The parent `.cursor/skills` path is already present from existing speckit skills.
+
+The documentation subdirectory may not exist yet. I will attempt to write the file directly, and create the directory only if the write fails. The body will open with a # Documentation Guidelines heading.
+
+The body will be organized into five short sections: where docs live, keeping docs with the change, recording decisions as ADRs, using Mermaid for diagrams, and ensuring every factual statement is traceable to code or a spec.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+The Speckit skills use quoted `name` and `description` in frontmatter. I'll follow that and add only the documentation guidelines you listed.
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/skills/documentation/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Created `.cursor/skills/documentation/SKILL.md` with the requested documentation guidelines.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+Created `.cursor/skills/documentation/SKILL.md` only. No other files were changed.
+
+The skill uses the same quoted frontmatter style as the Speckit skills. It covers:
+
+- `spec/` for specifications, `docs/` for project notes, and `README.md` for setup and overview
+- Updating documentation in the same change as the code it describes
+- Short ADR-style entries: context, decision, alternatives considered, consequences
+- Mermaid for diagrams
+- Factual statements traced to code, a spec, or a cited source
+- Concise docs, with tables and lists preferred over long prose
+
+---
+
+_**User**_
+
+What skills are available?
+
+---
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The user is asking what skills are available.
+
+I should check the `.cursor/skills` directory to provide an accurate list of available skills, including the newly created documentation skill.
+
+I will run graphify before listing the skills directory. The rule is strict even though this is a narrow directory listing.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+The documentation skill was added after the last list, so I’ll check the project skills and then give you the current set.
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **11** results in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system`** (11 files)
+
+| File |
+|------|
+| `.cursor/skills/speckit-clarify/SKILL.md` |
+| `.cursor/skills/speckit-analyze/SKILL.md` |
+| `.cursor/skills/speckit-converge/SKILL.md` |
+| `.cursor/skills/speckit-checklist/SKILL.md` |
+| `.cursor/skills/documentation/SKILL.md` |
+| `.cursor/skills/speckit-taskstoissues/SKILL.md` |
+| `.cursor/skills/speckit-tasks/SKILL.md` |
+| `.cursor/skills/speckit-constitution/SKILL.md` |
+| `.cursor/skills/speckit-implement/SKILL.md` |
+| `.cursor/skills/speckit-specify/SKILL.md` |
+| `.cursor/skills/speckit-plan/SKILL.md` |
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The user wants to know what skills are available.
+
+I'll list the available skills clearly, grouping them as before and including documentation under this repository.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+These agent skills are available in this session, grouped by where they live.
+
+**This repository**
+
+- **documentation** — specs, README, architecture decisions, and `docs/` files
+- **speckit-specify** — create or update a feature spec
+- **speckit-clarify** — find gaps in the spec and encode answers
+- **speckit-plan** — generate the implementation plan
+- **speckit-tasks** — generate `tasks.md`
+- **speckit-implement** — execute the tasks
+- **speckit-analyze** — check spec, plan, and tasks for consistency
+- **speckit-checklist** — generate a feature checklist
+- **speckit-constitution** — create or update the project constitution
+- **speckit-converge** — compare the codebase to the spec and add remaining tasks
+- **speckit-taskstoissues** — turn tasks into GitHub issues
+
+**Cursor**
+
+- **automate** — create Cursor Automations
+- **autopilot** — keep a pull request merge-ready (comments, conflicts, CI)
+- **canvas** — live React canvases for analytical or visual artifacts
+- **create-hook** — create Cursor hooks
+- **create-rule** — create Cursor rules
+- **create-skill** — author a new Cursor Agent Skill
+- **loop** — run a prompt or skill on a recurring interval
+- **new-repo** — create a Cursor-hosted repository for this project
+- **origin** — install, sign in, or repair the Origin CLI
+- **review-bugbot** — review local changes with Bugbot
+- **review-security** — security review of local changes
+- **sdk** — build apps, scripts, or CI on the Cursor SDK
+- **share** — save, back up, or share the project on Cursor
+- **split-to-prs** — split current work into smaller pull requests
+- **statusline** — configure a custom CLI status line
+- **update-cursor-settings** — change Cursor or VS Code settings
+- **visualize** — inline charts and diagrams in the chat
+
+**Documents and design**
+
+- **docs** — shared living documents
+- **docx** — Word documents
+- **pdf** — PDF files
+- **pptx** — PowerPoint decks
+- **xlsx** — spreadsheets
+- **frontend-design** — visual design guidance for UI work
+- **skill-creator** — create or improve skills
+- **import-memory** — import a memory export from another assistant
+- **morning** — morning brief
+
+---
+
+_**User**_
+
+Create only @.cursor/commands/review-code.md
+
+This is a reusable Cursor command. Write it as instructions to the AI reviewer:
+- Review the current uncommitted changes (git diff), or the files I reference if I provide any.
+- Check them against the project rules in .cursor/rules/ (Java/Spring Boot, API standards, testing).
+- Look for: correctness bugs, business logic in controllers, missing backend validation, inconsistent error handling, exposed entities, hardcoded config or secrets, missing or weakened tests.
+- Report each finding with: severity (High/Medium/Low), file:line, the problem, and the suggested fix.
+- Only report findings you can point to in the code; do not speculate.
+- Do not modify any files. Report only.
+- End with a one-line verdict: Ready to commit / Needs fixes.
+
+Keep it concise. Do not modify any other file.
+
+---
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Preparing to write the `@.cursor/commands/review-code.md` command file.
+
+Checking existing `.cursor/commands` files for format consistency. The exact content requirements override any formatting preferences.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+I'll add only `.cursor/commands/review-code.md`, and I'll check how existing Cursor commands are written so this one matches that format.
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system`** (0 files)
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+No existing commands were found. Cursor commands are typically markdown files in `.cursor/commands/`.
+
+The file will be named `.cursor/commands/review-code.md` and invoked as `/review-code`. It will contain the exact prompt instructions requested, without frontmatter.
+
+The prompt will be written directly to the AI reviewer in the second person. It will cover both uncommitted git diffs and explicitly referenced files. All findings will be reported with severity, file:line, problem, and suggested fix. No other files will be modified.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/commands/review-code.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The review-code.md command file has been created.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+Created `.cursor/commands/review-code.md` only. No other files were changed.
+
+The command tells the reviewer to inspect the current `git diff`, or any files you reference, against the Java/Spring Boot, API, and testing rules. Each finding must include severity, `file:line`, the problem, and a suggested fix. It reports only what it can point to in the code, does not edit files, and ends with `Ready to commit` or `Needs fixes`.
+
+---
+
+_**User**_
+
+Update the review-code skill to review all uncommitted changes: staged and unstaged plus new untracked files. If the request references specific files, review only those.
