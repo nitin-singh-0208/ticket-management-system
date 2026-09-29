@@ -1,0 +1,47 @@
+---
+description: REST API design and error-handling standards
+globs:
+alwaysApply: true
+---
+
+# REST API Standards
+
+Reusable REST API guidelines. Apply them when designing or changing HTTP APIs.
+
+## Resources
+
+- Use resource-oriented URLs with plural nouns under an `/api` prefix.
+- Do not put verbs in paths. Use HTTP methods to express the action.
+
+## Methods and status codes
+
+- Return `200` for a successful read or update that includes a body.
+- Return `201` for a successful create, and include a `Location` header pointing at the new resource.
+- Return `204` for a successful action with no response body.
+- Return `400` for validation errors.
+- Return `404` when the requested resource does not exist.
+- Return `409` for conflicts, including invalid state changes.
+
+## Errors
+
+- Use one consistent error response format for every error.
+- Include field-level details for validation errors.
+- Never return stack traces, internal exceptions, or secrets.
+
+## Boundary
+
+- Use request and response DTOs at the API boundary.
+- Never expose persistence entities in requests or responses.
+
+## Collections
+
+- Use query parameters with one consistent convention for pagination, sorting, filtering, and keyword search.
+
+## Representation
+
+- Use camelCase for JSON field names.
+
+## Contract
+
+- Treat the API contract in the spec as the source of truth.
+- Keep the implementation aligned with that contract.

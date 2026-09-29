@@ -304,25 +304,120 @@ _**Agent (auto-smart)**_
 
 <think><details><summary>Thought Process</summary>
 Updating only `.cursor/rules/testing.mdc` with the requested frontmatter and testing guidelines.
+
+Reading the target file directly to check its current contents. This is a direct update rather than exploratory search, so the graphify rule does not apply.
+
+Checking whether the create-rule skill applies. It may provide guidance on frontmatter format, but the user already specified the exact frontmatter and content.
 </details></think>
 
 _**Agent (auto-smart)**_
 
+I'll update only `.cursor/rules/testing.mdc`, starting with the file and the rule format so the frontmatter and guidelines match what you asked for.
+
+_**Agent (auto-smart)**_
+
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/.cursor/skills-cursor/create-rule/SKILL.md</summary>
 
 </details></tool-use>
 
 _**Agent (auto-smart)**_
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/testing.mdc</summary>
 
 </details></tool-use>
 
 _**Agent (auto-smart)**_
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/java-springboot.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Updating only testing.mdc with the requested frontmatter and concise reusable testing guidelines.
+
+Keeping the file under 50 lines with concise bullet-style sections matching java-springboot.mdc. All specified guidelines will be included without project-specific requirements.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+The testing rule file is empty. I'll add the frontmatter you specified and concise, reusable testing guidelines in the same style as the Java rule.
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/testing.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Updated `@.cursor/rules/testing.mdc` with the requested frontmatter and testing guidelines. Only this file was modified.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+Updated `.cursor/rules/testing.mdc` only. No other files were changed.
+
+The rule applies to `**/src/test/**` and is not always on. It covers:
+
+- The test pyramid: unit tests, `@WebMvcTest` and `@DataJpaTest` slice tests, and `@SpringBootTest` with Testcontainers
+- Exact assertions for deterministic logic, including every valid and invalid state transition
+- Evaluation sets and thresholds for probabilistic AI output
+- Stubbing LLM and embedding clients so tests never call paid or external APIs
+- Behaviour-describing names, Arrange-Act-Assert, and independent tests
+- Never weakening, skipping, or deleting a failing test to make it pass
+
+---
+
+_**User**_
+
+Update only @.cursor/rules/api-standards.mdc 
+
+Add this frontmatter at the top:
+---
+description: REST API design and error-handling standards
+globs:
+alwaysApply: true
+---
+
+Then write concise, reusable REST API standards covering:
+- Resource-oriented URLs with plural nouns under an /api prefix; no verbs in paths.
+- Correct HTTP methods and status codes: 200, 201 with Location on create, 204, 400 for validation errors, 404 for missing resources, 409 for conflicts such as invalid state changes.
+- One consistent error response format for all errors, including field-level validation errors.
+- Use request/response DTOs at the API boundary; never expose persistence entities.
+- Consistent conventions for pagination, sorting, filtering, and keyword search via query parameters.
+- consistent JSON field naming (camelCase).
+- Contract-first: the API contract in the spec is the source of truth; code must match it.
+- Never leak stack traces, internal exceptions, or secrets in responses.
+
+These should be reusable guidelines, not project requirements.
+Do not modify any other file.
+
+---
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+I will add the requested frontmatter and concise REST API standards to `@.cursor/rules/api-standards.mdc`. No other files will be modified.
+
+I'll check the existing file and match the style of other rule files. Graphify must run first.
+
+Graphify orientation is complete. I will read the target file to check its current contents before writing the new standards.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+I'll update only `.cursor/rules/api-standards.mdc`, using the same concise rule style as the other guidelines.
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/api-standards.mdc</summary>
 
 </details></tool-use>
