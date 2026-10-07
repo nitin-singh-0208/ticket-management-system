@@ -93,9 +93,9 @@ Finish the tasks in a phase, then make one commit for that phase, then start the
 
 ### Implementation for Seed
 
-- [ ] T021 [P] Create `backend/src/test/resources/application.yml` with `spring.flyway.locations: classpath:db/migration` so tests never apply the seed.
-- [ ] T022 Add `classpath:db/seed` to `spring.flyway.locations` in `backend/src/main/resources/application.yml`, after `classpath:db/migration`. Leave the test location as migration only.
-- [ ] T023 [P] Create `backend/src/main/resources/db/seed/V2__seed_tickets.sql` inserting these rows. Category is the theme. Assignee is `Alex Kim` on every row (the seed table does not name one; do not put that name in a title or description). `created_at` starts at `2026-01-15T12:00:00Z` for TKT-1001 and increases by one minute per id so TKT-1015 is newest. Copy titles, descriptions, priorities, and statuses exactly. After the inserts, `SELECT setval('ticket_number_seq', 1015)` so the next `nextval` is 1016. Insert a comment only where listed, with `created_at` equal to the ticket:
+- [X] T021 [P] Create `backend/src/test/resources/application.yml` with `spring.flyway.locations: classpath:db/migration` so tests never apply the seed.
+- [X] T022 Add `classpath:db/seed` to `spring.flyway.locations` in `backend/src/main/resources/application.yml`, after `classpath:db/migration`. Leave the test location as migration only.
+- [X] T023 [P] Create `backend/src/main/resources/db/seed/V2__seed_tickets.sql` inserting these rows. Category is the theme. Assignee is `Alex Kim` on every row (the seed table does not name one; do not put that name in a title or description). `created_at` starts at `2026-01-15T12:00:00Z` for TKT-1001 and increases by one minute per id so TKT-1015 is newest. Copy titles, descriptions, priorities, and statuses exactly. After the inserts, `SELECT setval('ticket_number_seq', 1015)` so the next `nextval` is 1016. Insert a comment only where listed, with `created_at` equal to the ticket:
 
   | ticketId | category | title | description | priority | status | resolution notes | comment text |
   |----------|----------|-------|-------------|----------|--------|------------------|--------------|
