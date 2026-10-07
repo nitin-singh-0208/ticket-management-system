@@ -176,6 +176,19 @@ It generates tests for the referenced files or spec, following .cursor/rules/tes
 
 _**Agent (auto-smart)**_
 
+<think><details><summary>Thought Process</summary>
+Creating `.cursor/commands/generate-tests.md` in the same style as `review-code.md`. It will generate tests for referenced files or specs using the rules in `testing.mdc`, including Arrange-Act-Assert structure, behaviour-named tests, all valid and invalid state transitions, stubbed LLM and embedding clients, and no production code changes. Tests will be written and executed, with results reported.
+
+Reading `review-code.md` and `testing.mdc` first to match the style and reflect the testing guidelines accurately.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+I'll read `review-code.md` and `testing.mdc` to match their style for the new command.
+
+
+_**Agent (auto-smart)**_
+
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
 <summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/commands/review-code.md</summary>
 
@@ -191,7 +204,118 @@ _**Agent (auto-smart)**_
 _**Agent (auto-smart)**_
 
 <tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
-<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **0** directories</summary>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **2** results in **1** directory</summary>
 
-No results found
+Directory: **``** (2 files)
+
+| File |
+|------|
+| `.cursor/commands/review-spec.md` |
+| `.cursor/commands/review-code.md` |
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Checking review-spec.md for consistent command patterns.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/commands/review-spec.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **1** directory</summary>
+
+Directory: **``** (0 files)
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+No test files exist yet. I'll create generate-tests.md in the same style as review-code.md.
+
+The command will generate tests for referenced files or specs per .cursor/rules/testing.mdc: Arrange-Act-Assert structure, behaviour-named tests, coverage of every valid and invalid state transition, stubbed LLM and embedding clients, and no production code changes. Tests will be written and executed immediately, with results reported. The file follows the review-code.md template: H1 title, conditional opening, rule references, bulleted steps, constraints, and a verdict format.
+
+The command modifies only test files and executes them. It targets specific references, spec requirements, or uncommitted production code. The draft begins with a title header and conditional branching logic.
+
+The draft will use concise imperative style. Checking whether Maven or Gradle handles test execution.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **1** directory</summary>
+
+Directory: **``** (0 files)
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **1** directory</summary>
+
+Directory: **``** (0 files)
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The run command will be generic, such as `mvn test`, since no build files exist yet.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/commands/generate-tests.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+Created .cursor/commands/generate-tests.md in the same style as review-code.md.
+
+The file uses short imperative sections, conditional scope at the top referencing rules, bullet lists, constraints, and a one-line verdict at the end.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+Created `.cursor/commands/generate-tests.md` in the same style as `review-code.md`:
+
+- Conditional scope: referenced files, a spec, or uncommitted production changes
+- Points to `.cursor/rules/testing.mdc` for pyramid, AAA, behaviour naming, state transitions, stubs, and probabilistic output
+- Test-only changes — no production code edits
+- Run tests afterward and report classes, command, pass/fail, and failures
+- One-line verdict at the end
+
+---
+
+_**User**_
+
+Create .cursor/commands/review-rag-output.md in the same style as review-spec.md. Only touch this file.
+Input: a question, the retrieved chunks (with ticket IDs), and the assistant answer.
+Check: every claim is supported by a retrieved chunk; cited ticket IDs are a subset of the retrieved IDs; no invented IDs; no general-knowledge content; the no-match case returns an explicit "No relevant tickets found".
+Output: a table of claim | supporting ticket/chunk | verdict, then an overall GROUNDED / PARTIALLY_GROUNDED / HALLUCINATED with reasons.
+
+---
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/commands/review-spec.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/commands/review-rag-output.md</summary>
+Status: **loading**
+
 </details></tool-use>
