@@ -1,11 +1,13 @@
 package com.ticketmanagement.ticket;
 
 import com.ticketmanagement.ticket.dto.CreateTicketRequest;
+import com.ticketmanagement.ticket.dto.StatusChangeRequest;
 import com.ticketmanagement.ticket.dto.TicketDetail;
 import jakarta.validation.Valid;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,14 @@ public class TicketController {
     @GetMapping("/{ticketId}")
     public ResponseEntity<TicketDetail> getTicket(@PathVariable String ticketId) {
         TicketDetail detail = ticketService.getTicket(ticketId);
+        return ResponseEntity.ok(detail);
+    }
+
+    @PatchMapping("/{ticketId}/status")
+    public ResponseEntity<TicketDetail> changeStatus(
+            @PathVariable String ticketId,
+            @Valid @RequestBody StatusChangeRequest request) {
+        TicketDetail detail = ticketService.changeStatus(ticketId, request.status());
         return ResponseEntity.ok(detail);
     }
 }

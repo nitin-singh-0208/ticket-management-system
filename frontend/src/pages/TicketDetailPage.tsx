@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { getTicket, TicketDetail, ApiError } from "../api/tickets";
+import { getTicket, changeStatus, TicketDetail, TicketStatus, ApiError } from "../api/tickets";
 
 const PRIORITY_LABELS: Record<string, string> = {
   LOW: "Low",
@@ -12,7 +12,9 @@ export function TicketDetailPage() {
   const { ticketId } = useParams<{ ticketId: string }>();
   const [ticket, setTicket] = useState<TicketDetail | null>(null);
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
+  const [statusError, setStatusError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isChangingStatus, setIsChangingStatus] = useState(false);
 
   useEffect(() => {
     if (!ticketId) {
@@ -47,6 +49,28 @@ export function TicketDetailPage() {
       isMounted = false;
     };
   }, [ticketId]);
+
+  async function handleStatusChange(targetStatus: TicketStatus) {
+    if (!ticketId || !ticket) {
+      return;
+    }
+
+    setIsChangingStatus(true);
+    setStatusError(null);
+
+    try {
+      const updated = await changeStatus(ticketId, targetStatus);
+      setTicket(updated);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setStatusError(err.problem.detail || `Error: ${err.status}`);
+      } else {
+        setStatusError("Failed to change status.");
+      }
+    } finally {
+      setIsChangingStatus(false);
+    }
+  }
 
   if (isLoading) {
     return (
@@ -123,6 +147,46 @@ export function TicketDetailPage() {
           <span>{ticket.createdAt}</span>
         </div>
       </section>
+
+      {(ticket.allowedNextStatuses?.length ?? 0) > 0 && (
+        <section style={{ marginBottom: "1.5rem" }}>
+          <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Change Status</h2>
+          {statusError && (
+            <div
+              role="alert"
+              style={{
+                background: "#fee2e2",
+                color: "#991b1b",
+                padding: "0.75rem 1rem",
+                borderRadius: 6,
+                marginBottom: "0.75rem",
+              }}
+            >
+              {statusError}
+            </div>
+          )}
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            {ticket.allowedNextStatuses!.map((nextStatus) => (
+              <button
+                key={nextStatus}
+                type="button"
+                disabled={isChangingStatus}
+                onClick={() => handleStatusChange(nextStatus)}
+                style={{
+                  padding: "0.5rem 1rem",
+                  borderRadius: 6,
+                  border: "1px solid #d1d5db",
+                  background: "#ffffff",
+                  cursor: isChangingStatus ? "not-allowed" : "pointer",
+                  fontWeight: 500,
+                }}
+              >
+                Move to {nextStatus.replace("_", " ")}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section style={{ marginBottom: "1.5rem" }}>
         <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Description</h2>

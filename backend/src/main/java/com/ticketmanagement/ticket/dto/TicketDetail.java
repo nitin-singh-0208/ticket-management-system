@@ -16,6 +16,7 @@ public record TicketDetail(
         String resolutionNotes,
         TicketStatus status,
         Instant createdAt,
-        List<CommentResponse> comments
+        List<CommentResponse> comments,
+        List<TicketStatus> allowedNextStatuses
 ) {
 }

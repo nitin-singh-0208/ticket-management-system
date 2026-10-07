@@ -92,6 +92,38 @@ export async function createTicket(
   return { ticket, location };
 }
 
+export async function changeStatus(
+  ticketId: string,
+  status: TicketStatus
+): Promise<TicketDetail> {
+  const response = await fetch(
+    `${API_BASE}/api/tickets/${encodeURIComponent(ticketId)}/status`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    }
+  );
+
+  if (!response.ok) {
+    let problem: ProblemDetail;
+    try {
+      problem = await response.json();
+    } catch {
+      problem = {
+        title: response.statusText,
+        status: response.status,
+        detail: "Failed to parse error response",
+      };
+    }
+    throw new ApiError(response.status, problem);
+  }
+
+  return response.json();
+}
+
 export async function getTicket(ticketId: string): Promise<TicketDetail> {
   const response = await fetch(`${API_BASE}/api/tickets/${encodeURIComponent(ticketId)}`);
 

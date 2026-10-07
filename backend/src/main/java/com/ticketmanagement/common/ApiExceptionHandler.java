@@ -1,5 +1,6 @@
 package com.ticketmanagement.common;
 
+import com.ticketmanagement.ticket.StatusChangeNotAllowedException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.InvalidNullException;
@@ -29,6 +30,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(StatusChangeNotAllowedException.class)
+    ResponseEntity<ProblemDetail> handleStatusChangeNotAllowed(
+            StatusChangeNotAllowedException ex, HttpServletRequest request) {
+        ProblemDetail problem = problem(
+                HttpStatus.CONFLICT,
+                "Changing status from " + ex.getCurrentStatus() + " to " + ex.getRequestedStatus() + " is not allowed.",
+                request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .body(problem);
+    }
 
     @ExceptionHandler(TicketNotFoundException.class)
     ResponseEntity<ProblemDetail> handleTicketNotFound(TicketNotFoundException ex, HttpServletRequest request) {

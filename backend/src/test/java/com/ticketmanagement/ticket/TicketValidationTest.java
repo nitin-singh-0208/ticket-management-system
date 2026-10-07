@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -174,6 +175,56 @@ class TicketValidationTest {
                         .content(body))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.detail", is("Unknown property 'ticketId'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchStatus_invalidStatusValue_returns400() throws Exception {
+        String body = """
+                {
+                  "status": "DONE"
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001/status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Invalid value for property 'status'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchStatus_withExtraTitleProperty_returns400UnknownProperty() throws Exception {
+        String body = """
+                {
+                  "status": "IN_PROGRESS",
+                  "title": "Changed"
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001/status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Unknown property 'title'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchStatus_omittedStatus_returns400WithStatusRequired() throws Exception {
+        String body = "{}";
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001/status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors", hasSize(1)))
+                .andExpect(jsonPath("$.errors[0].field", is("status")))
+                .andExpect(jsonPath("$.errors[0].message", is("Status is required")));
 
         verifyNoInteractions(ticketService);
     }

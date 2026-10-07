@@ -3,6 +3,7 @@ package com.ticketmanagement.ticket;
 import com.ticketmanagement.common.TicketNotFoundException;
 import com.ticketmanagement.ticket.dto.CreateTicketRequest;
 import com.ticketmanagement.ticket.dto.TicketDetail;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,20 @@ public class TicketService {
         return toDetail(ticket);
     }
 
+    @Transactional
+    public TicketDetail changeStatus(String ticketId, TicketStatus targetStatus) {
+        Ticket ticket = ticketRepository.findByTicketId(ticketId)
+                .orElseThrow(() -> new TicketNotFoundException(ticketId));
+
+        if (!ticket.getStatus().allowedNext().contains(targetStatus)) {
+            throw new StatusChangeNotAllowedException(ticket.getStatus(), targetStatus);
+        }
+
+        ticket.setStatus(targetStatus);
+        Ticket saved = ticketRepository.save(ticket);
+        return toDetail(saved);
+    }
+
     private static TicketDetail toDetail(Ticket ticket) {
         return new TicketDetail(
                 ticket.getTicketId(),
@@ -49,7 +64,8 @@ public class TicketService {
                 ticket.getResolutionNotes(),
                 ticket.getStatus(),
                 ticket.getCreatedAt(),
-                List.of()
+                List.of(),
+                new ArrayList<>(ticket.getStatus().allowedNext())
         );
     }
 }
