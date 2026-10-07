@@ -532,11 +532,128 @@ _**Agent (grok-4.7)**_
 ```bash
 .specify/scripts/bash/resolve-template.sh constitution-template --json
 ```
+
+```
+{"TEMPLATE_NAME":"constitution-template","TEMPLATE_CONTENT":"# [PROJECT_NAME] Constitution\n<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->\n\n## Core Principles\n\n### [PRINCIPLE_1_NAME]\n<!-- Example: I. Library-First -->\n[PRINCIPLE_1_DESCRIPTION]\n<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->\n\n### [PRINCIPLE_2_NAME]\n<!-- Example: II. CLI Interface -->\n[PRINCIPLE_2_DESCRIPTION]\n<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->\n\n### [PRINCIPLE_3_NAME]\n<!-- Example: III. Test-First (NON-NEGOTIABLE) -->\n[PRINCIPLE_3_DESCRIPTION]\n<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->\n\n### [PRINCIPLE_4_NAME]\n<!-- Example: IV. Integration Testing -->\n[PRINCIPLE_4_DESCRIPTION]\n<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->\n\n### [PRINCIPLE_5_NAME]\n<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->\n[PRINCIPLE_5_DESCRIPTION]\n<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->\n\n## [SECTION_2_NAME]\n<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->\n\n[SECTION_2_CONTENT]\n<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->\n\n## [SECTION_3_NAME]\n<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->\n\n[SECTION_3_CONTENT]\n<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->\n\n## Governance\n<!-- Example: Constitution supersedes a
+… (output truncated)
+```
 </details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+No extensions.yml file exists, so hooks are skipped silently.
+
+Constitution loaded to preserve values and determine version bump.
+</details></think>
 
 _**Agent (grok-4.7)**_
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
 <summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.specify/memory/constitution.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The existing constitution is merely an unfilled template.
+
+This is the initial constitution adoption. Version 1.0.0 applies. Ratification and last-amended dates both default to today. The seven specified principles are being enumerated.
+
+Seven principles will be kept rather than forced into five template slots. The document structure includes Core Principles, Section 2, and Section 3.
+
+Core Principles will hold all seven principles. Section 2 will list the technology stack. Section 3 will hold the binding .cursor/rules. A Governance section will define amendment procedures, versioning policies, and compliance review expectations.
+
+A Sync Impact Report will be inserted as an HTML comment at the top of the document. All placeholder principles have been replaced with concrete text. Template placeholder sections were removed.
+
+Drafting follows strict style rules: exact template headings, 100-character rationale lines, single blank lines between sections, no trailing whitespace, and declarative MUST/SHOULD principles. Bracket tokens are removed and comments deleted after replacement. The Sync Impact Report HTML comment is being inserted at the top of the document.
+
+The Sync Impact Report is marked as temporary scratch material for human review, to be removed before committing. Drafting has begun on the concrete principle text. I. Spec-First mandates that no production code be written without an approved spec, plan, and tasks, with every requirement tracing to `specs/requirements.md`. The rationale cites traceability against scope creep and unapproved behavior. II. Backend Is Source of Truth is next.
+
+II. Backend Is Source of Truth mandates server-side enforcement of validation and the ticket state machine. Allowed transitions are OPEN → IN_PROGRESS → RESOLVED → CLOSED, OPEN → CANCELLED, and IN_PROGRESS → CANCELLED. Every other transition is rejected with HTTP 409. The rationale is that the client cannot be trusted to enforce workflow rules.
+
+III. Test-First for Deterministic Logic requires an integration test for every valid and invalid state transition before the behaviour is considered complete. The rationale is that the state machine is deterministic, so exact assertions catch regressions.
+
+IV. Grounded AI is next.
+
+IV. Grounded AI mandates that answers come only from retrieved ticket context. Responses must cite ticket IDs. When retrieval is empty, the system must return an explicit "No relevant tickets found" and must not call the LLM. The flow is a single retrieve-then-generate step with no agentic actions. The rationale is that ungrown answers invent ticket facts.
+
+V. Configuration over Constants requires that topK, similarity threshold, and model names live in application.yml. They must not be hardcoded. The rationale is that retrieval and model settings change by environment without code edits.
+
+VI. No Secrets in Git is next.
+
+VI. No Secrets in Git forbids committing secrets, credentials, tokens, or private keys. The rationale is that a public or shared repository is not a secret store.
+
+VII. Atomic Commits requires each commit to contain one logical change and use a conventional commit message. The rationale is that small commits keep history reviewable and revertable.
+
+The Technology Stack section lists Java 21, Spring Boot 3.5, Spring AI, PostgreSQL with PGVector via Docker Compose, Ollama with nomic-embed-text and llama3.1:8b, and React with Vite and TypeScript.
+
+Binding Project Rules states that rules in `.cursor/rules/` are binding.
+
+Implementation must comply with the binding project rules.
+
+Governance establishes that this constitution supersedes conflicting practice. Amendments are documented in this file, versioned by semantic versioning, and reviewed for compliance before merge. Major changes are backward-incompatible governance or principle removals or redefinitions. Minor changes add new principles or sections or materially expand guidance. Patch changes are clarifications and non-semantic wording fixes. Reviews verify changes against these principles and `.cursor/rules/`. Runtime development guidance lives in `.cursor/rules/`.
+
+The file will omit Next Actions and deferred intents. Post-execution hooks will be skipped silently. Only the Sync Impact Report HTML comment remains from the template. Headings will follow a strict hierarchy: title, Core Principles, then Technology Stack.
+
+The document will be written strictly to `.specify/memory/constitution.md`. The version bump is justified as 1.0.0 because this is the first adoption of a filled constitution, not a patch of placeholders. I am now proceeding to write the clean document.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+The constitution file is still the unfilled template, and there are no extension hooks. I'll ratify version 1.0.0 from the principles you gave.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.specify/memory/constitution.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Post-execution hooks are skipped silently because extensions.yml is missing.
+
+Version bumped to 1.0.0 with rationale. No TODOs remain. No Next Actions were added. No deferred intents exist. A suggested commit message was provided. No commit was made.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+Ratified the project constitution at `.specify/memory/constitution.md` as **version 1.0.0**.
+
+**Bump rationale:** The file was still the unfilled template, so this is the initial adoption rather than an amendment. All seven principles, the technology stack, and binding `.cursor/rules/` are now concrete governance.
+
+**Deferred items:** None. No placeholders were left.
+
+**Suggested commit message:**
+
+```
+docs: adopt constitution v1.0.0 (principles, stack, and governance)
+```
+
+---
+
+_**User**_
+
+Using the documentation skill, create specs/requirements.md from @docs/c2-assignment-ticket-management-system.pdf. Only create this file.
+- Begin with a "Spec layout" note: the PDF shows `spec/`, but this project uses `specs/` because GitHub Spec Kit v1.0.9 creates feature folders under specs/NNN-feature/. Top-level files are the assignment's spec artefacts; feature folders hold Spec Kit outputs.
+- Use numbered IDs: FR-xx, SM-xx (state machine), RAG-xx, NFR-xx, AC-xx (acceptance criteria verbatim). Tag each one [Phase 1: App] or [Phase 2: RAG].
+- Do not invent requirements.
+
+---
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/skills/documentation/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/.claude/skills/synced/1ddd6c26-9284-4d24-adfe-f7c3eb30fd94_3a81b358-b83a-41a3-a703-9b0c5211292f/pdf/SKILL.md</summary>
 
 </details></tool-use>
