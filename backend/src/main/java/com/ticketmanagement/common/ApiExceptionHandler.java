@@ -1,6 +1,7 @@
 package com.ticketmanagement.common;
 
 import com.ticketmanagement.ticket.StatusChangeNotAllowedException;
+import com.ticketmanagement.common.InvalidListQueryException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.InvalidNullException;
@@ -30,6 +31,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(InvalidListQueryException.class)
+    ResponseEntity<ProblemDetail> handleInvalidListQuery(InvalidListQueryException ex, HttpServletRequest request) {
+        ProblemDetail problem = problem(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .body(problem);
+    }
 
     @ExceptionHandler(StatusChangeNotAllowedException.class)
     ResponseEntity<ProblemDetail> handleStatusChangeNotAllowed(

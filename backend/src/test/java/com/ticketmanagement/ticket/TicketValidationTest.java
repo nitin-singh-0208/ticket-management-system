@@ -384,6 +384,51 @@ class TicketValidationTest {
     }
 
     @Test
+    void getTickets_pageWithoutSize_returns400() throws Exception {
+        mockMvc.perform(get("/api/tickets").param("page", "0"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("page requires size")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void getTickets_sizeZero_returns400() throws Exception {
+        mockMvc.perform(get("/api/tickets").param("size", "0"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("size must be between 1 and 100")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void getTickets_sizeTooLarge_returns400() throws Exception {
+        mockMvc.perform(get("/api/tickets").param("size", "101"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("size must be between 1 and 100")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void getTickets_negativePage_returns400() throws Exception {
+        mockMvc.perform(get("/api/tickets").param("page", "-1").param("size", "10"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("page must be 0 or greater")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void getTickets_invalidStatusValue_returns400() throws Exception {
+        mockMvc.perform(get("/api/tickets").param("status", "DONE"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Invalid value for property 'status'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
     void getTicket_notFound_returns404WithoutStackTrace() throws Exception {
         when(ticketService.getTicket("TKT-9999"))
                 .thenThrow(new TicketNotFoundException("TKT-9999"));

@@ -48,6 +48,27 @@ export interface CreateCommentRequest {
   text: string;
 }
 
+export interface TicketSummary {
+  ticketId: string;
+  title: string;
+  status: TicketStatus;
+  priority: TicketPriority;
+  assignee: string;
+}
+
+export interface TicketPage {
+  content: TicketSummary[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+export interface ListTicketsParams {
+  q?: string;
+  status?: TicketStatus;
+}
+
 export interface FieldError {
   field: string;
   message: string;
@@ -150,6 +171,37 @@ export async function changeStatus(
       body: JSON.stringify({ status }),
     }
   );
+
+  if (!response.ok) {
+    let problem: ProblemDetail;
+    try {
+      problem = await response.json();
+    } catch {
+      problem = {
+        title: response.statusText,
+        status: response.status,
+        detail: "Failed to parse error response",
+      };
+    }
+    throw new ApiError(response.status, problem);
+  }
+
+  return response.json();
+}
+
+export async function listTickets(params: ListTicketsParams = {}): Promise<TicketPage> {
+  const searchParams = new URLSearchParams();
+  if (params.q) {
+    searchParams.set("q", params.q);
+  }
+  if (params.status) {
+    searchParams.set("status", params.status);
+  }
+
+  const query = searchParams.toString();
+  const url = query ? `${API_BASE}/api/tickets?${query}` : `${API_BASE}/api/tickets`;
+
+  const response = await fetch(url);
 
   if (!response.ok) {
     let problem: ProblemDetail;

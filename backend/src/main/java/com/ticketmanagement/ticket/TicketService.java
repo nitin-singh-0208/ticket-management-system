@@ -6,9 +6,14 @@ import com.ticketmanagement.comment.dto.CommentResponse;
 import com.ticketmanagement.common.TicketNotFoundException;
 import com.ticketmanagement.ticket.dto.CreateTicketRequest;
 import com.ticketmanagement.ticket.dto.TicketDetail;
+import com.ticketmanagement.ticket.dto.TicketPage;
+import com.ticketmanagement.ticket.dto.TicketSummary;
 import com.ticketmanagement.ticket.dto.UpdateTicketRequest;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +42,28 @@ public class TicketService {
 
         Ticket saved = ticketRepository.save(ticket);
         return toDetail(saved);
+    }
+
+    public TicketPage listTickets(String q, TicketStatus status, Integer page, Integer size) {
+        String likePattern = TicketSpecifications.toLikePattern(q);
+        Specification<Ticket> specification = TicketSpecifications.withFilters(likePattern, status);
+
+        if (page == null && size == null) {
+            List<Ticket> tickets = ticketRepository.findAll(specification);
+            List<TicketSummary> content = tickets.stream().map(TicketService::toSummary).toList();
+            int total = content.size();
+            return new TicketPage(content, 0, total, total, total == 0 ? 0 : 1);
+        }
+
+        int pageNumber = page == null ? 0 : page;
+        Page<Ticket> result = ticketRepository.findAll(specification, PageRequest.of(pageNumber, size));
+        List<TicketSummary> content = result.getContent().stream().map(TicketService::toSummary).toList();
+        return new TicketPage(
+                content,
+                result.getNumber(),
+                result.getSize(),
+                result.getTotalElements(),
+                result.getTotalPages());
     }
 
     public TicketDetail getTicket(String ticketId) {
@@ -108,5 +135,14 @@ public class TicketService {
 
     private static CommentResponse toCommentResponse(Comment comment) {
         return new CommentResponse(comment.getId(), comment.getText(), comment.getCreatedAt());
+    }
+
+    private static TicketSummary toSummary(Ticket ticket) {
+        return new TicketSummary(
+                ticket.getTicketId(),
+                ticket.getTitle(),
+                ticket.getStatus(),
+                ticket.getPriority(),
+                ticket.getAssignee());
     }
 }
