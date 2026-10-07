@@ -8,6 +8,16 @@
 
 **Input**: User description: "Support Ticket Management covering the [Phase 1: App] items in specs/requirements.md. Users can create, list, and view tickets; update title, description, priority, and assignee; add comments; search by keyword (title + description); and filter by status. Tickets have a human ID like TKT-1001, a category, and resolution notes. Status changes follow OPEN→IN_PROGRESS→RESOLVED→CLOSED and OPEN/IN_PROGRESS→CANCELLED; invalid transitions are rejected. Data persists across restarts. The backend validates input; the UI shows meaningful field-level and server errors and offers only valid next statuses. Out of scope: auth and the AI assistant."
 
+## Clarifications
+
+### Session 2026-10-07
+
+- Q: After a ticket is closed or cancelled, can an agent still change its details and add comments? → A: Yes. Title, description, priority, assignee, resolution notes, and new comments stay allowed. Status still cannot change.
+- Q: Does a search keyword match part of a word in the title or description, or only a whole word? → A: Part of a word. The keyword is a case-insensitive contiguous substring, so "pay" matches "payment", and a multi-word keyword must appear in that order.
+- Q: How does the system assign the next human ID when an agent creates a ticket? → A: The first ticket is TKT-1001. Each later ticket takes the next number, and a number is never reused.
+- Q: When the list is ordered with the newest ticket first, which time decides that order? → A: Creation time. The most recently created ticket is first. Editing a ticket does not change its place in the list.
+- Q: Does the ticket list show every matching ticket at once, or one page at a time? → A: Every matching ticket is shown at once, newest first. There are no pages.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Create and view a ticket (Priority: P1)
@@ -16,13 +26,15 @@ A support agent records a new problem and can open it again to see everything th
 
 **Why this priority**: Without a saved ticket there is nothing to update, search, or move through the workflow.
 
-**Independent Test**: Create one ticket with the required details and open it. The screen shows the same details and a human ID such as TKT-1001.
+**Independent Test**: Create the first ticket with the required details and open it. The screen shows the same details and the human ID TKT-1001. Create a second ticket and confirm its ID is TKT-1002.
 
 **Acceptance Scenarios**:
 
-1. **Given** the agent is on the create screen, **When** they enter a title, description, priority, assignee, and category and save, **Then** the system assigns a unique human ID in the form TKT-1001, sets the status to OPEN, and shows the new ticket (FR-01, AC-01).
-2. **Given** a ticket exists, **When** the agent opens it, **Then** they see its human ID, title, description, priority, assignee, category, status, resolution notes, and comments (FR-03, AC-03).
-3. **Given** the agent is creating a ticket, **When** they leave resolution notes blank, **Then** the ticket is still created and the notes are empty (FR-01, AC-01).
+1. **Given** no tickets exist, **When** the agent enters a title, description, priority, assignee, and category and saves, **Then** the system assigns TKT-1001, sets the status to OPEN, and shows the new ticket (FR-01, AC-01).
+2. **Given** TKT-1001 already exists, **When** the agent creates another ticket, **Then** the system assigns TKT-1002 (FR-01, AC-01).
+3. **Given** tickets have been saved and the application is restarted, **When** the agent creates another ticket, **Then** the new human ID is the next number after the highest one already saved, and no earlier number is reused (FR-01, FR-08, AC-01, AC-11).
+4. **Given** a ticket exists, **When** the agent opens it, **Then** they see its human ID, title, description, priority, assignee, category, status, resolution notes, and comments (FR-03, AC-03).
+5. **Given** the agent is creating a ticket, **When** they leave resolution notes blank, **Then** the ticket is still created and the notes are empty (FR-01, AC-01).
 
 ---
 
@@ -54,7 +66,7 @@ An agent advances a ticket only along the allowed path, and the screen never off
 
 ### User Story 3 - Find tickets (Priority: P2)
 
-An agent can scan the queue, narrow it to one status, and find tickets whose title or description contains a word or phrase.
+An agent can scan the queue, narrow it to one status, and find tickets whose title or description contains the keyword as a contiguous substring.
 
 **Why this priority**: Once more than a few tickets exist, opening them one by one is not usable.
 
@@ -62,17 +74,22 @@ An agent can scan the queue, narrow it to one status, and find tickets whose tit
 
 **Acceptance Scenarios**:
 
-1. **Given** several tickets exist, **When** the agent opens the list, **Then** those tickets are shown (FR-02, AC-02).
+1. **Given** several tickets exist, **When** the agent opens the list, **Then** every ticket is shown at once, with the most recently created ticket first, and there are no pages (FR-02, AC-02).
 2. **Given** tickets exist, **When** the agent searches for a keyword, **Then** the list includes a ticket whose title or description contains that keyword and excludes tickets where neither field contains it (FR-06, AC-07).
 3. **Given** tickets in more than one status, **When** the agent filters by one status, **Then** only tickets in that status are shown (FR-07, AC-08).
 4. **Given** a keyword and a status are both set, **When** the agent applies them together, **Then** a ticket appears only when it matches the status and the keyword is in its title or description (FR-06, FR-07, AC-07, AC-08).
 5. **Given** the keyword appears only in a comment, resolution notes, category, or assignee, **When** the agent searches, **Then** that ticket is not returned on the strength of those fields (FR-06, AC-07).
+6. **Given** a ticket title or description contains "payment", **When** the agent searches for "pay", **Then** that ticket is included (FR-06, AC-07).
+7. **Given** a ticket title or description contains "payment failure" in that order, **When** the agent searches for "payment failure", **Then** that ticket is included (FR-06, AC-07).
+8. **Given** a title or description contains "payment" and "failure" but not the contiguous phrase "payment failure", **When** the agent searches for "payment failure", **Then** that ticket is not included on the strength of those separated words (FR-06, AC-07).
+9. **Given** an older ticket is edited, commented on, or has its status changed, **When** the agent opens the list, **Then** that ticket stays behind every ticket created after it (FR-02, AC-02).
+10. **Given** a keyword or status filter matches several tickets, **When** the agent applies it, **Then** every match is shown at once, newest first, and none are held back on another page (FR-02, FR-06, FR-07, AC-02, AC-07, AC-08).
 
 ---
 
 ### User Story 4 - Correct ticket details (Priority: P2)
 
-An agent can fix the title, description, priority, assignee, and resolution notes after the ticket exists.
+An agent can fix the title, description, priority, assignee, and resolution notes after the ticket exists, including when the ticket is already CLOSED or CANCELLED.
 
 **Why this priority**: The first write is often incomplete. The team still needs the human ID, category, and status rules to stay stable.
 
@@ -83,6 +100,7 @@ An agent can fix the title, description, priority, assignee, and resolution note
 1. **Given** an existing ticket, **When** the agent changes the title, description, priority, or assignee and saves, **Then** the ticket shows the new values (FR-04, AC-04, AC-05).
 2. **Given** an existing ticket, **When** the agent adds or replaces resolution notes and saves, **Then** the ticket shows the new notes and the status does not change (AC-04).
 3. **Given** an existing ticket, **When** the agent saves other edits, **Then** the human ID and category stay as they were at creation (FR-03, FR-04).
+4. **Given** a ticket is CLOSED or CANCELLED, **When** the agent changes the title, description, priority, assignee, or resolution notes and saves, **Then** the ticket shows the new values and the status stays CLOSED or CANCELLED.
 
 ---
 
@@ -98,6 +116,7 @@ An agent appends a note to the ticket so later readers can see what happened.
 
 1. **Given** an existing ticket, **When** the agent adds a comment with text, **Then** the comment appears on that ticket with the time it was added (FR-05, AC-06).
 2. **Given** a ticket already has comments, **When** the agent adds another, **Then** both are shown in the order they were added (FR-05, AC-06).
+3. **Given** a ticket is CLOSED or CANCELLED, **When** the agent adds a comment with text, **Then** the comment is saved and the status stays unchanged (FR-05, AC-06).
 
 ---
 
@@ -123,24 +142,30 @@ An agent sees which field is wrong, sees a clear message when a status change is
 - A keyword matches the title and not the description. The ticket is included (FR-06, AC-07).
 - No ticket matches the keyword or the status filter. The list is empty and the screen says that nothing matched, rather than showing an unrelated ticket.
 - The keyword differs only by letter case, or has leading or trailing spaces. Matching ignores case and surrounding spaces.
-- Two tickets share a title. Each receives its own human ID (FR-01, AC-01).
+- A keyword is only part of a longer word, such as "pay" inside "payment". The ticket is included (FR-06, AC-07).
+- A multi-word keyword must appear in that order as a contiguous substring. "payment failure" does not match text that only has those words separately (FR-06, AC-07).
+- Two tickets share a title. When they are the first two tickets, their human IDs are TKT-1001 and TKT-1002. A number is never reused (FR-01, AC-01).
+- Tickets already exist and the application restarts. The next created ticket continues the sequence instead of starting again at TKT-1001 (FR-01, FR-08, AC-01, AC-11).
 - OPEN cannot move directly to RESOLVED or CLOSED. IN_PROGRESS cannot move directly to CLOSED or back to OPEN. RESOLVED cannot move to CANCELLED. Those requests are refused (SM-04, AC-10, AC-14).
 - A blank comment is not added, and the screen explains that the comment needs text (FR-09, FR-10, AC-12, AC-13).
 - A search does not use comments or resolution notes as match fields (FR-06, AC-07).
+- A ticket is CLOSED or CANCELLED. Changing title, description, priority, assignee, or resolution notes, or adding a comment, is saved, and the status stays as it was.
+- An older ticket is edited, commented on, or moved to another status. It stays behind every ticket created after it (FR-02, AC-02).
+- Many tickets match the list, keyword, or status filter. Every match is shown at once. None are held back on another page (FR-02, AC-02).
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
 - **FR-001**: The system MUST let an agent create a ticket with title, description, priority, assignee, and category, and MAY include resolution notes (source FR-01, AC-01).
-- **FR-002**: The system MUST assign each ticket a unique human ID in the form shown by TKT-1001 and MUST set the initial status to OPEN (source FR-01, AC-01).
+- **FR-002**: The system MUST assign TKT-1001 to the first ticket and MUST assign each later ticket the next number, such as TKT-1002 then TKT-1003. A number MUST NOT be reused, including after a restart. The initial status MUST be OPEN (source FR-01, AC-01, AC-11).
 - **FR-003**: The system MUST let an agent open one ticket and see its human ID, title, description, priority, assignee, category, status, resolution notes, and comments (source FR-03, AC-03).
-- **FR-004**: The system MUST let an agent list existing tickets (source FR-02, AC-02).
-- **FR-005**: The system MUST let an agent search by a keyword matched against title and description only (source FR-06, AC-07).
+- **FR-004**: The system MUST let an agent list existing tickets and MUST show every matching ticket at once, with no pages. The list MUST be ordered by creation time with the most recently created ticket first. Editing, commenting, or changing status MUST NOT move a ticket ahead of one created later. Keyword and status results MUST use this same order and MUST also show every match at once. When creation times are equal, the higher human ID comes first (source FR-02, AC-02).
+- **FR-005**: The system MUST let an agent search by a keyword matched against title and description only. The match MUST be a case-insensitive contiguous substring, so a fragment such as "pay" matches "payment", and a multi-word keyword MUST appear in that order (source FR-06, AC-07).
 - **FR-006**: The system MUST let an agent filter the list to one status, including together with a keyword (source FR-07, AC-08).
-- **FR-007**: The system MUST let an agent update title, description, priority, and assignee (source FR-04, AC-04, AC-05).
-- **FR-008**: The system MUST let an agent add or replace resolution notes without changing status, human ID, or category (source AC-04).
-- **FR-009**: The system MUST let an agent add a non-empty comment to a ticket and MUST keep comments in the order they were added (source FR-05, AC-06).
+- **FR-007**: The system MUST let an agent update title, description, priority, and assignee on a ticket in any status, including CLOSED and CANCELLED (source FR-04, AC-04, AC-05).
+- **FR-008**: The system MUST let an agent add or replace resolution notes on a ticket in any status, including CLOSED and CANCELLED, without changing status, human ID, or category (source AC-04).
+- **FR-009**: The system MUST let an agent add a non-empty comment to a ticket in any status, including CLOSED and CANCELLED, and MUST keep comments in the order they were added (source FR-05, AC-06).
 - **FR-010**: The system MUST allow only these status changes: OPEN to IN_PROGRESS, IN_PROGRESS to RESOLVED, RESOLVED to CLOSED, OPEN to CANCELLED, and IN_PROGRESS to CANCELLED (source SM-01, SM-02, SM-03, AC-09).
 - **FR-011**: The system MUST refuse every other status change, leave the current status unchanged, and define that result for each disallowed pair (source SM-04, AC-10, AC-14).
 - **FR-012**: The screen MUST offer only the allowed next statuses for the ticket's current status, and MUST offer none when the status is CLOSED or CANCELLED (source SM-01, SM-02, SM-03, SM-04, AC-09, AC-10).
@@ -150,21 +175,22 @@ An agent sees which field is wrong, sees a clear message when a status change is
 
 ### Key Entities *(include if feature involves data)*
 
-- **Ticket**: One support item. It has a system-assigned human ID, title, description, priority, assignee, category, resolution notes, status, and the time it was created. Category and human ID stay as assigned at creation.
+- **Ticket**: One support item. It has a system-assigned human ID, title, description, priority, assignee, category, resolution notes, status, and the time it was created. The first human ID is TKT-1001, and each later ticket takes the next number, which is never reused. Category and human ID stay as assigned at creation. Title, description, priority, assignee, and resolution notes can be changed in every status, including CLOSED and CANCELLED. Status still changes only through an allowed status action.
 - **Comment**: Text added to one ticket, kept with the time it was added. Comments are not edited or removed in this feature.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: An agent can create a ticket and see its human ID on the ticket details in under 2 minutes.
+- **SC-001**: An agent can create a ticket and see its human ID on the ticket details in under 2 minutes. The first ticket is TKT-1001, and each later ticket's number is one higher than the highest number already saved, including after a restart.
 - **SC-002**: All 5 allowed status changes succeed and leave the ticket in the requested status.
 - **SC-003**: Every status change outside those 5 is refused, and in each case the ticket keeps its previous status.
 - **SC-004**: For any ticket, the status choices on screen are exactly the allowed next statuses, or none when no next status exists.
-- **SC-005**: A keyword search returns a ticket only when the keyword appears in the title or the description, including when it appears in just one of those fields.
+- **SC-005**: A keyword search returns a ticket only when the keyword appears as a case-insensitive contiguous substring of the title or the description. A fragment such as "pay" matches "payment", a multi-word keyword must appear in that order, and a match in just one of those two fields is enough.
 - **SC-006**: After a restart, 100% of previously saved tickets, comments, field edits, and statuses are still available.
 - **SC-007**: When required information is missing, the agent sees every invalid field named on screen and the submission is not saved.
 - **SC-008**: On a first attempt with complete, valid details, an agent can create a ticket, find it by keyword, and open it without help.
+- **SC-009**: The list, including keyword and status results, shows every matching ticket at once, with the most recently created ticket first. There are no pages. An edit, comment, or status change does not move a ticket ahead of one created later.
 
 ## Assumptions
 
@@ -173,12 +199,12 @@ An agent sees which field is wrong, sees a clear message when a status change is
 - Category is required text chosen at creation, not a fixed list, and it cannot be changed later.
 - Resolution notes are optional text. The agent may fill them in at creation or later. They are not required to resolve or close a ticket.
 - Assignee is a name entered as text. It is not linked to a user account.
-- The agent does not choose the human ID. Identifiers look like TKT-1001: the prefix TKT- and a number. They are unique and do not change.
+- The agent does not choose the human ID. The first ticket is TKT-1001. Each later ticket takes the next integer, and a number is never reused, including after a restart. The ID does not change.
 - A new ticket always starts as OPEN. Status changes only through the status action.
-- Keyword search is a case-insensitive phrase match on title or description. Comments, resolution notes, category, assignee, and the human ID are not search fields.
+- Keyword search is a case-insensitive contiguous substring match on title or description. "pay" matches "payment". A multi-word keyword such as "payment failure" must appear in that order. Leading and trailing spaces are ignored. Comments, resolution notes, category, assignee, and the human ID are not search fields.
 - A blank search shows the list for the selected status, or every ticket when no status is selected.
 - Title, description, priority, assignee, and category are required. A value that is only spaces counts as blank. Title and assignee may be up to 200 characters. Category may be up to 100 characters. Description, resolution notes, and a comment may be up to 5,000 characters.
-- Comments are append-only.
-- The list is ordered with the newest ticket first and shows human ID, title, status, priority, and assignee.
+- Comments are append-only. A CLOSED or CANCELLED ticket can still receive comments, and its other editable fields can still be changed. Its status does not change because of those edits.
+- The list shows every matching ticket at once. There are no pages. It is ordered by creation time, newest first, and shows human ID, title, status, priority, and assignee. Editing, commenting, or changing status does not change a ticket's place. When creation times are equal, the higher human ID comes first. Keyword and status results use this same order and also show every match at once.
 - No secrets are stored in the project (source AC-22).
 - The natural-language assistant, embeddings, and citation of tickets in generated answers are out of scope for this feature (source FR-11, FR-12, FR-13 are Phase 2).
