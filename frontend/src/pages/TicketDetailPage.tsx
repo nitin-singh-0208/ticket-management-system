@@ -1,12 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { getTicket, changeStatus, TicketDetail, TicketStatus, ApiError } from "../api/tickets";
+import {
+  getTicket,
+  updateTicket,
+  changeStatus,
+  TicketDetail,
+  TicketStatus,
+  TicketPriority,
+  ApiError,
+} from "../api/tickets";
 
 const PRIORITY_LABELS: Record<string, string> = {
   LOW: "Low",
   MEDIUM: "Medium",
   HIGH: "High",
 };
+
+const PRIORITY_OPTIONS: { value: TicketPriority; label: string }[] = [
+  { value: "LOW", label: "Low" },
+  { value: "MEDIUM", label: "Medium" },
+  { value: "HIGH", label: "High" },
+];
 
 export function TicketDetailPage() {
   const { ticketId } = useParams<{ ticketId: string }>();
@@ -15,6 +29,15 @@ export function TicketDetailPage() {
   const [statusError, setStatusError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isChangingStatus, setIsChangingStatus] = useState(false);
+
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editPriority, setEditPriority] = useState<TicketPriority>("LOW");
+  const [editAssignee, setEditAssignee] = useState("");
+  const [editResolutionNotes, setEditResolutionNotes] = useState("");
+  const [editFieldErrors, setEditFieldErrors] = useState<Record<string, string>>({});
+  const [editGeneralError, setEditGeneralError] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (!ticketId) {
@@ -31,6 +54,11 @@ export function TicketDetailPage() {
       .then((data) => {
         if (isMounted) {
           setTicket(data);
+          setEditTitle(data.title);
+          setEditDescription(data.description);
+          setEditPriority(data.priority);
+          setEditAssignee(data.assignee);
+          setEditResolutionNotes(data.resolutionNotes ?? "");
           setIsLoading(false);
         }
       })
@@ -69,6 +97,53 @@ export function TicketDetailPage() {
       }
     } finally {
       setIsChangingStatus(false);
+    }
+  }
+
+  async function handleEditSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!ticketId || !ticket) {
+      return;
+    }
+
+    setEditFieldErrors({});
+    setEditGeneralError(null);
+    setIsSaving(true);
+
+    const payload: Record<string, string> = {};
+    if (editTitle !== ticket.title) payload.title = editTitle;
+    if (editDescription !== ticket.description) payload.description = editDescription;
+    if (editPriority !== ticket.priority) payload.priority = editPriority;
+    if (editAssignee !== ticket.assignee) payload.assignee = editAssignee;
+    const currentNotes = ticket.resolutionNotes ?? "";
+    if (editResolutionNotes !== currentNotes) payload.resolutionNotes = editResolutionNotes;
+
+    try {
+      const updated = await updateTicket(ticketId, payload);
+      setTicket(updated);
+      setEditTitle(updated.title);
+      setEditDescription(updated.description);
+      setEditPriority(updated.priority);
+      setEditAssignee(updated.assignee);
+      setEditResolutionNotes(updated.resolutionNotes ?? "");
+    } catch (err) {
+      if (err instanceof ApiError) {
+        if (err.problem.errors && err.problem.errors.length > 0) {
+          const errorsMap: Record<string, string> = {};
+          for (const fe of err.problem.errors) {
+            errorsMap[fe.field] = fe.message;
+          }
+          setEditFieldErrors(errorsMap);
+        } else if (err.problem.detail) {
+          setEditGeneralError(err.problem.detail);
+        } else {
+          setEditGeneralError("Validation failed. Please check the fields.");
+        }
+      } else {
+        setEditGeneralError("Failed to save changes.");
+      }
+    } finally {
+      setIsSaving(false);
     }
   }
 
@@ -189,6 +264,170 @@ export function TicketDetailPage() {
       )}
 
       <section style={{ marginBottom: "1.5rem" }}>
+        <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Edit Ticket</h2>
+        {editGeneralError && (
+          <div
+            role="alert"
+            style={{
+              background: "#fee2e2",
+              color: "#991b1b",
+              padding: "0.75rem 1rem",
+              borderRadius: 6,
+              marginBottom: "0.75rem",
+            }}
+          >
+            {editGeneralError}
+          </div>
+        )}
+        <form onSubmit={handleEditSubmit} noValidate>
+          <div style={{ marginBottom: "1rem" }}>
+            <label htmlFor="edit-title" style={{ display: "block", fontWeight: 600, marginBottom: 4 }}>
+              Title
+            </label>
+            <input
+              id="edit-title"
+              name="title"
+              type="text"
+              maxLength={200}
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: 4,
+                border: editFieldErrors.title ? "1px solid #dc2626" : "1px solid #d1d5db",
+              }}
+            />
+            {editFieldErrors.title && (
+              <span style={{ color: "#dc2626", fontSize: "0.875rem", display: "block", marginTop: 4 }}>
+                {editFieldErrors.title}
+              </span>
+            )}
+          </div>
+
+          <div style={{ marginBottom: "1rem" }}>
+            <label htmlFor="edit-description" style={{ display: "block", fontWeight: 600, marginBottom: 4 }}>
+              Description
+            </label>
+            <textarea
+              id="edit-description"
+              name="description"
+              rows={4}
+              maxLength={5000}
+              value={editDescription}
+              onChange={(e) => setEditDescription(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: 4,
+                border: editFieldErrors.description ? "1px solid #dc2626" : "1px solid #d1d5db",
+              }}
+            />
+            {editFieldErrors.description && (
+              <span style={{ color: "#dc2626", fontSize: "0.875rem", display: "block", marginTop: 4 }}>
+                {editFieldErrors.description}
+              </span>
+            )}
+          </div>
+
+          <div style={{ marginBottom: "1rem" }}>
+            <label htmlFor="edit-priority" style={{ display: "block", fontWeight: 600, marginBottom: 4 }}>
+              Priority
+            </label>
+            <select
+              id="edit-priority"
+              name="priority"
+              value={editPriority}
+              onChange={(e) => setEditPriority(e.target.value as TicketPriority)}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: 4,
+                border: editFieldErrors.priority ? "1px solid #dc2626" : "1px solid #d1d5db",
+              }}
+            >
+              {PRIORITY_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            {editFieldErrors.priority && (
+              <span style={{ color: "#dc2626", fontSize: "0.875rem", display: "block", marginTop: 4 }}>
+                {editFieldErrors.priority}
+              </span>
+            )}
+          </div>
+
+          <div style={{ marginBottom: "1rem" }}>
+            <label htmlFor="edit-assignee" style={{ display: "block", fontWeight: 600, marginBottom: 4 }}>
+              Assignee
+            </label>
+            <input
+              id="edit-assignee"
+              name="assignee"
+              type="text"
+              maxLength={200}
+              value={editAssignee}
+              onChange={(e) => setEditAssignee(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: 4,
+                border: editFieldErrors.assignee ? "1px solid #dc2626" : "1px solid #d1d5db",
+              }}
+            />
+            {editFieldErrors.assignee && (
+              <span style={{ color: "#dc2626", fontSize: "0.875rem", display: "block", marginTop: 4 }}>
+                {editFieldErrors.assignee}
+              </span>
+            )}
+          </div>
+
+          <div style={{ marginBottom: "1rem" }}>
+            <label htmlFor="edit-resolutionNotes" style={{ display: "block", fontWeight: 600, marginBottom: 4 }}>
+              Resolution Notes
+            </label>
+            <textarea
+              id="edit-resolutionNotes"
+              name="resolutionNotes"
+              rows={3}
+              maxLength={5000}
+              value={editResolutionNotes}
+              onChange={(e) => setEditResolutionNotes(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                borderRadius: 4,
+                border: editFieldErrors.resolutionNotes ? "1px solid #dc2626" : "1px solid #d1d5db",
+              }}
+            />
+            {editFieldErrors.resolutionNotes && (
+              <span style={{ color: "#dc2626", fontSize: "0.875rem", display: "block", marginTop: 4 }}>
+                {editFieldErrors.resolutionNotes}
+              </span>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSaving}
+            style={{
+              backgroundColor: "#2563eb",
+              color: "white",
+              padding: "0.5rem 1rem",
+              border: "none",
+              borderRadius: 4,
+              fontWeight: 600,
+              cursor: isSaving ? "not-allowed" : "pointer",
+            }}
+          >
+            {isSaving ? "Saving..." : "Save Changes"}
+          </button>
+        </form>
+      </section>
+
+      <section style={{ marginBottom: "1.5rem" }}>
         <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Description</h2>
         <div
           style={{
@@ -245,8 +484,11 @@ export function TicketDetailPage() {
       </section>
 
       <footer style={{ borderTop: "1px solid #e5e7eb", paddingTop: "1rem" }}>
+        <Link to="/tickets" style={{ color: "#2563eb", textDecoration: "none", marginRight: "1rem" }}>
+          &larr; All tickets
+        </Link>
         <Link to="/tickets/new" style={{ color: "#2563eb", textDecoration: "none" }}>
-          &larr; Create another ticket
+          Create another ticket
         </Link>
       </footer>
     </div>

@@ -230,6 +230,160 @@ class TicketValidationTest {
     }
 
     @Test
+    void patchTicket_withStatusProperty_returns400UnknownProperty() throws Exception {
+        String body = """
+                {
+                  "status": "CLOSED"
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Unknown property 'status'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_explicitNullTitle_rejected_anOmittedPropertyStaysUnchanged() throws Exception {
+        String body = """
+                {
+                  "title": null
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Property 'title' must not be null")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_unknownCategory_rejected_statusCategoryTicketIdAndUnknownPropertiesRejected() throws Exception {
+        String body = """
+                {
+                  "category": "Billing"
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Unknown property 'category'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_blankTitle_returns400WithTitleRequired() throws Exception {
+        String body = """
+                {
+                  "title": "   "
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors", hasSize(1)))
+                .andExpect(jsonPath("$.errors[0].field", is("title")))
+                .andExpect(jsonPath("$.errors[0].message", is("Title is required")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_blankDescription_returns400WithDescriptionRequired() throws Exception {
+        String body = """
+                {
+                  "description": "  \\t "
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors", hasSize(1)))
+                .andExpect(jsonPath("$.errors[0].field", is("description")))
+                .andExpect(jsonPath("$.errors[0].message", is("Description is required")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_blankAssignee_returns400WithAssigneeRequired() throws Exception {
+        String body = """
+                {
+                  "assignee": " "
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors", hasSize(1)))
+                .andExpect(jsonPath("$.errors[0].field", is("assignee")))
+                .andExpect(jsonPath("$.errors[0].message", is("Assignee is required")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_fieldsExceedingMaxLength_returns400() throws Exception {
+        String longTitle = "a".repeat(201);
+        String longAssignee = "b".repeat(201);
+        String longDescription = "d".repeat(5001);
+        String longResolutionNotes = "e".repeat(5001);
+
+        String body = """
+                {
+                  "title": "%s",
+                  "description": "%s",
+                  "assignee": "%s",
+                  "resolutionNotes": "%s"
+                }
+                """.formatted(longTitle, longDescription, longAssignee, longResolutionNotes);
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors", hasSize(4)))
+                .andExpect(jsonPath("$.errors[?(@.field == 'title')].message", is(java.util.List.of("Title must be at most 200 characters"))))
+                .andExpect(jsonPath("$.errors[?(@.field == 'assignee')].message", is(java.util.List.of("Assignee must be at most 200 characters"))))
+                .andExpect(jsonPath("$.errors[?(@.field == 'description')].message", is(java.util.List.of("Description must be at most 5000 characters"))))
+                .andExpect(jsonPath("$.errors[?(@.field == 'resolutionNotes')].message", is(java.util.List.of("Resolution notes must be at most 5000 characters"))));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
+    void patchTicket_invalidPriorityValue_returns400() throws Exception {
+        String body = """
+                {
+                  "priority": "URGENT"
+                }
+                """;
+
+        mockMvc.perform(patch("/api/tickets/TKT-1001")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail", is("Invalid value for property 'priority'")));
+
+        verifyNoInteractions(ticketService);
+    }
+
+    @Test
     void getTicket_notFound_returns404WithoutStackTrace() throws Exception {
         when(ticketService.getTicket("TKT-9999"))
                 .thenThrow(new TicketNotFoundException("TKT-9999"));

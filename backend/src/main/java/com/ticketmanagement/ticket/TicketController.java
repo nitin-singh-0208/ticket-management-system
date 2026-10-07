@@ -3,6 +3,7 @@ package com.ticketmanagement.ticket;
 import com.ticketmanagement.ticket.dto.CreateTicketRequest;
 import com.ticketmanagement.ticket.dto.StatusChangeRequest;
 import com.ticketmanagement.ticket.dto.TicketDetail;
+import com.ticketmanagement.ticket.dto.UpdateTicketRequest;
 import jakarta.validation.Valid;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,14 @@ public class TicketController {
     @GetMapping("/{ticketId}")
     public ResponseEntity<TicketDetail> getTicket(@PathVariable String ticketId) {
         TicketDetail detail = ticketService.getTicket(ticketId);
+        return ResponseEntity.ok(detail);
+    }
+
+    @PatchMapping("/{ticketId}")
+    public ResponseEntity<TicketDetail> updateTicket(
+            @PathVariable String ticketId,
+            @Valid @RequestBody UpdateTicketRequest request) {
+        TicketDetail detail = ticketService.updateTicket(ticketId, request);
         return ResponseEntity.ok(detail);
     }
 
