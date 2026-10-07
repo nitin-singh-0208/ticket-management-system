@@ -12,8 +12,1522 @@ _**User**_
 
 _**Agent (grok-4.7)**_
 
-<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
-<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **0** directories</summary>
+<think><details><summary>Thought Process</summary>
+Generating tasks.md using the speckit-tasks skill.
 
-No results found
+Eight phases will match the plan slices exactly. Each phase gets one commit. Tests precede their implementations. A CommentValidationTest covers blank comments. An ApiExceptionHandler maps HttpMessageNotReadableException to a ProblemDetail 400 naming the offending property.
+
+A PATCH /api/tickets/{id} test with "status" returning 400 is included. The graphify rule is being checked against the skill's setup script requirements.
+
+The speckit-tasks skill workflow takes priority over the graphify rule for this spec generation task. I will check for extensions.yml and run setup-tasks.sh.
+
+Tasks.md qualifies as project documentation, so the documentation skill may also apply. I will read it and follow it immediately as my first action.
+
+I will read plan.md carefully to map the eight implementation slices exactly. Setup-tasks.sh and extensions.yml will be checked in parallel.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+I'll generate `tasks.md` from the plan's eight implementation slices, with one phase per slice and tests listed before the code they cover. First I'll check extension hooks and load the design documents.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system`** (0 files)
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system`** (0 files)
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/skills/documentation/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+No extensions.yml file was found, so hooks will be skipped silently.
+
+No graphify-out/graph.json exists, so Read/Grep/Glob will be used directly. Now running the setup script.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+No extension hooks are registered. Next I’ll run the task setup script and load the design documents.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: .specify/scripts/bash/setup-tasks.sh --json</summary>
+```bash
+.specify/scripts/bash/setup-tasks.sh --json
+```
+
+```
+{"FEATURE_DIR":"/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management","AVAILABLE_DOCS":["research.md","data-model.md","contracts/","quickstart.md"],"TASKS_TEMPLATE":"/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.specify/templates/tasks-template.md","TASKS_TEMPLATE_CONTENT":"---\n\ndescription: \"Task list template for feature implementation\"\n---\n\n# Tasks: [FEATURE NAME]\n\n**Input**: Design documents from `/specs/[###-feature-name]/`\n\n**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/\n\n**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.\n\n**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.\n\n## Format: `[ID] [P?] [Story] Description`\n\n- **[P]**: Can run in parallel (different files, no dependencies)\n- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)\n- Include exact file paths in descriptions\n\n## Path Conventions\n\n- **Single project**: `src/`, `tests/` at repository root\n- **Web app**: `backend/src/`, `frontend/src/`\n- **Mobile**: `api/src/`, `ios/src/` or `android/src/`\n- Paths shown below assume single project - adjust based on plan.md structure\n\n<!--\n  ============================================================================\n  IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.\n\n  The /speckit-tasks command MUST replace these with actual tasks based on:\n  - User stories from spec.md (with their priorities P1, P2, P3...)\n  - Feature requirements from plan.md\n  - Entities from data-model.md\n  - Endpoints from contracts/\n\n  Tasks MUST be organized by user story so each story can be:\n  - Implemented independently\n  - Tested independently\n  - Delivered as an MVP increment\n\n  DO NOT ke
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+I will follow the 8 implementation slices in plan.md exactly. Each slice corresponds to one tasks.md phase and one commit.
+
+I will read all design documents carefully. Tests must precede their implementation within each phase. A separate CommentValidationTest will assert blank comments return 400.
+
+An ApiExceptionHandler task will map HttpMessageNotReadableException to a ProblemDetail 400 naming the offending property. A PATCH /api/tickets/{id} test with "status" will return 400. The project root contains a specs/ directory. I will check docs/ai-mistakes.md for prior generation lessons.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+The feature directory is `specs/001-support-ticket-management`. I’ll read the plan slices and the supporting design docs so each phase maps to one commit.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/plan.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **8** results in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management`** (8 files)
+
+| File |
+|------|
+| `research.md` |
+| `spec.md` |
+| `data-model.md` |
+| `contracts/tickets.openapi.yaml` |
+| `plan.md` |
+| `checklists/requirements.md` |
+| `quickstart.md` |
+| `contracts/ui.md` |
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **1** result in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system`** (1 file)
+
+| File |
+|------|
+| `.specify/memory/constitution.md` |
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/docs/ai-mistakes.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Reading the core project documents to ensure the tasks are fully specified.
+
+Planning the exact task structure now. Each of the eight plan.md slices becomes one commit with tests listed before implementation. Three specific requirements stand out: a CommentValidationTest returning 400 for blank comments, an ApiExceptionHandler mapping HttpMessageNotReadableException to a ProblemDetail 400, and a PATCH test for /api/tickets/{id} with status set to 400. Tasks will be organized by user story.
+
+The user’s explicit requirement overrides the default template. Eight phases must match the eight plan.md slices exactly. This replaces the standard setup and foundational phases.
+
+Mapping the eight slices to concrete phases: Setup, US1, Seed, US2, US4, US5, US3, and US6. This preserves atomic commits and keeps each slice as a single concern.
+
+Only user-story phases receive story labels. Setup, Seed, and the final polish phase carry no label. US1, US2, US4, US5, US3, and US6 each get their respective [US*] tags.
+
+Constitution III mandates test-first for the state machine. The plan explicitly requires TicketStatusTest, TicketStatusTransitionTest, and TicketValidationTest. These tests must be generated even though the skill normally makes tests optional.
+
+All source documents will be read in parallel to extract exact constraints for the tasks.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/spec.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/research.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/quickstart.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.specify/memory/constitution.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The OpenAPI contract and UI contract are needed to make the tasks specific enough.
+
+Reading the OpenAPI and UI contracts now. They are likely large.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/ui.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Reviewing the existing project structure to determine what already exists versus what the tasks must create.
+
+Checking whether backend and frontend directories already exist to avoid duplicating work. Also reviewing requirements.md for extra constraints. The skill requires quoting exact data-model.md constraints verbatim in each task.
+
+Three extra requirements identified: a dedicated CommentValidationTest for blank comments, an ApiExceptionHandler mapping HttpMessageNotReadableException to ProblemDetail 400, and a PATCH ticket status test. The plan already assigns field validation, blank comment, and PATCH status coverage to TicketValidationTest.
+
+The user explicitly requested a separate CommentValidationTest for blank comments, distinct from TicketValidationTest. TicketValidationTest will retain field validation and the PATCH status coverage.
+
+The PATCH status test will remain in TicketValidationTest per the plan. The ApiExceptionHandler task will map HttpMessageNotReadableException to a ProblemDetail 400. This exception occurs when unknown properties trigger fail-on-unknown-properties, explicit nulls cause JsonSetter failures, or bad enums fail deserialization.
+
+The ApiExceptionHandler task belongs in Slice 1, since the plan assigns the problem-detail handler to that slice. These Jackson deserialization errors differ from Bean Validation exceptions; the handler must map them to a ProblemDetail 400 and name the offending property in the detail.
+
+The ApiExceptionHandler will be implemented in Slice 1 as a single commit. Its full behavior, including the HttpMessageNotReadableException mapping, will be defined upfront rather than deferred to later phases.
+
+The handler can be written generically in Slice 1 before DTOs exist. It will catch HttpMessageNotReadableException and extract the offending property name from Jackson exceptions such as InvalidFormatException or UnrecognizedPropertyException. The mapping returns a ProblemDetail 400 with the detail naming that property.
+
+Tests for this behavior will be placed in their respective stories. PATCH with status → 400 belongs to US4. Bad enum rejection belongs to US1. Explicit null on update belongs to US4. Unknown property rejection on create belongs to US1.
+
+Each phase will list its tests before the implementation they cover. The three HttpMessageNotReadableException mappings—unknown property, explicit null, and bad enum—will be verified by tests placed in their respective story slices.
+
+Phase 1 Setup will contain a single commit. It provisions Docker Compose with pgvector/pgvector:pg16, a Spring Boot 3.5 backend using Java 21, a Vite React frontend, and application.yml configured for port 8080, validate DDL, Flyway migrations, Jackson fail-on-unknown-properties, and CORS. The plan specifies a Flyway V1 empty schema that allows the application to boot.
+
+Clarified that the V1 Flyway migration defines the full ticket and comment schema structure. Seed data is deferred to slice 3, so the schema is empty of seed data but complete in structure.
+
+Phase 2 US1 will cover ticket creation and retrieval. An integration test for create and get is being considered.
+
+The plan names only three test classes. Each phase will add tests to the existing files rather than creating new ones. TicketValidationTest covers create, field updates, and comments. CommentValidationTest is a separate class for blank comment validation. This keeps blank comment tests independent of the main validation suite.
+
+US1 TicketValidationTest will cover create field validation before the controller is implemented. No extra create/get integration test will be added, since the plan and user request only the three named test classes plus CommentValidationTest.
+
+Reconsidering the US1 test plan. The skill demands each phase be independently testable. A create-and-get integration test would let the implementer verify the full flow without relying solely on WebMvcTest mocks. The quickstart lists only three test classes, so adding a fourth integration test may be necessary for true independence.
+
+The plan names only three test classes, so a fourth create-and-get integration test would violate the eight-slice requirement. The user explicitly requested CommentValidationTest as an extra, but did not ask for a create integration test. US1 will rely on the existing three classes plus TicketStatusTransitionTest for repository-level verification.
+
+A test task will be added to US1 covering POST create and GET by id. It verifies TKT-1001 then TKT-1002 sequencing, blank resolution notes, and restart-safe sequence behavior. TicketStatusTransitionTest will continue to insert via the repository.
+
+Restart logic is assigned to US6, so a create-and-get integration test is unnecessary. The plan’s three existing test files will be used without adding a fourth. US1 tasks will define the full create behavior directly, since the implementer cannot rely on an extra integration test.
+
+Slice 8 is strictly a restart check and any remaining field-error copy fixes. No new test suite is introduced there.
+
+Integration coverage will be added inside existing test classes where it fits. TicketValidationTest will use @WebMvcTest for validation-only behavior without calling the service layer. The create happy path will instead use @SpringBootTest. Since the plan does not name a dedicated create integration test, the implementation tasks will still specify the full create behavior directly.
+
+Reconsidering the fourth test idea. The user explicitly asked for only the three named test classes plus CommentValidationTest. Adding an unnamed SpringBootTest for create and get would violate that instruction. US1 will stay within the existing three test files without adding a fourth integration test.
+
+The extra tasks are additions beyond the plan’s three named test classes. TicketStatusTest belongs in slice 4 before the status endpoint. TicketStatusTransitionTest belongs in slice 4 and will also verify that an unknown ticketId returns 404.
+
+TicketValidationTest will be created in US1 for create validation, then extended in US4 for update validation and the status property test. CommentValidationTest will be placed in US5 before the comment implementation. The ApiExceptionHandler will be implemented in Setup (slice 1) with the HttpMessageNotReadableException mapping specified upfront. Tests for this handler will be assigned to their respective stories: bad enum rejection on create belongs to US1, and unknown property rejection on create belongs to US1.
+
+The PATCH status → 400 test will be placed in TicketValidationTest during US4. US1 TicketValidationTest will verify two HttpMessageNotReadableException mappings: a bad enum value on create and an unknown property on create. Both will return a 400 ProblemDetail with the offending property name in the detail.
+
+US4 TicketValidationTest will assert explicit null on update and PATCH status → 400, both returning a ProblemDetail that names the offending property. These tests will use @WebMvcTest and must import ApiExceptionHandler while setting spring.jackson.deserialization.fail-on-unknown-properties=true so Jackson throws UnrecognizedPropertyException.
+
+Jackson exceptions are now precisely identified: InvalidNullException for explicit nulls and InvalidFormatException for bad enums. The exact ProblemDetail strings for 400 responses are being fixed: "Changing status from OPEN to CLOSED is not allowed." for 409 transitions, and validation messages like "Title is required."
+
+Concrete error message formats are being defined for UI assertions. Validation errors will use `{ field, message }` pairs such as "Title is required". Deserialization errors will use ProblemDetail details like `Unknown property: status`, `Invalid value for property: priority`, or `Property must not be null: title`. Whitespace-only input counts as blank.
+
+The exact ProblemDetail strings for 400 responses are being fixed: "Unknown property 'status'", "Property 'title' must not be null", and "Invalid value for property 'priority'". These copies will be defined in the handler task and repeated in the corresponding tests.
+
+The ApiExceptionHandler task will enforce a single consistent ProblemDetail sentence pattern across all 400 responses. Spring Boot 3 defaults HttpMessageNotReadableException to Jackson's raw message, so the custom handler must explicitly name the offending property in every detail string.
+
+CommentValidationTest will be a standalone `@WebMvcTest(CommentController.class)` that rejects blank and whitespace-only comments with a 400 field error on `text`, leaving the service layer untouched.
+
+The blank-comment test will live only in CommentValidationTest, not TicketValidationTest, to avoid duplication. The PATCH status → 400 test will use @WebMvcTest(TicketController.class) in US4 before the update endpoint is implemented.
+
+The PATCH status → 400 test will send `{"status":"CLOSED"}` or `{"status":"OPEN"}` and assert the detail names `status`, with the service layer left untouched. Slice 8 will be thin: it will verify that create and edit form field-error messages match the API `errors[].field` and `errors[].message` structure, and it will include a task to run the quickstart restart check manually.
+
+A SpringBootTest will be added to US6 to automate the restart check. It will stop the Spring context and restart it against the same Testcontainers database. The test will assert that previously saved tickets, edits, comments, and statuses remain present. It will also verify that the next ticket ID continues sequentially. This makes the restart requirement testable rather than manual.
+
+Slice 8 tasks will be formatted as checkbox items with file paths. One task will run the quickstart restart check manually and record that tickets, edits, comments, and the next ticket ID survive a backend restart without Docker volume removal. Another task will ensure every form displays field errors and 409 transition detail. No new persistence code is required.
+
+US6 will add a checkbox task to display each `errors[].message` beside its `errors[].field` on `TicketCreatePage.tsx` and `TicketDetailPage.tsx`, including the blank-comment message. Story labels will be `[US1]`, `[US5]`, and `[US6]`; seed and setup phases carry no label. Eight phases will match the eight slices exactly.
+
+The template sections for Dependencies, Parallel examples, and Implementation strategy will be rewritten to match the eight sequential slices instead of the default foundational blocks. Slice order is strictly sequential because later phases depend on earlier ones: Setup, then US1, then Seed, then US2, then US4, then US5, and finally US6.
+
+The slice order will follow the plan exactly, overriding the spec priority order: Setup, US1, Seed, US2, US4, US5, US3, US6. Within each phase, every test task comes before its implementation.
+
+[P] markers will be added only where tasks span different files and have no dependencies on incomplete work. Exact file paths from the plan structure will be used throughout. DTO class names are being mapped to the OpenAPI schemas: CreateTicketRequest, UpdateTicketRequest, StatusChangeRequest, TicketDetail, TicketSummary, TicketPage, and CreateCommentRequest. The plan places ticket DTOs under `ticket/dto/` but does not specify a comment DTO package, so that location is still unresolved.
+
+Comment DTOs will live in `backend/src/main/java/com/ticketmanagement/comment/dto/` rather than `ticket/dto/`. `TicketDetail` will reference `CommentResponse` from that package. Entity locations are next.
+
+Ticket.java and Comment.java entities are being drafted with quoted field constraints. TicketStatus.java will define an enum with a transition map, and TicketPriority.java will hold LOW, MEDIUM, and HIGH values. The human-readable ticket identifier will use a database sequence starting at 1001. The data model column names take precedence over the research documentation for the schema.
+
+The research documentation names the column `public_id`, while the data model schema names it `ticket_id`. The skill requires quoting data-model constraints, so the exact SQL column name must be chosen. The data model does not specify the underlying column name for the `ticketId` field, leaving the mapping unresolved.
+
+SQL columns will be snake_case: `ticket_id`, `ticket_number`, `resolution_notes`, and `created_at`. The index is `(created_at DESC, ticket_number DESC)`. The seed script will call `setval('ticket_number_seq', 1015)` so the next ticket ID is 1016.
+
+The V1 schema will be quoted verbatim in the seed task. It specifies `id` as a generated bigint primary key, `ticket_number` as an integer unique not null sourced from `ticket_number_seq`, `ticket_id` as a varchar(16) unique not null, `title` as varchar(200) not null, `description` as varchar(5000) not null, `priority` as varchar(16) not null, `assignee` as varchar(200) not null, `category` as varchar(100) not null, and `resolution_notes` as varchar(5000) null.
+
+The tickets table will also store `status` as varchar(16) not null and `created_at` as timestamptz not null. The comments table will use a bigint primary key, a foreign key to `tickets.id`, `text` as varchar(5000) not null, and `created_at` as timestamptz not null. Jackson deserialization will be configured to fail on unknown properties, and `UpdateTicketRequest` will use `@JsonSetter(nulls = Nulls.FAIL)` on each property. Whether `CreateTicketRequest` should also reject nulls is still undecided.
+
+CreateTicketRequest will also reject explicit nulls on required fields. This ensures the exception handler catches them as 400 errors before bean validation runs.
+
+Only UpdateTicketRequest will reject explicit nulls via @JsonSetter(nulls = Nulls.FAIL); CreateTicketRequest will rely on @NotBlank. Because @NotBlank does not trim whitespace, a custom trim step is required before length validation to reject whitespace-only inputs.
+
+Trimming will happen before validation. Blank inputs are rejected after trimming. Title and assignee are capped at 200 characters. Category is capped at 100. Description and resolution notes are capped at 5000. Priority is required and must be a valid enum value. Bad enums trigger a 400 during deserialization. CORS allows only http://localhost:5173. The global exception handler returns 400 ProblemDetail for validation errors. It returns 404 for unknown tickets. It returns 409 for illegal status transitions.
+
+The exception handler will map HttpMessageNotReadableException to a 400 ProblemDetail that names the offending property. Stack traces will be suppressed entirely. MVC problem details will be enabled via `spring.mvc.problemdetails.enabled=true`. A GET 404 for unknown tickets will be added to the US1 implementation and tested in slice 4. An independent SpringBootTest was considered but omitted.
+
+A `@SpringBootTest` task will verify ticket creation and retrieval in US1. The quickstart expects manual verification of the human ID, but the skill requires each story to be independently testable.
+
+US1's `TicketValidationTest` will cover create field errors. Happy-path create is left to quickstart verification. `TicketCreateAndGetTest` will only be added if the plan's testing constraints allow it.
+
+A `@SpringBootTest` integration test will be added to US1. It will use Testcontainers and MockMvc to verify ticket creation and retrieval independently. This keeps the implementation strictly within the eight planned slices without adding extra test types.
+
+The US1 `TicketCreateAndGetTest` will verify POST returns 201 with Location `/api/tickets/TKT-1001`, status OPEN, and ticketId TKT-1001. A second POST yields TKT-1002. Omitted resolution notes default to empty strings. The GET endpoint returns human id, title, description, priority, assignee, category, status, resolution notes, comments, and allowedNextStatuses. An unknown ticketId returns 404.
+
+A dependency conflict emerged: `allowedNextStatuses` on `TicketDetail` requires the status transition map from slice 4 (US2), yet the US1 contract demands it. This forces a decision on whether US1 must wait for US2 or the contract must change.
+
+Three options resolve the `allowedNextStatuses` dependency for US1. A stub map could duplicate the transition logic early. The field could be omitted from US1 and added in slice 4. Or the status enum could be created in US1 while the full map stays in slice 4. Slice 2 covers creation and viewing. Slice 4 covers the status map, its unit test, the 25-pair integration test, the status endpoint, and screen control driven by allowedNextStatuses.
+
+US1 will return all ticket fields except `allowedNextStatuses`, which is deferred to slice 4. This contract evolution across commits is acceptable. The UI slices are now being planned.
+
+The frontend will follow the UI slice plan. Slice 1 provides a Vite skeleton and router placeholder. Slice 2 implements the create form and detail view without status controls, comments, or editing. Slices 4 through 8 add status control, edit forms, comments, list and search, and field error copy. Routes will be `/tickets/new` and `/tickets/:ticketId`, with the list page as a stub until US3. The typed fetch client will live in `frontend/src/api/tickets.ts` and grow incrementally per slice.
+
+The seed slice will contain only V2 SQL and no application code. Tests will not load seed data. To prevent the application from failing to boot, Flyway will enable only the migration directory in slice 1. The seed directory and its SQL file will be added together in slice 3.
+
+Hibernate ddl-auto validate requires entities to match the schema. Since V1 is immutable, it must already contain the full schema including the comments table. The comment entity will be introduced in slice 6 while the table remains in V1.
+
+Hibernate validate in US1 only checks that mapped entities match their database tables. The comments table may exist before the Comment entity is mapped, so that is acceptable. The Ticket entity must still match the tickets table.
+
+US1 will define a basic TicketStatus enum for the status column. The full transition map belongs to slice 4, so the enum can remain simple in US1 and gain the map later.
+
+US1 will store status as the string OPEN. The TicketStatus enum will be introduced in slice 4 instead, avoiding a file edit across two commits.
+
+The package will be `com.ticketmanagement`. The project will use Spring Boot 3.5 as its parent, and dependency versions will be specified without inventing patch numbers.
+
+Tests will use `@ServiceConnection` with the `pgvector/pgvector:pg16` image and run migrations from `classpath:db/migration`. The local `application.yml` will use a placeholder password `tickets` that can be overridden by `TICKETS_DB_PASSWORD`. The frontend will not include an extra test framework.
+
+Slice 7 will implement the list endpoint. The query string is trimmed and blank queries omit the text filter. ILIKE escaping handles `%`, `_`, and backslashes. Status filtering is supported. Results order by `createdAt` descending then `ticketNumber` descending. Omitting both `page` and `size` returns all matches as a single page. A missing `page` with a `size` defaults to page zero. A missing `size` with a `page` returns 400. Valid sizes are 1 through 100. The UI will omit both parameters. Empty results display "Nothing matched". Search tests must quote carefully to avoid AI mistakes such as confusing "pay" with "password".
+
+Search tests will insert their own fixtures rather than relying on the V2 seed, since tests only load migrations. The quickstart will verify the seed manually. US3 tests may extend a SpringBootTest.
+
+A `TicketListTest` will be added to US3 as an independent `@SpringBootTest`. It verifies list pagination, sorting, and search behavior. A `TicketSearchTest` will also be included to guard against AI search misinterpretations such as confusing "pay" with "password".
+
+The PATCH status endpoint will return 409 with a detail message that generalizes the forbidden transition, e.g. "Changing status from {current} to {requested} is not allowed." The ticket detail endpoint will return 404 and name the missing ticketId. The list search test will quote the data-model search checks verbatim to prevent AI misinterpretation.
+
+The 404 detail will name the missing ticketId, for example "Ticket TKT-9999 was not found." The Location header will point to `/api/tickets/{ticketId}` for new tickets and `/api/tickets/{ticketId}/comments/{commentId}` for new comments. Comments will be ordered oldest first, then by id ascending. PATCH updates will leave omitted properties unchanged, reject explicit nulls, clear resolution notes with an empty string, and reject unknown properties such as status, category, or ticketId with a 400. Updates will work on CLOSED and CANCELLED tickets. Whitespace will be trimmed.
+
+Blank strings after trimming will be rejected for required fields. Maximum lengths will be quoted verbatim in tasks. Self-transitions and any other invalid pair are refused. The 25-pair status map will be listed in the test task so the implementer does not have to reinterpret it. TicketStatusTest will assert the map directly without Spring. The frontend will use only allowedNextStatuses and will not duplicate the transition logic. On a 409 response the UI will show the detail and keep the currently loaded status.
+
+The create form will display errors[].message next to errors[].field. The UI will block blank comments before submission, and the server will return 400 for blank comment bodies. Slice 8 will audit the create, edit, and comment forms against the quickstart blank-field and blank-comment rows to add any missing field-error copy. It will also include a restart verification task. Testing that the process restart preserves sequence state is difficult.
+
+A `TicketRestartTest` using Testcontainers would be too broad for a restart check. The slice will instead include a manual quickstart task referencing `quickstart.md` with explicit steps. Each phase will be a single conventional commit.
+
+Suggested commit messages for each phase are drafted. Phase one scaffolds the API, UI, and database. Phase two implements ticket creation and viewing. Phase three seeds fifteen support tickets. Phases four through seven cover status transitions, editable fields, comments, and list search. Phase eight will handle restart verification.
+
+Tests that must be written before implementation cannot run in parallel with that implementation. Multiple test files within the same phase may be marked [P] only if they do not depend on each other. The seed SQL is not a user story, so it carries no [US] label.
+
+Phase 1 tasks such as the handler may lack a user-story label. Existing repository files will be checked to avoid path conflicts.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **64** results in **1** directory</summary>
+
+Directory: **`/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system`** (64 files)
+
+| File |
+|------|
+| `.specify/integration.json` |
+| `docs/ai-mistakes.md` |
+| `.specify/templates/checklist-template.md` |
+| `specs/data-model.md` |
+| `.specify/scripts/bash/common.sh` |
+| `.specify/.gitignore` |
+| `.cursor/rules/testing.mdc` |
+| `.cursor/skills/speckit-clarify/SKILL.md` |
+| `.cursor/commands/generate-tests.md` |
+| `.cursor/skills/documentation/SKILL.md` |
+| `specs/001-support-ticket-management/contracts/ui.md` |
+| `specs/001-support-ticket-management/plan.md` |
+| `specs/001-support-ticket-management/checklists/requirements.md` |
+| `specs/001-support-ticket-management/contracts/tickets.openapi.yaml` |
+| `.cursor/rules/java-springboot.mdc` |
+| `specs/architecture.md` |
+| `.cursor/commands/review-code.md` |
+| `docs/prompt-history.md` |
+| `.specify/workflows/workflow-registry.json` |
+| `specs/001-support-ticket-management/data-model.md` |
+| `.specify/workflows/speckit/workflow.yml` |
+| `.specify/scripts/bash/setup-plan.sh` |
+| `.specify/integrations/speckit.manifest.json` |
+| `.cursor/skills/speckit-converge/SKILL.md` |
+| `.specify/integrations/cursor-agent.manifest.json` |
+| `specs/ui-flow.md` |
+| `.cursor/skills/speckit-tasks/SKILL.md` |
+| `specs/requirements.md` |
+| `specs/001-support-ticket-management/quickstart.md` |
+| `.specstory/.gitignore` |
+| `.cursor/skills/speckit-analyze/SKILL.md` |
+| `.cursor/commands/review-spec.md` |
+| `specs/state-machine.md` |
+| `.specify/scripts/bash/setup-tasks.sh` |
+| `.sdkmanrc` |
+| `.specify/memory/constitution.md` |
+| `.cursorindexingignore` |
+| `specs/test-strategy.md` |
+| `.cursor/rules/rag-vector-store.mdc` |
+| `.cursor/skills/speckit-implement/SKILL.md` |
+| `.vscode/settings.json` |
+| `.cursor/skills/speckit-plan/SKILL.md` |
+| `.specify/templates/plan-template.md` |
+| `.specify/memory/.constitution-template.json` |
+| `.cursorignore` |
+| `.specify/templates/constitution-template.md` |
+| `.specstory/.project.json` |
+| `.specify/templates/spec-template.md` |
+| `.specify/templates/tasks-template.md` |
+| `.cursor/rules/api-standards.mdc` |
+| `.specify/scripts/bash/create-new-feature.sh` |
+| `.specify/scripts/bash/resolve-template.sh` |
+| `specs/001-support-ticket-management/research.md` |
+| `.specstory/cli/config.toml` |
+| `.gitignore` |
+| `.specify/scripts/bash/check-prerequisites.sh` |
+| `.cursor/skills/speckit-specify/SKILL.md` |
+| `specs/api-contract.md` |
+| `.cursor/skills/speckit-constitution/SKILL.md` |
+| `.cursor/commands/review-rag-output.md` |
+| `specs/001-support-ticket-management/spec.md` |
+| `.cursor/skills/speckit-checklist/SKILL.md` |
+| `.cursor/skills/speckit-taskstoissues/SKILL.md` |
+| `.specify/init-options.json` |
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/requirements.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+I'll review the testing.mdc rule to ensure tasks align with testing conventions.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/testing.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+test-strategy.md now includes the exact requirements: eight implementation slices, one commit per phase, tests listed before implementation, a CommentValidationTest for blank comments, an ApiExceptionHandler mapping HttpMessageNotReadableException to a 400 ProblemDetail, and a PATCH test for invalid status values.
+
+ApiExceptionHandler is covered within TicketValidationTest rather than as a separate class. That test also includes the PATCH status 400 case.
+
+Checking state-machine.md for exact 409 transition wording and api-contract for additional details.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/state-machine.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/api-contract.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Checking specs/ui-flow.md for screen copy and error messages to include in the tasks.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "*.md",
+  "path": "/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs",
+  "pattern": "needs text|Title is required|Nothing matched|not allowed"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs",
+  "pattern": "needs text|Title is required|Nothing matched|not allowed",
+  "topFiles": [
+    {
+      "matchCount": 3,
+      "uri": "specs/001-support-ticket-management/spec.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": "specs/001-support-ticket-management/plan.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": "specs/ui-flow.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": "specs/001-support-ticket-management/contracts/ui.md"
+    },
+    {
+      "matchCount": 3,
+      "uri": "specs/001-support-ticket-management/quickstart.md"
+    }
+  ],
+  "totalFiles": 5,
+  "totalMatches": 9
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+I will write a comprehensive tasks.md.
+
+The task list will follow the eight implementation slices exactly, with one phase per slice. Each phase includes a task ID, story number, and description with the target file path. Phases 1 through 6 map to Slices 1 through 6, covering setup, ticket creation and viewing, seeding, status transitions, correct ticket details, and comments.
+
+Phases 7 and 8 correspond to Slices 7 and 8, covering ticket search and persistence. Every phase is one commit. Tests precede implementation within each phase. The setup phase implements ApiExceptionHandler to map HttpMessageNotReadableException to a 400 ProblemDetail. Its tests for unknown properties, explicit nulls, and bad enums require controllers and DTOs that are not yet created.
+
+ApiExceptionHandler is a single task in Phase 1. Its tests for bad enums, unknown properties, and explicit nulls will live in later phases where the endpoints exist. A standalone unit test for the handler in Phase 1 is impossible because it requires a controller to trigger the exception.
+
+Phase 1 will implement ApiExceptionHandler without a standalone test. The test-strategy places coverage in TicketValidationTest, so the three cases—bad enum, unknown property, and explicit null—will be exercised later when the corresponding request bodies exist.
+
+The cross-phase test ordering creates a conflict. ApiExceptionHandler belongs to Phase 1, but its deserialization tests require DTOs and endpoints that do not exist until later phases. The strategy is to place the handler implementation in Phase 1, then place the three deserialization tests in their respective later phases, before those endpoints are implemented.
+
+A standalone `@WebMvcTest` in Phase 1 was considered too messy. The better approach is to place the three requested additions directly into the tasks list.
+
+The three additions are a CommentValidationTest, an ApiExceptionHandler implementation task, and a PATCH status → 400 test. These will be placed in their respective phases rather than forcing ApiExceptionHandler into Phase 1. Tests precede implementation within each phase.
+
+The three deserialization tests will be written in User Stories 1 and 4 before their controllers exist. They will fail until both the already-implemented ApiExceptionHandler and the controller or DTO configuration are present. The handler task in setup provides the mapping so those tests pass once the controllers are ready.
+
+User Story 1 tests will verify blank and whitespace required fields return 400 without calling the service. Unknown properties and bad enums on creation will return 400 with a ProblemDetail detail naming the offending field.
+
+User Story 4 tests will verify explicit nulls, PATCH status updates, and blank present titles all return 400 with a detail naming the property.
+
+User Story 5 tests will verify blank and whitespace comment text returns 400 without calling the service.
+
+The unknown-property test in User Story 1 depends on the ApiExceptionHandler from Phase 1, so the ordering is correct. Because `@WebMvcTest` may not load `application.yml`, the test task must explicitly enable `spring.jackson.deserialization.fail-on-unknown-properties=true` via `@SpringBootConfiguration` or `@AutoConfigure`.
+
+`@WebMvcTest` loads `application.yml` by default, so the test task will rely on the global `spring.jackson.deserialization.fail-on-unknown-properties=true` setting. It will also import `ApiExceptionHandler.class` explicitly, since `@WebMvcTest` does not scan `@ControllerAdvice` outside the controller's package.
+
+Reconsidering whether `ApiExceptionHandler` requires an explicit `@Import` in `@WebMvcTest`. Spring Boot's `@WebMvcTest` uses `@AutoConfigureWebMvc` and `WebMvcTypeExcludeFilter`, which may automatically pick up `@ControllerAdvice` beans from other packages. This would mean the handler could be discovered without manually importing it.
+
+Spring Boot documentation confirms that `@WebMvcTest` includes `@ControllerAdvice` beans from the application package. The ApiExceptionHandler will therefore be discovered automatically without an explicit `@Import`.
+
+`@WebMvcTest` will be used for both the ticket and comment validation tests. The `TicketService` mock will be injected with `@MockitoBean` and verified with `verifyNoInteractions` to ensure the service is not called on invalid input. All tasks will be numbered sequentially across phases.
+
+Phase 1 scaffolds the application. T001 adds a docker-compose.yml root file for pgvector/pg16 on port 5432, using a named volume and environment-based password. T002 creates backend/pom.xml with Java 21, Spring Boot 3.5, and dependencies for web, validation, JPA, Flyway, PostgreSQL, and testcontainers.
+
+T003 creates the Spring Boot main class with `@SpringBootApplication`. T004 writes `application.yml` with server port 8080, local Postgres credentials, Hibernate `validate` mode, and `fail-on-unknown-properties` enabled. Flyway migration locations are scoped to this slice only. CORS is handled in code rather than YAML.
+
+T005 creates the initial Flyway migration `V1__create_ticket_schema.sql` with the full ticket schema, leaving the table empty. T006 implements `ApiExceptionHandler` in `com.ticketmanagement.common` as a `@ControllerAdvice` that maps `MethodArgumentNotValidException` to a 400 `ProblemDetail` with an `errors` array listing rejected fields and messages.
+
+The ApiExceptionHandler task will specify exact detail strings for the three deserialization failures. Unknown properties, explicit nulls, and bad enums must each return a 400 ProblemDetail whose detail names the offending property and contains no stack trace.
+
+Exact ProblemDetail detail strings are now defined. Unknown properties return `Unknown property 'status'`. Explicit nulls return `Property 'title' must not be null`. Bad enums return `Invalid value for property 'priority'`. A generic `NotFoundException` may be introduced in the common package during setup so the handler maps it to 404. Status-specific exceptions for US2 are also considered.
+
+The ApiExceptionHandler will map `HttpMessageNotReadableException` to a 400 `ProblemDetail` with the detail naming the offending property. It will also map a `NotFoundException` in the common package to a 404 `ProblemDetail` whose detail includes the message. A status conflict exception will be added in slice 4 to extend the handler in a later commit. The task focuses on the `HttpMessageNotReadableException` mapping as requested.
+
+The ApiExceptionHandler task will be a single setup task covering all mappings. It enables problem details, maps validation errors to 400 with field and message arrays, and maps HttpMessageNotReadableException to a 400 detail naming the offending property. It will also map a future StatusConflictException to 409 in User Story 2. The handler must never expose stack traces, exception class names, or secrets.
+
+The ApiExceptionHandler task will be a single setup task. It will create `StatusChangeNotAllowedException` and `TicketNotFoundException` in the common package so the handler can map both 404 and 409 responses in one commit. The 409 mapping will not be a separate task.
+
+T007 creates `WebConfig.java` in the common package to allow CORS only from `http://localhost:5173`.
+
+T008 scaffolds the frontend Vite skeleton with `package.json`, `vite.config.ts`, `main.tsx`, and `App.tsx`. React-router routes are stubbed but pages remain empty until later slices. The dev server runs on port 5173. No extra HTTP library is included. TypeScript is used.
+
+T009 verifies the backend boots on port 8080 against the Docker Compose database. Flyway applies the V1 migration and leaves the table empty. The task will confirm the application starts successfully.
+
+A `@SpringBootTest` `contextLoads` test will be written first to verify the application context loads before any implementation code is added.
+
+No test task is required for Phase 1 setup. The context-load test is not in the plan, and the project skeleton must exist before any test can run.
+
+Phase 2 begins with `TicketValidationTest` for the ticket creation endpoint. It will be written before the `TicketController` implementation. Deserialization failure cases are deferred to Phase 2 and Phase 5.
+
+The `TicketValidationTest` will assert that blank or whitespace-only titles, descriptions, assignees, and categories return 400 with one `errors` entry per invalid field. The `TicketService` mock must receive no calls. Fields exceeding length limits—title over 200, assignee over 200, category over 100, description over 5000, and resolutionNotes over 5000—must return 400 naming that specific field. Missing `priority` and invalid enum values for `priority` must return 400 with a detail string naming the property. Unknown properties such as `status` or `ticketId` must also return 400 with a detail string naming the offending property.
+
+The ticket schema constraints are now defined: title, assignee, and category are varchar(200), description and resolutionNotes are varchar(5000), and priority accepts LOW, MEDIUM, or HIGH. The validation test will be written first and fail before the controller implementation. To keep the test manageable, the field validation cases will be split into a dedicated task covering blank, whitespace, and maximum-length failures.
+
+Deserialization test cases for the create endpoint are combined into a single task because they share one file. The US1 implementation will be split into roughly one task per file, beginning with the TicketPriority enum.
+
+T012 defines the TicketStatus enum with OPEN, IN_PROGRESS, RESOLVED, CLOSED, and CANCELLED. The initial status is OPEN. T013 creates the Ticket entity. T014 creates the TicketRepository. T015 creates the CreateTicketRequest and TicketDetail DTOs. T016 implements the TicketService create and get methods. T017 implements the TicketController POST and GET endpoints. T018 adds the frontend API client for create and get. T019 builds the TicketCreatePage. T020 builds the TicketDetailPage as a read-only view. T021 registers the routes in App.tsx. The status transition map is deferred to slice 4.
+
+Repository tasks will follow entity tasks rather than running in parallel. DTOs and enums can be parallel. Service depends on repository and DTOs. Controller depends on service. The ticket number sequence starts at 1001. The service or database trigger will generate the nextval. The ticketId will be "TKT-" plus the ticket number.
+
+The ticket identifier will be generated by a PostgreSQL `generated always as` column. It concatenates the ticket prefix with the sequence value and stores the result. This avoids manual assignment in the application and keeps restarts safe.
+
+The task will explicitly forbid deriving the ticket number from max+1 and instead require the PostgreSQL sequence starting at 1001. Request DTO validation annotations are now defined: @NotBlank and @Size(max=200) for title, assignee, and category; @NotBlank and @Size(max=5000) for description; @NotNull for priority; and @Size(max=5000) for optional resolutionNotes. Trimming will be handled via a custom setter or Jackson deserializer before validation.
+
+The DTO setter will trim strings before Bean Validation runs. Whitespace-only input becomes blank and fails `@NotBlank`. Error messages will name each invalid field, following the OpenAPI example format.
+
+The exact error messages for blank fields are now defined: Title is required, Description is required, Assignee is required, Category is required, and Priority is required. Size violations will use separate messages such as Title must be at most 200 characters. The allowedNextStatuses field is omitted from the US1 TicketDetail response until User Story 2.
+
+The GET 404 test for a missing ticket will be added to the web slice alongside the other validation cases.
+
+The GET 404 test will be added to the US1 validation task. It asserts that a missing ticket returns a 404 ProblemDetail with no stack trace.
+
+The POST endpoint will return a 201 Created with a Location header pointing to `/api/tickets/{ticketId}`.
+
+The frontend create page will require title, description, assignee, category, and priority. Resolution notes remain optional. On success it navigates to `/tickets/:ticketId`. On 400 it displays each `errors[].message` next to its `errors[].field`. The priority dropdown maps Low, Medium, and High to LOW, MEDIUM, and HIGH.
+
+Phase 3 will add the seed location to the main application.yml. Tests must override this to use only the migration folder. The test override will be placed in backend/src/test/resources/application.yml so earlier US1 tests do not load the seed script.
+
+The test override in `backend/src/test/resources/application.yml` must be created in slice 3 before slice 4, since `TicketStatusTransitionTest` depends on the seed data. It will restrict Flyway to `classpath:db/migration` only so earlier tests skip the seed script. T023 will add `backend/src/main/resources/db/seed/V2__seed_tickets.sql` containing fifteen seeded tickets with complete details so the SQL can be written without guessing assignee, category, comment text, or timestamps.
+
+The seed script will insert the exact fifteen rows from the data model table. Assignee names, exact comment text, and precise timestamps will be taken directly from that table where available. For unspecified fields, the task will quote the table and use only the provided values.
+
+The seed script will populate resolution notes and comments for tickets TKT-1003 through TKT-1013 using the exact values from the data model table.
+
+Tickets TKT-1014 and TKT-1015 are added to the seed script. Assignee names are left blank because the data model does not specify them. Category values will be taken directly from the Theme column. Created timestamps will increase by one minute per ticket ID.
+
+Every seeded ticket will use `Alex Kim` as the assignee. Comment text will avoid substrings like `pay`, `checkout`, `payment failure`, and `reissued` so search checks remain valid against titles and descriptions alone.
+
+The seed script will insert tickets before comments so comment foreign keys resolve correctly. The sequence will be seeded to 1015 so the nextval returns 1016. Timestamps will be `2026-01-01 00:00:00Z` plus one minute per ticket ID. The task will quote the data-model table verbatim for titles, descriptions, priorities, statuses, and resolution notes.
+
+Unspecified comment bodies will be filled with the literal string `Noted.` so no domain facts are invented. The task will explicitly list every chosen seed value to avoid ambiguity during implementation.
+
+The seed script will use specific comment text for tickets TKT-1002, TKT-1006, TKT-1007, TKT-1011, TKT-1012, and TKT-1015 drawn directly from the data model. Tickets TKT-1001 and TKT-1003 will receive the literal comment `Recorded on the ticket.` so no forbidden substrings appear.
+
+Phase 4 begins with User Story 2. T024 adds `TicketStatusTest.java` to assert the exact status transition map. OPEN transitions to IN_PROGRESS and CANCELLED. IN_PROGRESS transitions to RESOLVED and CANCELLED. RESOLVED transitions to CLOSED. CLOSED and CANCELLED have no outgoing transitions.
+
+T025 `TicketStatusTransitionTest` will use `@SpringBootTest` with `@AutoConfigureMockMvc` and Testcontainers `pgvector/pgvector:pg16` via `@ServiceConnection`. Flyway will run only `classpath:db/migration`. It will be a `@ParameterizedTest` covering all 25 status pairs. T024 and T025 are independent and both `[P]`.
+
+T025 will insert each source ticket directly through TicketRepository rather than via POST, ensuring a broken create path cannot mask the allowed transitions. It will then PATCH the ticket’s status to the target and read the row back. The five allowed transitions are OPEN to IN_PROGRESS and CANCELLED, IN_PROGRESS to RESOLVED and CANCELLED, and RESOLVED to CLOSED.
+
+The remaining 20 invalid transitions will return 409 Conflict. The stored status stays unchanged and the response includes a ProblemDetail detail that names the forbidden source-to-target pair. An unknown ticket ID will return 404 without creating a row.
+
+Implementation tasks are T026, T027, and T028. T026 adds the allowedNextStatuses method to TicketStatus. T027 implements TicketService.changeStatus to apply allowed transitions and reject disallowed ones. T028 adds a StatusChangeRequest DTO that rejects extra properties and requires a status field.
+
+T029 adds the PATCH controller endpoint for `/api/tickets/{ticketId}/status`. T030 copies the `allowedNextStatuses` map from `TicketStatus` into `TicketDetail` instead of adding a separate list. T031 adds `ApiExceptionHandler` mapping to a 409 `ProblemDetail` with the exact detail sentence. The 400 mapping for bad enums remains from phase 1.
+
+T032 adds the frontend status selector to TicketDetailPage. It lists only allowedNextStatuses and omits options for CLOSED and CANCELLED. On 409 it shows the error detail and keeps the original status. The UI does not hardcode the transition map.
+
+T033 extends TicketValidationTest. PATCH with status CLOSED returns 400 without calling TicketService. PATCH with explicit null also returns 400.
+
+PATCH with null title, category, or other present fields returns 400 and names the offending property. Blank or whitespace values for title, description, priority, or assignee also return 400. Length violations for title, description, assignee, and resolutionNotes return 400 naming the field. The service is never invoked. These rules are quoted from the data-model validation summary.
+
+The PATCH status 400 test will be a standalone task so it cannot be dropped. It runs before the other validation tests and before implementation. Keeping it in the same file as the other update tests avoids parallel-agent conflicts.
+
+T033 and T034 will be sequential tasks in `TicketValidationTest.java` with no `[P]` parallelism. T033 adds a `@WebMvcTest` case for PATCH with `{"status":"CLOSED"}` returning 400 and verifying the `TicketService` mock is never called. T034 extends the same file with explicit null tests. T035 introduces `UpdateTicketRequest` with `@JsonSetter(nulls = Nulls.FAIL)` on every property, omitting `status`, `category`, and `ticketId`.
+
+A custom validation rule is needed for update fields. `@NotBlank` rejects null, so omitted properties must remain null. Blank strings must still return 400. Null `resolutionNotes` means omitted; an empty string clears the field.
+
+T036 `TicketService.update` applies only non-null properties. It leaves `ticketId`, `category`, `status`, and `createdAt` untouched. Empty `resolutionNotes` clears the field. Unknown tickets return 404.
+
+T037 `TicketController.PATCH` returns 200 `TicketDetail`.
+
+T038 the frontend edit form on `TicketDetailPage` sends only `title`, `description`, `priority`, `assignee`, and `resolutionNotes`. It omits `status` and `category`. On 400 it shows field errors and preserves unsaved values.
+
+Phase 6 User Story 5 tests begin next.
+
+T039 is a parallel task for a `@WebMvcTest(CommentController.class)` `CommentValidationTest` that returns 400 for blank comment input. The plan’s test directory tree only contains `ticket/` packages, so the test location is ambiguous.
+
+The test will live at `backend/src/test/java/com/ticketmanagement/comment/CommentValidationTest.java` to match the `CommentController` package. It will verify that POST `/api/tickets/{id}/comments` with blank or whitespace `text` returns 400 and names the `text` field. The exact error message must be `Comment needs text` to match the quickstart.
+
+T039 now also covers comment text longer than 5000 characters, returning 400 and skipping the CommentService mock. The exact error message must be `Comment needs text`.
+
+T040 creates the Comment entity, repository, `CreateCommentRequest`, and `CommentResponse` DTOs. T041 implements `CommentService` as append-only: it accepts any status including CLOSED and CANCELLED, ignores ticket status and `createdAt`, and returns 404 for unknown tickets. Comments order oldest first, then by comment ID ascending. T042 adds the `POST` endpoint returning 201 with a `Location` header. T043 includes comments in `TicketDetail`, ordered oldest first.
+
+T044 adds a frontend comment box that stays available on CLOSED and CANCELLED tickets. Blank submissions are blocked with a field message and never posted. After a successful 201 the new comment appears after older ones.
+
+Entity, repository, and DTO creation may be parallel tasks.
+
+No automated TicketListTest will be added. The test strategy treats list search as manual verification, so the user's requirement to list tests before their implementation does not apply here.
+
+T045 adds a `GET /api/tickets?page=0` without `size` to `TicketValidationTest`. It returns 400. This validation test covers the list endpoint.
+
+GET with size 0 or 101 returns 400. A bad status query enum returns 400 and names the property. The service is never invoked for invalid requests.
+
+Search SQL requires integration testing. A SpringBootTest could prevent the pay/password bug. The user did not forbid it.
+
+The skill demands independent testability for each story. Search is the only remaining uncovered piece. The pay bug and the skill's completeness rule override the test-strategy's manual-checks rule. A backend integration test for search will be added.
+
+TicketListTest will be skipped. The page and size validation tests will be placed at the start of phase 7 inside TicketValidationTest. Phase 8 begins with User Story 6.
+
+User Story 6 tasks are now defined. T0xx audits the create and edit pages so every API `errors[].field` message appears beside its input, the blank-comment prompt reads "the comment needs text," and 409 responses display the `detail` field. T0xx also executes the quickstart Restart section, stopping and restarting the backend without removing the Docker volume, then verifies that TKT-1001 and all edits and comments survive, and the next ticket ID continues.
+
+US6 will only add missing field-error copy rather than rewrite existing implementations. The restart task combines the quickstart restart with auditing every form for missing field-error labels. The dependencies section is being rewritten to match the slice order. Parallel examples will be grouped by story. User Story 1 spans slices 1 and 2.
+
+The plan will use a strict incremental format. Every task row gets a checkbox, an ID, an optional parallel marker, and a story label. Story labels are assigned by phase: [US1] for setup, [US2] for seed, [US4] for list, [US5] for comments, [US3] for update, and [US6] for audit. Each phase ends with a checkpoint committing that phase as one conventional commit.
+
+Phase 4's first `@SpringBootTest` will need a test `application.yml`. `@WebMvcTest` in phase 2 should avoid loading the database. Tests are listed before implementation even though some may not compile until the target class exists.
+
+The implementer will write the test before the implementation so the assertion fails on the 400 response. The test must compile against existing types such as `TicketController` and `TicketService` even though the full validation annotations and handler paths are not yet present.
+
+The API exception handler belongs to User Story 1, while the update DTO mapping belongs to User Story 4. The handler will unwrap `HttpMessageNotReadableException` to extract the specific cause, such as `JsonMappingException`, and map each Jackson failure type to the correct property name. Explicit nulls yield the property name directly, unknown properties yield the unrecognized name, and bad enums yield the leaf field name.
+
+The exception handler must walk the cause chain to extract the specific Jackson failure. ProblemDetail must contain title, status, detail, instance, and a Spring about:blank type. Validation errors appear under the errors array, one entry per invalid field. Field names should match Jackson property names, not Java field names. Omitting resolution notes during creation succeeds, so the happy path is excluded from TicketValidationTest. An integration test for TKT-1001 will be added instead.
+
+The first ticket ID must be TKT-1001. This assumes the database sequence starts at 1001 and a test or manual create consumes it. TicketStatusTransitionTest may bypass the sequence by inserting a ticket with a preset ID and status. The empty-database TKT-1001 assumption therefore depends on whether any test calls nextval.
+
+No automated `TicketCreateTest` will be added. The first ticket ID being `TKT-1001` is treated as a test-configuration fact, not a test case. The User Story 1 phase checkpoint will require either a manual POST against the running app or a SpringBootTest to verify the sequence.
+
+The skill allows skipping tests unless explicitly requested. The feature specification omits test tasks, but the plan and test strategy explicitly demand them. Only four test classes will be generated: TicketValidationTest, TicketStatusTest, TicketStatusTransitionTest, and CommentValidationTest.
+
+TicketValidationTest is split across two phases. Phase 2 covers POST validation, bad enums, and unknown properties. Phase 5 covers PATCH status, explicit nulls, unknown categories, and blank update fields. The explicit-null test cannot be written until the update DTO exists in User Story 4.
+
+The unknown-property test will be placed in TicketValidationTest. The user specifically requested PATCH status validation, so that test must remain separate from the create-phase handler coverage.
+
+The PATCH status test must remain in phase 5 because the update route does not exist in phase 2. If the route were missing, the test would fail with 405 instead of reaching the exception handler. The POST phase 2 test with an unknown property can still cover the handler.
+
+The blank-comment test is confirmed to live only in CommentValidationTest, not TicketValidationTest. The plan.md instruction to include it in TicketValidationTest is overridden by the user’s explicit requirement.
+
+A `page` parameter without `size` will be tested in phase 7 inside `TicketValidationTest` so the list endpoint rejects it before the list implementation exists. Size must be between 1 and 100, and page must be at least 0.
+
+Omitting both `page` and `size` is service behavior, not a validation test. Each slice will be a single commit containing only the frontend files it needs, starting with a minimal router and API module that grow incrementally. The router will begin with no routes and gain pages as stories are implemented. The api module will receive new functions per slice. UI labels will be drawn from the ui-flow document.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+I have enough context to draft a thorough tasks.md.
+
+Phase 1 will contain only the handler implementation. Tests for that handler will appear in later phases where the endpoints exist. A checkpoint line will enforce one conventional commit per phase with no intermediate commits.
+
+Phase 1 contains eight tasks. T001 through T004 create the Docker Compose setup, Maven POM, application entry point, and Spring configuration. T005 adds the initial SQL schema. T006 implements the ApiExceptionHandler. T007 enables CORS. T008 scaffolds the frontend. T003 and T004 both depend on T002.
+
+Most Phase 1 tasks can be marked [P] because they do not depend on schema or database state. The handler implementation also needs no schema dependency. Only tasks that share a dependency on incomplete work should remain sequential.
+
+Phase 2 begins with TicketValidationTest creation. Implementation tasks are TicketPriority, TicketStatus, TicketEntity, and TicketRepository. Repository cannot be marked [P] because it depends on the entity.
+
+Phase 2 DTOs are independent of the entity and can be marked [P]. T014 creates the CreateTicketRequest DTO. T015 creates the TicketDetail DTO with an empty comments list. The comment response type is deferred to slice 6.
+
+US1 will create `CommentResponse` in `comment/dto` so `TicketDetail` can include comments. Slice 6 will then add the write path.
+
+US1 will return empty comments instead of creating a comment repository. TicketService.get will hardcode an empty list, and slice 6 will load real comments. T016 creates TicketService. T017 creates TicketController. T018 adds a NotFound exception.
+
+T018 defines `TicketNotFoundException` in `common` and maps it to 404. Frontend tasks T018 through T021 are sequential: API client, create page, read-only detail page, then routes. Phase 3 seed data follows.
+
+Phase 3 seeds are T022, T023, and T024. T022 adds test application.yml with Flyway locations. T023 registers the seed SQL in main application.yml. T024 writes V2 seed SQL. T022 and T024 can run in parallel.
+
+Phase 4 covers US2. T025 and T026 are parallel status tests. T027 adds the status transition map to TicketStatus. T028 creates StatusChangeRequest. T029 implements changeStatus in TicketService.
+
+T030 adds the status-change endpoint to TicketController. T031 adds allowedNextStatuses to TicketDetail. T032 introduces a 409 exception and handler mapping. T033 adds the frontend status control and API function. T028 can run in parallel with T027. T032 can run in parallel with T029 and T030. T029 depends on the status map and the new exception.
+
+Phase 4 will run in strict sequence: tests first, then the status map, DTO, and exception handler in parallel, followed by the service, controller, and detail page, then the UI.
+
+Phase 5 covers US4. T034 adds the PATCH status test to TicketValidationTest. T035 adds explicit null, unknown category, blank fields, and max length cases to the same class. Implementation tasks T036 through T039 follow in order: UpdateTicketRequest, TicketService.update, TicketController.patch, and the frontend edit form.
+
+Phase 6 covers US5. T040 creates CommentValidationTest for blank comments returning 400. T041 scaffolds the Comment entity.
+
+Phase 6 tasks T042 through T045 are ordered: repository, request DTO, response DTO, service, and controller. T042 cannot be marked [P] because it depends on the entity. T043 can run in parallel with T041. T044 and T045 follow in sequence.
+
+Phase 6 continues with T046 loading comments in TicketService.get and T047 adding the frontend comment UI.
+
+Phase 7 begins with US3. T048 adds TicketValidationTest cases for missing page, invalid size, and invalid status queries. T049 implements the list method in TicketRepository and TicketService. T050 adds the GET controller endpoint. T051 creates the TicketPage DTO and TicketSummary. T052 builds the frontend list page with API calls, omitting page and size parameters and displaying "Nothing matched." DTO tasks can run in parallel before the service layer.
+
+Phase 8 covers US6. T053 adds field error copying on forms. T054 writes quickstart.md and restart instructions.
+
+A final task will audit the create and detail pages against the quickstart blank-field, blank-comment, and 409 rows, adding only missing copy. A test for invalid status enums on the status endpoint will be added to phase 4.
+
+Phase 4 will add a TicketValidationTest case that PATCHes the status endpoint with an invalid status name and expects a 400 response. The detail must name the offending property, and the service must not be invoked.
+
+The blank-title test will live in the phase 2 validation test file, so it cannot be marked [P] with other edits to that file. The invalid-status enum test will also stay in the phase 4 validation test file, keeping all four phases distinct. Exact error messages will be "Title is required", "Description is required", and "Assignee is required".
+
+Exact validation messages are now defined. Required fields return "X is required". Max-length fields return "X must be at most N characters". Comments return "Comment needs text" and "Comment must be at most 5000 characters". Deserialization errors will use exact detail strings so tests and the handler match.
+
+Exact ProblemDetail templates are now defined. Unknown properties yield `Unknown property '{name}'`. Null fields yield `Property '{name}' must not be null`. Bad enums yield `Invalid value for property '{name}'`. The 409 conflict detail uses `Changing status from {FROM} to {TO} is not allowed.` These deterministic patterns satisfy the exact-value assertion requirement.
+
+404 details will use the pattern `Ticket {ticketId} was not found.`
+
+ProblemDetail responses will include title, status, detail, and instance, with no stack trace. Validation errors will be appended to the detail.
+
+The create endpoint will return 201 with a TicketDetail payload. On an empty database the ticket ID will be TKT-1001 and the status will be OPEN.
+
+The SQL index must be included.
+
+The comments table will reference tickets via a foreign key named ticket_id. The ticket_id column will be omitted from the API.
+
+The comments table will use `ticket_id` as its foreign key to `tickets.id`. The tickets table will keep `ticket_id` as its public identifier. This avoids a column name clash between the two tables.
+
+The ticket number sequence will start at 1001 and be seeded to 1015 so the first generated ID is 1016. Seed inserts must explicitly set ticket_number and call setval afterward to advance the sequence. Tickets will be created one minute apart with IDs 1015, 1016, and 1017 so the list orders TKT-1015 first. Categories will be drawn from the Payment, Shipment, and Login themes.
+
+Assignee will be `Alex Kim` and is not a search field. Unspecified comment texts default to `Noted.`. TKT-1001 and TKT-1003 receive this default. TKT-1002 receives `The duplicate capture is being traced.`. TKT-1004 and TKT-1005 receive no comment.
+
+Comment texts for TKT-1006 through TKT-1015 are now defined. Titles, descriptions, priorities, statuses, and resolution notes will be copied verbatim from the table. The frontend will use React, React Router, Vite, and TypeScript with a fetch wrapper in tickets.ts and no axios. The backend will use Spring Boot 3.5.x.
+
+The pom.xml will import the Spring Boot 3.5 BOM without adding Spring AI. Testcontainers will use the pgvector/pgvector:pg16 image via @ServiceConnection. TicketStatusTransitionTest will insert entities directly through the repository, setting status explicitly since the public create endpoint does not allow it.
+
+PATCH status will return 404 for an unknown ticketId. The self-transition test will assert the service is never invoked using @MockitoBean.
+
+Controller beans will be injected via constructor. String trimming will be handled in the service or DTO. Omitted update fields will be treated as null, leaving existing values unchanged. Empty strings for title will trigger validation errors, while empty strings for resolution notes will clear the field. A custom `NullOrNotBlank` validator will be used for optional update strings.
+
+Priority updates will accept omitted or null values, but an explicit empty string triggers a 400 InvalidFormatException naming the property. The list endpoint will escape backslashes, percent signs, and underscores in the ILIKE query, trim whitespace, and skip filtering when the query is blank. Results will be ordered by createdAt descending, then ticketNumber descending, with edits preserving the original creation timestamp.
+
+Omitting page and size returns all matches as a single page. A size parameter defaults page to zero and limits size to one through one hundred. A page without size returns 400. The list endpoint omits blank query and status filters. The UI renders results in order and displays "Nothing matched" when empty. No pagination controls appear.
+
+Phase 8 will only handle the restart instructions and the missing field-error copy audit. The seeded list ordering and other quickstart checks remain in Phase 7. Each phase header will include its independent test criteria from the specification. Phase 3’s independent test will verify that the seeded list shows fifteen tickets with TKT-1015 first, and the next create produces TKT-1016.
+
+The list endpoint is introduced in Phase 7, so the seed phase cannot be fully validated through the API. The Phase 3 checkpoint will verify that Flyway V2 applied the seed script, fifteen tickets exist, and the ticket number sequence next value is 1016.
+
+The Phase 3 checkpoint will use psql or a one-off script rather than a JUnit test. The seed script can insert comment rows before the Comment entity exists because Hibernate validation does not require an entity for every table. Phase 1 V1 already creates the comments table before the Comment entity is introduced.
+
+Flyway versions are V1 for the schema, V2 for the seed, and later migrations begin at V3. No V3 migration is needed for this feature. The test `application.yml` override must be placed in `src/test/resources` so `@SpringBootTest` picks it up automatically. Phase 3 creates this file, and Phase 4 tests rely on it to enable migrations without loading the full seed.
+
+The test configuration will set Flyway migration locations to `classpath:db/migration` and Hibernate DDL to `validate`, overriding the Testcontainers datasource. CORS will allow only `http://localhost:5173` with GET, POST, PATCH, and OPTIONS, avoiding wildcard origins. The Vite skeleton task will include `frontend/index.html` and `tsconfig.json`.
+
+No README task will be added because the user did not request one. Graphify update and extensions.yml post-hooks are skipped since graph.json does not exist and only a specification file is being written. Descriptions will be long enough to be executable but not overly verbose.
+
+Task descriptions will quote inline constraints so an LLM can complete them without re-reading the data model. Checkbox format must be exact. User story phases get a [US6] label; seed and setup phases do not. Tasks will be numbered as the file is written.
+
+The eight implementation slices are committed one at a time. Phase 2 is the first slice, not a separate foundational phase. It covers the blocking error handler, schema, and boot. Slice 2 depends on slice 1. Slice 3 depends on slice 2 because Hibernate validation requires the ticket entity to match the seeded data.
+
+Slice 4 depends on slice 2. Slice 5 depends on slices 2 and 4. Slice 6 depends on slice 2. Slice 7 depends on slices 2 and 3. Slice 8 depends on all prior slices. Phases must be executed sequentially in commit order. Parallel execution across phases is not allowed because later slices assume earlier ones.
+
+Tasks marked [P] within a phase may run concurrently. The MVP spans Phases 1 and 2; US1 is validated before proceeding. The remaining slices are seed, status, edit, comments, list, and restart. Phase 2 will also include create-form field errors. The handler task will walk Jackson exception chains to map unknown properties to ProblemDetail details.
+
+The API exception handler will map `InvalidNullException` to a ProblemDetail with detail `Property '{propertyName}' must not be null`. It will map `InvalidFormatException` to `Invalid value for property '{leaf}'`. If the offending property cannot be determined, the detail will be `Request body could not be read` without a stack trace. For `MethodArgumentNotValidException`, the detail will use the custom field message from the `@NullOrNotBlank` annotation instead of the default "must not be blank".
+
+The exception handler will use `@Order(Ordered.HIGHEST_PRECEDENCE)` so it overrides Spring Boot’s default `ProblemDetails` conversion. This ensures Jackson errors return a short, property-named detail instead of a generic 400 response. The content type will be `application/problem+json`.
+
+The create DTO will omit status and ticketId so they are treated as unknown properties. Each UpdateTicketRequest property will use `@JsonSetter(nulls = Nulls.FAIL)` to reject explicit nulls. The create DTO will not use this annotation because explicit nulls on optional fields would trigger `InvalidNullException` instead of the required-field validation error.
+
+The create DTO will not use `Nulls.FAIL` on optional fields. An explicit null on create title triggers `@NotBlank` validation instead of a deserialization error. The update DTO uses `Nulls.FAIL` so explicit nulls are rejected as `InvalidNullException` while omitted fields pass validation. This distinction will be spelled out in the tasks.
+
+DTO setters or a Jackson deserializer must trim whitespace before validation. Otherwise "   " passes @NotBlank while "  ab  " becomes "ab". Category is excluded from UpdateTicketRequest. The frontend fetch client will call http://localhost:8080 directly with CORS enabled.
+
+The frontend fetch client will target `http://localhost:8080` without sending credentials. Relative Location headers such as `/api/tickets/TKT-1001` are permitted for test stability. The `application.yml` test override will be created in Phase 3, just before the seed location is added.
+
+The seed SQL file will be `backend/src/main/resources/db/seed/V2__seed_tickets.sql`. The task will provide the full ticket row data so the LLM does not invent descriptions. Exact descriptions must be copied verbatim, for example "The reset mail arrived but sign-in still fails" and "Cannot sign in after a password reset."
+
+The seed task will embed all 15 ticket rows verbatim. Alex Kim is assigned as the assignee. Categories follow the theme. Timestamps start at 2026-01-15 12:00:00 UTC and increment by one minute per ticket, ending at TKT-1015. Comment created_at values will match their parent ticket timestamps so comment ordering is stable.
+
+The edit test for TKT-1004 will add a comment after older ones, while the seed script only supplies the older comments. Each ticket gets exactly one comment. The organization blurb will be updated to state that phases match the eight implementation slices. Every task line will be formatted with the exact checkbox, phase, and path pattern.
+
+Setup and seed tasks will not carry a [Story] label. The final polish phase is strictly slice 8 US6, covering only restart and missing field-error copy; no generic documentation, performance, or extra-unit-test tasks will be added. An instruction will be placed in the phase purpose to forbid introducing a new persistence mechanism, since PostgreSQL and the compose volume remain from slice 1.
+
+Each commit will use a conventional message matching its slice: `chore: scaffold api, ui, and local database`, `feat: create and view a support ticket`, `chore: seed fifteen support tickets`, `feat: enforce allowed ticket status changes`, `feat: update editable ticket fields`, `feat: append comments on a ticket`, `feat: list, search, and filter tickets`, and `fix: show remaining field errors and confirm restart`.
+
+Commit message for the final phase is now `test: confirm tickets survive restart and field errors are named`. Task numbering is being verified against the eight-slice plan, starting with Phase 1 tasks T001 through T008.
+
+All Phase 1 tasks will be marked [P] so they can run in parallel. Phase 2 tasks are now numbered: T009 is TicketValidationTest, T010 is TicketPriority.java, T011 is TicketStatus.java, and T012 is CreateTicketRequest.java.
+
+Phase 2 tasks continue with T013 for TicketDetail and CommentResponse, T014 for Ticket, T015 for TicketRepository, and T016 for TicketNotFoundException. The exception class will be placed in T006’s phase alongside the API exception handler task, since that task needs to map 404 responses. One task may reference multiple files when they form a single unit of work.
+
+Phase 2 tasks T016 through T021 are now fully numbered. T016 covers TicketService.java, T017 covers TicketController.java, T018 covers the frontend API module, T019 covers the create page, T020 covers the detail page, and T021 covers App.tsx routing.
+
+Phase 3 tasks T022 through T024 are set. T022 is the test application.yml override, T023 is the seed location in application.yml, and T024 is the V2 SQL seed script.
+
+Phase 4 tasks T025 and T026 are assigned. T025 is TicketStatusTest and T026 is TicketStatusTransitionTest.
+
+Phase 4 tasks T027 through T034 are now numbered. T027 is the bad enum status test, T028 maps on TicketStatus, T029 is StatusChangeRequest, T030 is StatusChangeNotAllowedException with its handler, T031 is TicketService.changeStatus, T032 is the controller endpoint, T033 is allowedNextStatuses on TicketDetail, and T034 is the frontend. These can run in parallel because they touch different files. Phase 5 begins with T035, a dedicated PATCH status test.
+
+Phase 5 tasks T036 through T040 are now numbered. T036 is the remaining update-validation tests in the same file as T035. T037 is UpdateTicketRequest. T038 is the service update method. T039 is the controller patch endpoint. T040 is the frontend edit page.
+
+Phase 6 tasks T041 through T048 are assigned. T041 is CommentValidationTest. T042 is Comment.java. T043 is CreateCommentRequest. T044 is CommentRepository. T045 is CommentService. T046 is CommentController. T047 loads comments in TicketService.get. T048 is the frontend comments UI.
+
+Phase 7 task T049 is list query validation tests in TicketValidationTest.
+
+Phase 7 tasks T050 through T053 are assigned. T050 creates TicketSummary and TicketPage DTOs. T051 adds the repository query and TicketService.list method. T052 is the GET controller endpoint. T053 is the frontend list page.
+
+Phase 8 tasks T054 and T055 are assigned. T054 updates field error copy. T055 checks restart behavior against quickstart.md.
+
+The plan totals roughly fifty-five tasks. The bad-status enum test is written before the controller method exists, so it may 404 initially. TicketValidationTest targets only TicketController via @WebMvcTest, keeping comment tests separate.
+
+Phase 4 WebMvcTest will use a MockitoBean for TicketService. Bad enum status tests verify no service interaction on 400 responses. 409 conflict tests belong in integration tests rather than the web slice. The CommentValidationTest path is `backend/src/test/java/com/ticketmanagement/comment/CommentValidationTest.java` with `@WebMvcTest(CommentController.class)`.
+
+The comment validation test will reside in the comment package to match its controller. The expected 400 response shape will be a JSON array containing objects with `field` and `message` keys. Blank-comment handling will be enforced client-side and server-side, with slice 8 filling any remaining gaps.
+
+Slice 2 will show each validation error message next to its corresponding field on the create page. Problem details will use Spring's default instance path. The template keeps its dependencies and implementation strategy sections, but each phase places a Tests header before implementation. Phases 1 and 3 omit empty test sections.
+
+Phase 1's API exception handler will be exercised by later TicketValidationTest cases, so the phase purpose will note this coverage to avoid leaving the handler untested. Phase 8's restart check is a manual verification step rather than a pre-existing failing test, since the field-error copy fix is the implementation itself.
+
+Phase 8 will split the restart check into three steps. A verification task will state the expected field-error copy from the quickstart. An implementation task will fix the forms to match. A final task will run the restart check.
+
+T055 will update the pages so blank titles name the field, blank comments show "Comment needs text", and 409 conflicts include a detail. The test task does not create a new test class because UI verification is manual. Phase 7 will include a manual search-checkpoint task that references the quickstart search table.
+
+Phase goals will use high-quality prose with dense task lines. Entity and DTO tasks will quote max-length constraints verbatim from the data model. Phase 2 repository tasks will cover only save and findByTicketId. Phase 7 will add the list query. The repository query method will be named findByTicketId. Ticket IDs will use a sequence default and be prefixed with "TKT-" in the application layer.
+
+A PostgreSQL generated column will compute `ticket_id` as `'TKT-' || ticket_number`, keeping the application from assigning incorrect IDs. JPA will mark it `insertable=false` and `updatable=false` with `@Generated` so Hibernate 6 handles it correctly. The sequence starts at 1001. Both the SQL seed script and the entity task will specify this column.
+
+Tests can set status directly on the entity because the database generates the ticket ID. The repository will assign sequential IDs such as TKT-1001 and TKT-1002 automatically.
+
+The seed script must use `OVERRIDING SYSTEM VALUE` to insert explicit ticket numbers and IDs into the generated column. A simpler alternative is to make both columns normal and let the application set them directly, though the current design keeps the generated column.
+
+Tests that require a specific status must either save the entity through the service or use a repository method that accepts an explicit ticket number. The repository must therefore allow setting status, title, and other required fields directly, while the ticket ID remains either generated or explicitly provided.
+
+A BEFORE INSERT trigger will generate the public ticket_id. The application and seed scripts will set only the numeric ticket_number. The trigger computes ticket_id as 'TKT-' || ticket_number. This prevents any code path from assigning an incorrect ID.
+
+The seed script must call `setval` after inserting explicit ticket numbers, because the trigger skips `nextval` when the application provides a value. JPA will leave `ticket_number` null on application inserts so the trigger generates the ID. The trigger will overwrite `ticket_id` from the generated `ticket_number`.
+
+The V1 SQL task will define the BEFORE INSERT trigger that generates public ticket IDs. The application service must not compute IDs by adding one to the maximum existing value. The ticket status column will default to OPEN, and the transition test will set a non-open status, so the column must remain writable.
+
+The service task will remind implementers not to allocate IDs by adding one to the maximum ticket number. The trigger will call nextval instead. The created_at column will default to now() and be read-only via @Column(updatable = false). The PATCH test should target the contract path {ticketId}, not {id}.
+
+The PATCH test will use the exact contract path `/api/tickets/{ticketId}` with a request body containing `{"status":"CLOSED"}`. Even a valid enum value like `OPEN` must return 400 because the update DTO does not declare a `status` field. The ProblemDetail must name `status` as the offending property and must not be treated as a status-change attempt.
+
+The PATCH test will assert that the TicketService is never invoked and that the 400 response is an unknown-property error, not a 409 conflict. The completion report will include the tasks.md path, total task count, per-story counts, parallel opportunities, independent test criteria, suggested MVP scope, and format validation. Post-execution hooks will skip silently if extensions.yml is missing. The location of tasks.md is being verified against FEATURE_DIR.
+
+The tasks.md file will be written at `/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md`. T006 will place the ApiExceptionHandler under `backend/src/main/java/com/ticketmanagement/common/ApiExceptionHandler.java` and the TicketNotFoundException under `backend/src/main/java/com/ticketmanagement/common/TicketNotFoundException.java`. Phase 4 will introduce a status-conflict exception.
+
+The status-conflict exception will be placed in `com.ticketmanagement.common` rather than the ticket package. This avoids an inverted dependency where the common exception handler would need to import the ticket domain package.
+
+The status-conflict exception will reside in the ticket package so the common handler can import it. `TicketNotFoundException` will also live in the ticket package because the comment service throws the same exception when a parent ticket is missing, and the handler must catch it.
+
+Phase 1 will create the not-found exception and the API exception handler together, since the handler depends on the exception. Phase 4 will add the status-conflict exception and a new `@ExceptionHandler` method to the existing handler. The comment controller will reuse the same `TicketNotFoundException` for 404 responses.
+
+Field error messages will be repeated verbatim in both test and implementation tasks so each task stands alone without shared constants. Validation constraints from the spec are confirmed: titles and assignees up to 200 characters, categories up to 100, descriptions and resolution notes up to 5,000, priority as LOW, MEDIUM, or HIGH, and title, description, priority, assignee, and category as required.
+
+Spaces-only input counts as blank. The data model defines title, description, priority, assignee, category, resolution notes, status, and comment fields with specific lengths and nullability. Resolution notes may be omitted or empty on create. OpenAPI minLength and maxLength constraints match these definitions.
+
+Empty resolutionNotes values will be stored as null and returned as null in the API detail JSON. The frontend will use React Router v6 or v7 with a simple App router. The Vite configuration will set the development port to 5173.
+
+Empty `backend/src/test/java` directories will be skipped unless tests are actually written. Checkstyle is not required. The seed SQL will be compact and copyable. Both tickets and comments will use `bigint generated always as identity` for their primary keys. The tickets table will get a unique index on `ticket_number` and `ticket_id`, plus a composite index on `created_at DESC, ticket_number DESC`.
+
+CHECK constraints will be added to the SQL schema for the status and priority columns. These constraints will enforce the allowed enum values at the database level.
+
+The ticket_id column will remain varchar(16) to accommodate TKT- prefixes and up to twelve digits, avoiding unnecessary widening. The schema task will quote the exact CHECK constraint for priority. The completion report will tally user-story task counts after writing.
+
+Phase 7 will include a test for the list endpoint without a size parameter. The exact search-match examples from the data model will be pasted into the service task to prevent recurrence of the pay/password mistake. The examples are: pay matches TKT-1001 and TKT-1005; checkout matches TKT-1001; payment failure matches TKT-1001; failure payment matches none; page matches TKT-1011, TKT-1014, and TKT-1015; password matches TKT-1011, TKT-1014, and TKT-1015; reissued matches none.
+
+The word "it" appears only in the resolution notes of TKT-1004. The test strategy explicitly forbids automating the quickstart list-order checks, so those remain manual verification steps.
+
+Phase 7 will not add a TicketListTest. The test inventory is fixed by test-strategy.md, which already names CommentValidationTest and the API exception handler. Phase 7 automated tests are limited to the 400 query cases in TicketValidationTest. The search rules will be quoted verbatim in the service implementation task. The quickstart seeded-list table check will remain a manual post-UI verification step, not a task.
+
+Phase 4 will list its unit, integration, and bad-enum web tests first, followed by the exception-mapping implementation and the PATCH endpoint. The integration test is written before the handler so it fails initially, satisfying Constitution III.
+
+Phase 4 will wait for T025 and T026 to pass before treating the status endpoint as done. The status test will use plain JUnit 5 assertions without Spring bootstrapping. The `TicketStatus` enum will expose an instance method `allowedNext()` returning a `Set` of valid next states. The UI detail view will call `ticket.getStatus().allowedNext()` to populate its dropdown.
+
+The `TicketStatus` enum will expose an instance method `allowedNext()` returning a `Set` of valid next states. The unit test will assert exact set equality, such as `OPEN` yielding exactly `EnumSet.of(IN_PROGRESS, CANCELLED)`, and will reject same-state transitions. Both the unit test and the HTTP test will exercise this method, with the former asserting set contents and the latter asserting status codes.
+
+Phase 4 will add two more bad-input cases to the status endpoint test. An unknown status string such as `DONE` will return 400 with detail `Invalid value for property 'status'`. A request body containing an extra property such as `title` will also return 400 because `additionalProperties` is false. The status field will be annotated with `@NotNull` and the message `Status is required`.
+
+The template description will be replaced with the feature-specific task list. Sample tasks will be removed entirely. The T014 Ticket entity and trigger interaction will be checked against T005 for consistency. Task counts will be verified with grep after writing.
+
+The comments table will use a composite index on `(ticket_id, created_at, id)` to support ordered retrieval. The frontend create form will use priority `<select>` options labeled Low, Medium, and High, mapping to the LOW, MEDIUM, and HIGH enum values.
+
+Slice 2 will render the ticket detail page with status shown as plain text, an empty comments region, and resolution notes. The status control, edit form, and comment form are deferred to slices 4, 5, and 6 respectively. This keeps each commit atomic. Slice 2 already reserves the comments list area, so adding comments in slice 6 will simply populate that existing slot.
+
+Slice 2 will render comments oldest-first to match the API array order. A routing link from the create-success page to the detail page will be added in slice 7, since the list page does not exist yet. Phase 2 tasks T010 through T013 can be marked [P] after their test tasks, because they are implementation rather than compilation dependencies.
+
+Implementation tasks cannot be marked [P] while their corresponding test tasks are still pending, even though tests are listed before implementation. The [P] marker requires no dependencies on incomplete tasks, so implementation must wait for the test to be written first.
+
+Tasks will be marked [P] only when they do not share files or ordering dependencies. The template separates tests and models into distinct parallel groups. Model tasks are not parallel with their prerequisite tests; they are listed after them instead. T014 depends on T010 and T011, so it cannot be [P] with those tests. T015 depends on T014. T018 can be [P] with the backend service because it depends on the API contract, not the Java source files.
+
+The API client will be marked [P] with the DTO tasks, but kept sequential with the controller so it matches the real endpoints. The UI pages will be marked [P] with each other. The TicketValidationTest in phase 2 references TicketController and TicketService, and it is intended to fail until the controller rejects invalid request bodies.
+
+The test task will instruct implementers to add the test first, noting that a missing or permissive controller must fail the assertions before request validation is implemented. Every 400 test case will use `@MockitoBean TicketService` and `verifyNoInteractions` to ensure the service layer is never touched. The `@WebMvcTest` annotation requires the controller to accept its service in the constructor, so the controller task is deferred until after the test is written.
+
+The test configuration will use `spring-boot-starter-test` for JUnit and Mockito, plus Testcontainers PostgreSQL and JUnit Jupiter BOMs. The Dependencies section will use a simple ordered list instead of a mermaid diagram.
+
+A mermaid flowchart will be added to tasks.md to visualize the eight-phase commit sequence. The plan keeps the linear order 1→2→3→4→5→6→7→8, even though slice 4 does not strictly require the seed data.
+
+Seed task descriptions will retain the full row definitions. Assignee will be `Alex Kim` on every row, and category will be drawn from the Theme column. Exact comment body and resolution note strings will be listed in the task details.
+
+The seed SQL will use a `created_at` formula so comments inherit the ticket’s creation timestamp. Identity IDs ensure comment rows appear in insertion order. Flyway will scan `db/migration` and `db/seed` for migrations, while tests load from `db/migration`. Out-of-scope items—authentication, Spring AI, embeddings, vector extensions, frontend test frameworks, and pagination UI—will be noted. The password placeholder is `tickets`; no real secrets will be committed.
+
+The POST validation test will include two bad-input cases. A request body containing an extra property such as `status` will return 400 with detail `Unknown property 'status'`, even if all other fields are valid. A request body containing an invalid enum value such as `URGENT` for `priority` will return 400 with detail `Invalid value for property 'priority'`.
+
+The blank-comment test will expect 400 with detail `Title is required`. For POST validation, a request body containing all blank fields will return one error per missing field. Omitting priority will trigger `Priority is required`; sending an empty string for priority will return `Invalid value for property 'priority'`. A whitespace-only title such as `"   "` will also be rejected as `Title is required` after trimming.
+
+The PATCH status test will be a standalone task in phase 5, separate from the broader TicketValidationTest task. Other update cases will follow in the same file. Max-length validation will be tested separately. A whitespace-only title triggers one error per affected field.
+
+Phase 5 will add a PATCH status test that asserts the response is 400 with a ProblemDetail containing the status property, and that the content type is application/problem+json. The explicit-null, category, blank, and length cases will be added to the same validation class as the status test, keeping the status case as a separate line.
+
+Exact assertion strings will be used for ProblemDetail details, such as `Unknown property 'status'`. Post-execution hooks and extensions files will be skipped silently. The tasks file will be placed in FEATURE_DIR. A post-write script will self-review the task format.
+
+Task lines will place the `[P]` marker before the `[Story]` tag, following the skill template format.
+
+The tasks file will be written in a single call. Phase 1 test tasks will configure `fail-on-unknown-properties=true` via `@WebMvcTest` properties, ensuring unknown JSON fields trigger 400 responses.
+
+The `@WebMvcTest` annotation will carry the `properties` attribute directly, so the test task does not depend on slice-level configuration. `@Import` is only needed if the exception handler is not automatically scanned. The comment validation test will use the same approach.
+
+Blank comments are validated by Bean Validation, not Jackson. Whitespace-only comments must be trimmed before validation, since @Size counts spaces and @NotBlank rejects them without trimming. The comment validation task will instruct implementers to trim the input first, then apply @NotBlank and @Size checks.
+
+Frontend validation will block empty comment submissions and display "Comment needs text" beside the field. The API client will be generated incrementally as OpenAPI schemas are introduced, rather than as a single monolithic file in slice 1. Slice 7 will add a `listTickets` method that always omits pagination parameters. The Vite skeleton will render a placeholder until slice 2 introduces the actual frontend files.
+
+The tasks file will not reference the pay/password bug as a meta-story. It will simply state the corrected matching rules from the data model so implementers copy them directly. The Vite index.html will use a plain placeholder title rather than detailed UI design.
+
+The list service will escape `%`, `_`, and backslashes in the `q` parameter before applying the ILIKE filter. Leading and trailing spaces in the search keyword are trimmed, and a keyword that is only whitespace applies no text filter. Matching is case-insensitive and does not split keywords into words. The response schema will use integer types for `totalElements`, `page`, and `size`. When no records match and pagination parameters are omitted, the endpoint returns an empty content array with `page`, `size`, `totalElements`, and `totalPages` all set to zero.
+
+When matches exist, totalPages is 1 and size equals totalElements. An out-of-range page returns 200 with empty content and the real totalElements, not a 404.
+
+Phase 7 will test negative page values and size values outside the 1–100 range, both returning 400. The exception handler must also map `MethodArgumentTypeMismatchException` for the `status` query parameter to the same bad-enum detail, since query enums bypass the body handler.
+
+A missing required request body will return 400. The exception handler will also map `ConstraintViolationException` for `@RequestParam` validation errors. The controller may throw a dedicated exception or use `HandlerMethodValidationException` in Spring 6.
+
+Phase 7 will assert exact ProblemDetail details for invalid pagination: `page requires size` when `page` is present without `size`, `size must be between 1 and 100` when `size` is outside 1–100, and `page must be 0 or greater` when `page` is negative. The test will verify the service layer is not invoked for these cases. Whether the controller validates parameters before delegating to the service is still being considered.
+
+The controller will validate parameters before delegating to the service, so the mock is not invoked for invalid inputs. The implementer will write tasks.md directly, leaving existing files untouched. After writing, the file will be grepped to verify exact counts per story tag.
+
+Setup and seed tasks will carry no story tag. List tasks will be marked [P]. Each story will receive independent tests drawn from the specification. MVP scope covers Phase 1 and Phase 2. A verification script will ensure every task line matches the required regex.
+
+Phase headings will include the slice number and the instruction to commit the phase alone as one conventional commit. Checkpoint text will explicitly require a single commit before proceeding to the next phase.
+
+The constitution trace will be kept brief, noting constraints such as no Spring AI, no server-side state machines, no secrets beyond the local `tickets` placeholder, and no tests before the status endpoint is ready. The tasks file will be complete rather than truncated. A structural note will clarify that there is no separate foundational phase; slice 1 is the setup commit.
+
+US1 will include the human-id rules verbatim: the first ticket is TKT-1001, later tickets take the next sequential number, and a number is never reused. The sequence is never reset on restart. The server must ignore any client-provided status and default to OPEN. Create returns 201 with a Location header pointing to `/api/tickets/{ticketId}`.
+
+Phase 2 will add a TicketValidationTest asserting that GET /api/tickets/{id} returns 404 with detail `Ticket TKT-9999 was not found.` when the service throws TicketNotFoundException. The test mocks the service to throw this exception, verifying the existing handler is wired correctly.
+
+The 404 mock test for GET /api/tickets/{id} is included as a small contract test. A 201 success mock test is omitted because the plan's TicketValidationTest already covers 400 responses.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+The plan’s eight slices will be the eight phases, one commit each. Tests go first inside each phase, including the comment validation test, the problem-detail handler, and the update call that sends `status`.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+I noticed I skipped task T021 in the numbering.
+
+I'll grep all task IDs to renumber sequentially and eliminate the gap.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "path": "/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md",
+  "pattern": "^- \\[ \\] T\\d+"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md",
+  "pattern": "^- \\[ \\] T\\d+",
+  "topFiles": [
+    {
+      "matchCount": 54,
+      "uri": "specs/001-support-ticket-management/tasks.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 54
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+T021 is missing from the task sequence. The IDs jump from T020 directly to T022.
+
+Renumbering T022 through the end down by one will close the gap. References to T025 and T026 in phase four, T028, T048, T053, and parallel examples must be updated.
+
+Replacing IDs from highest to lowest avoids double replacements. The current sequence continues from T022 through T035. The remaining IDs must be read from line 170 onward.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "path": "/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md",
+  "pattern": "T0[2-9][0-9]"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md",
+  "pattern": "T0[2-9][0-9]",
+  "topFiles": [
+    {
+      "matchCount": 47,
+      "uri": "specs/001-support-ticket-management/tasks.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 47
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Decrementing IDs from T022 through T055 by one and updating their references in parallel examples.
+
+A Python script will safely decrement IDs from T022 through T055 by rewriting task IDs >= 22 in one pass.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+Task IDs skip T021. I’ll renumber from there so the sequence stays continuous.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: python3 - &lt;&lt; &#39;PY&#39;
+from pathlib import Path
+import re
+p = Path(&#34;/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md&#34;)
+text = p.read_text()
+def repl(m):
+    n = int(m.group(1))
+    if n &gt;= 22:
+        return f&#34;T{n-1:03d}&#34;
+    return m.group(0)
+new = re.sub(r&#34;\bT(\d{3})\b&#34;, repl, text)
+p.write_text(new)
+ids = [int(x) for x in re.findall(r&#34;^- \[ \] T(\d+)&#34;, new, re.M)]
+print(&#34;count&#34;, len(ids))
+print(&#34;first&#34;, ids[0], &#34;last&#34;, ids[-1])
+print(&#34;gaps&#34;, [a for a,b in zip(ids, ids[1:]) if b != a+1])
+print(&#34;dupes&#34;, [i for i in ids if ids.count(i) &gt; 1])
+PY</summary>
+```bash
+python3 - << 'PY'
+from pathlib import Path
+import re
+p = Path("/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md")
+text = p.read_text()
+def repl(m):
+    n = int(m.group(1))
+    if n >= 22:
+        return f"T{n-1:03d}"
+    return m.group(0)
+new = re.sub(r"\bT(\d{3})\b", repl, text)
+p.write_text(new)
+ids = [int(x) for x in re.findall(r"^- \[ \] T(\d+)", new, re.M)]
+print("count", len(ids))
+print("first", ids[0], "last", ids[-1])
+print("gaps", [a for a,b in zip(ids, ids[1:]) if b != a+1])
+print("dupes", [i for i in ids if ids.count(i) > 1])
+PY
+```
+
+```
+count 54
+first 1 last 54
+gaps []
+dupes []
+
+```
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The plan contains 54 sequential tasks numbered T001 through T054.
+
+Verifying cross-references and task line formats across all 54 entries. Checking that T006, T039, and the PATCH status test are correctly placed. Validating dependency chains such as T029 running with T028. Confirming checklist regex compliance. Flagged a potential issue where T029 is marked [P] but depends on tests.
+
+Task numbers were decremented by one. T025 is now T024, T026 is now T025, T027 is now T026, T028 is now T027, and T029 is now T028. The parallel execution rules still hold: T028 runs with T027, and T024, T025, and T026 run together. T033 now precedes T034, and T040 now follows T039.
+
+T048 now follows T047. Verifying that cross-references still point to the correct tasks. Running a validation script to ensure every task line matches the required format, with setup and seed tasks excluded from story labels.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: python3 - &lt;&lt; &#39;PY&#39;
+import re
+from pathlib import Path
+text = Path(&#34;/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md&#34;).read_text()
+# split phases
+parts = re.split(r&#34;^## Phase&#34;, text, flags=re.M)
+# phase bodies start after split; first chunk is preamble
+phase_names = re.findall(r&#34;^## Phase (\d+): ([^\n]+)&#34;, text, re.M)
+print(&#34;PHASES&#34;, len(phase_names))
+for n, name in phase_names:
+    print(f&#34;  {n}: {name}&#34;)
+
+task_re = re.compile(r&#34;^- \[ \] (T\d{3})( \[P\])?( \[US\d\])? (.+)$&#34;)
+bad = []
+by_story = {}
+parallel = []
+current = &#34;preamble&#34;
+for line in text.splitlines():
+    mphase = re.match(r&#34;^## Phase \d+: (.+)&#34;, line)
+    if mphase:
+        current = mphase.group(1)
+    if line.startswith(&#34;- [ ] T&#34;):
+        m = task_re.match(line)
+        if not m:
+            bad.append(line[:180])
+            continue
+        tid, p, story, desc = m.group(1), m.group(2), m.group(3), m.group(4)
+        if &#34;`&#34; not in desc and &#34;specs/&#34; not in desc:
+            bad.append(&#34;NO PATH &#34; + tid + &#34; &#34; + desc[:100])
+        story_key = story.strip(&#34; []&#34;) if story else (&#34;Seed&#34; if &#34;Seed&#34; in current else &#34;Setup&#34;)
+        by_story.setdefault(story_key, []).append(tid)
+        if p:
+            parallel.append(tid)
+        # story label rules
+        if current.startswith(&#34;Setup&#34;) or current.startswith(&#34;Seed&#34;):
+            if story:
+                bad.append(f&#34;STORY ON NON-STORY {tid} {current}&#34;)
+        else:
+            if not story:
+                bad.append(f&#34;MISSING STORY {tid} {current}&#34;)
+
+print(&#34;BAD&#34;, len(bad))
+for b in bad:
+    print(&#34; -&#34;, b)
+print(&#34;COUNTS&#34;)
+for k, v in by_story.items():
+    print(f&#34;  {k}: {len(v)} {v[0]}-{v[-1]}&#34;)
+print(&#34;PARALLEL&#34;, len(parallel), &#34; &#34;.join(parallel))
+PY</summary>
+```bash
+python3 - << 'PY'
+import re
+from pathlib import Path
+text = Path("/Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md").read_text()
+# split phases
+parts = re.split(r"^## Phase", text, flags=re.M)
+# phase bodies start after split; first chunk is preamble
+phase_names = re.findall(r"^## Phase (\d+): ([^\n]+)", text, re.M)
+print("PHASES", len(phase_names))
+for n, name in phase_names:
+    print(f"  {n}: {name}")
+
+task_re = re.compile(r"^- \[ \] (T\d{3})( \[P\])?( \[US\d\])? (.+)$")
+bad = []
+by_story = {}
+parallel = []
+current = "preamble"
+for line in text.splitlines():
+    mphase = re.match(r"^## Phase \d+: (.+)", line)
+    if mphase:
+        current = mphase.group(1)
+    if line.startswith("- [ ] T"):
+        m = task_re.match(line)
+        if not m:
+            bad.append(line[:180])
+            continue
+        tid, p, story, desc = m.group(1), m.group(2), m.group(3), m.group(4)
+        if "`" not in desc and "specs/" not in desc:
+            bad.append("NO PATH " + tid + " " + desc[:100])
+        story_key = story.strip(" []") if story else ("Seed" if "Seed" in current else "Setup")
+        by_story.setdefault(story_key, []).append(tid)
+        if p:
+            parallel.append(tid)
+        # story label rules
+        if current.startswith("Setup") or current.startswith("Seed"):
+            if story:
+                bad.append(f"STORY ON NON-STORY {tid} {current}")
+        else:
+            if not story:
+                bad.append(f"MISSING STORY {tid} {current}")
+
+print("BAD", len(bad))
+for b in bad:
+    print(" -", b)
+print("COUNTS")
+for k, v in by_story.items():
+    print(f"  {k}: {len(v)} {v[0]}-{v[-1]}")
+print("PARALLEL", len(parallel), " ".join(parallel))
+PY
+```
+
+```
+PHASES 8
+  1: Setup (Slice 1)
+  2: User Story 1 - Create and view a ticket (Slice 2) (Priority: P1) MVP
+  3: Seed (Slice 3)
+  4: User Story 2 - Move a ticket through its allowed statuses (Slice 4) (Priority: P1)
+  5: User Story 4 - Correct ticket details (Slice 5) (Priority: P2)
+  6: User Story 5 - Add a comment (Slice 6) (Priority: P3)
+  7: User Story 3 - Find tickets (Slice 7) (Priority: P2)
+  8: User Story 6 - See mistakes and keep saved work (Slice 8) (Priority: P2)
+BAD 0
+COUNTS
+  Setup: 8 T001-T008
+  US1: 12 T009-T020
+  Seed: 3 T021-T023
+  US2: 9 T024-T032
+  US4: 6 T033-T038
+  US5: 8 T039-T046
+  US3: 5 T047-T051
+  US6: 3 T052-T054
+PARALLEL 21 T001 T002 T003 T004 T005 T007 T008 T010 T011 T012 T013 T018 T019 T021 T024 T025 T026 T028 T040 T041 T048
+
+```
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Verifying cross-references and dependency ordering across the dependency and parallel sections, plus the "until T0xx pass" lines.
+
+Confirmed T006 remains the exception handler, T033 covers PATCH status, and T039 covers CommentValidationTest. Scanning dependency prose for T028 versus T029. Verified tests precede implementation in every phase.
+
+Checking parallel example bash blocks for ID mismatches and verifying descriptions align with the renumbered tasks.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Checking what T021 and T023 are, since Phase 3 parallel execution allows them to run together.
+
+Confirmed T021 and T023 are valid parallel tasks. Verified T028 with T027, T040 and T041 after T039, and T048 with T047.
+
+Verifying that T024, T025, and T026 all pass before the status endpoint is considered complete. Checking the phase 4 introduction near line 132.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The prerequisite note must now include T026, since it too must pass before the endpoint is complete.
+
+T028 does not actually depend on T027's file. T006 correctly lacks the [P] marker. I am checking whether T023 carries the [P] flag, since Phase 3 assumes T021 and T023 can run together.
+
+T023 V2 SQL will receive the [P] marker. It is independent of T021 and T022.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Adding a parallel marker to task T023 to match the plan.
+
+Updating the phase 4 callout to include T026. Confirming T028 can run in parallel with T027 since T027 edits TicketStatus.java while T028 creates new files. Checking the notes section for valid task references.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/tasks.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Post-hooks are skipped silently because extensions.yml does not exist.
+
+All 54 tasks are accounted for across eight implementation slices. Twenty-two are parallel. The MVP covers Phase 1 and Phase 2. Format validation checks out with zero bad entries. The three requested extras are included, starting with T006 ApiExceptionHandler.
+
+T033 PATCH status → 400 and T039 CommentValidation are also included.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+`tasks.md` is at `specs/001-support-ticket-management/tasks.md`. It has **54 tasks** in **8 phases**, one phase per slice in `plan.md`, and each phase is one commit. Inside every phase, tests are listed before the implementation they cover.
+
+| Phase | Slice | Tasks |
+| --- | --- | --- |
+| 1 Setup | Scaffold, schema, problem details | 8 (T001–T008) |
+| 2 User Story 1 | Create and view | 12 (T009–T020) |
+| 3 Seed | Fifteen tickets, next id TKT-1016 | 3 (T021–T023) |
+| 4 User Story 2 | Status map and status endpoint | 9 (T024–T032) |
+| 5 User Story 4 | Field update | 6 (T033–T038) |
+| 6 User Story 5 | Comments | 8 (T039–T046) |
+| 7 User Story 3 | List, search, filter | 5 (T047–T051) |
+| 8 User Story 6 | Restart and remaining field copy | 3 (T052–T054) |
+
+The three extra cases are separate tasks:
+
+- **T006** — `ApiExceptionHandler` maps `HttpMessageNotReadableException` to a ProblemDetail 400 whose `detail` names the property (`Unknown property '{name}'`, `Property '{name}' must not be null`, `Invalid value for property '{name}'`).
+- **T033** — `PATCH /api/tickets/TKT-1001` with `{ "status": "CLOSED" }` returns 400 `Unknown property 'status'`, and the service is not called.
+- **T039** — `CommentValidationTest` (`@WebMvcTest(CommentController.class)`) expects a blank or whitespace comment to return 400 `Comment needs text`.
+
+**22 tasks** are marked parallel (different files, same phase). Do not run two phases at once; they share the ticket service, controller, and detail page.
+
+**Independent checks**
+
+- **User Story 1**: First create is TKT-1001 with status OPEN; the second is TKT-1002; a blank title is 400 and is not saved.
+- **User Story 2**: The five allowed pairs return 200; the other twenty return 409 and leave the stored status unchanged; the screen offers only `allowedNextStatuses`.
+- **User Story 4**: Editable fields change, including on CLOSED and CANCELLED; category, human id, and status do not; a `status` property on field update is 400.
+- **User Story 5**: A comment remains after reload, in order; a blank comment is refused; status stays CLOSED.
+- **User Story 3**: TKT-1015 is first; `pay` matches only TKT-1001 and TKT-1005; an empty search shows `Nothing matched`; the client omits `page` and `size`.
+- **User Story 6**: Field errors name the field; after a backend restart without deleting the volume, saved work remains and the next id is TKT-1017.
+
+**MVP** is Phase 1 plus Phase 2 (create and view). Stop there and confirm TKT-1001 before the seed commit.
+
+Every task uses the checklist form: checkbox, id, optional `[P]`, story label only on story tasks, and a file path.
+
+---
+
+_**User**_
+
+Edit specs/001-support-ticket-management/tasks.md only:
+1. T002: add test-scoped `org.springframework.boot:spring-boot-testcontainers` (needed for @ServiceConnection).
+2. T025: build the container as `new PostgreSQLContainer<>(DockerImageName.parse("pgvector/pgvector:pg16").asCompatibleSubstituteFor("postgres"))` with @ServiceConnection; note Docker must be running for `mvn test`. Also assert a ticket saved through the repository has a non-null ticketId.
+3. T014: `id` uses @GeneratedValue(strategy = IDENTITY). `ticketNumber` and `ticketId` are set by the V1 trigger: map them with Hibernate `@Generated(event = EventType.INSERT)` and `@Column(insertable = false, updatable = false)` so the saved entity has `ticketId` populated before the controller builds `Location`.
+4. T007: CORS also sets `exposedHeaders("Location")`.
+Do not change anything else.
+
+---
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+Status: **loading**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+Status: **loading**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+Status: **loading**
+
 </details></tool-use>
