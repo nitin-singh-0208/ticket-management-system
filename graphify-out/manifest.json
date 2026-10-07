@@ -1,0 +1,458 @@
+{
+  ".specify/init-options.json": {
+    "mtime": 1790667420.2812018,
+    "seen": 1791394874.9062111,
+    "ast_hash": "fdffc025b967757cb87e92ddea0a27f5",
+    "semantic_hash": ""
+  },
+  ".specify/integration.json": {
+    "mtime": 1790667420.2292802,
+    "seen": 1791394874.906213,
+    "ast_hash": "4ec01c76f1ae3300bb1729f95a4ba191",
+    "semantic_hash": ""
+  },
+  ".specify/integrations/cursor-agent.manifest.json": {
+    "mtime": 1790667420.228513,
+    "seen": 1791394874.906214,
+    "ast_hash": "bdd641fd3ce4c9d916a60cb9d65527cb",
+    "semantic_hash": ""
+  },
+  ".specify/integrations/speckit.manifest.json": {
+    "mtime": 1790667420.2444615,
+    "seen": 1791394874.906215,
+    "ast_hash": "90220714c8f5f4c9a2315c35e22599e2",
+    "semantic_hash": ""
+  },
+  ".specify/memory/.constitution-template.json": {
+    "mtime": 1790667420.282879,
+    "seen": 1791394874.906216,
+    "ast_hash": "7e3332a78cec1722b4351c6bf52dfc51",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/bash/check-prerequisites.sh": {
+    "mtime": 1790667420.2390735,
+    "seen": 1791394874.9062169,
+    "ast_hash": "2b87a46b23b366d3aba3f23e6885669a",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/bash/common.sh": {
+    "mtime": 1790667420.2366881,
+    "seen": 1791394874.906218,
+    "ast_hash": "4ad2514f2a52fab705f1307f25e7af56",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/bash/create-new-feature.sh": {
+    "mtime": 1790667420.2405214,
+    "seen": 1791394874.906225,
+    "ast_hash": "91ab72b0442ea7a78c082d7948bb9d6c",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/bash/resolve-template.sh": {
+    "mtime": 1790667420.2397966,
+    "seen": 1791394874.906226,
+    "ast_hash": "8e3dfe574895c76bb9cd555fea0ce54d",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/bash/setup-plan.sh": {
+    "mtime": 1790667420.2374873,
+    "seen": 1791394874.9062269,
+    "ast_hash": "be48ee5a34eca6b5065a8f1fcfae4ff6",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/bash/setup-tasks.sh": {
+    "mtime": 1790667420.2381961,
+    "seen": 1791394874.906228,
+    "ast_hash": "30ec558a29cb7cee770f6a1238a6e68b",
+    "semantic_hash": ""
+  },
+  ".specify/workflows/workflow-registry.json": {
+    "mtime": 1790667420.2805655,
+    "seen": 1791394874.906229,
+    "ast_hash": "9706c2b8c53b06914f627e4bde663cce",
+    "semantic_hash": ""
+  },
+  ".specstory/.project.json": {
+    "mtime": 1791374053.2418785,
+    "seen": 1791394874.906229,
+    "ast_hash": "dcae3e4a47f17aac776893507a04f06b",
+    "semantic_hash": ""
+  },
+  ".vscode/settings.json": {
+    "mtime": 1790668759.038626,
+    "seen": 1791394874.90623,
+    "ast_hash": "865278ec00afdc9578edac5ab9dcff36",
+    "semantic_hash": ""
+  },
+  "backend/pom.xml": {
+    "mtime": 1791394585.4322948,
+    "seen": 1791394874.906231,
+    "ast_hash": "369c2b60bb680f9469dd86dd318ed7e4",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/ticketmanagement/TicketManagementApplication.java": {
+    "mtime": 1791394586.187569,
+    "seen": 1791394874.906231,
+    "ast_hash": "5c2b2a1134c69215f7796ec3583697f0",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/ticketmanagement/common/ApiExceptionHandler.java": {
+    "mtime": 1791394769.6870098,
+    "seen": 1791394874.906232,
+    "ast_hash": "b0da5771616de4b304637a8471ef8dda",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/ticketmanagement/common/TicketNotFoundException.java": {
+    "mtime": 1791394590.6484215,
+    "seen": 1791394874.906232,
+    "ast_hash": "00cf933267341450489d97625b83c77b",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/ticketmanagement/common/WebConfig.java": {
+    "mtime": 1791394601.8622103,
+    "seen": 1791394874.906233,
+    "ast_hash": "859b31d7d04853919c4410d88372cd3a",
+    "semantic_hash": ""
+  },
+  "frontend/package.json": {
+    "mtime": 1791394710.520108,
+    "seen": 1791394874.906234,
+    "ast_hash": "76cb8d49607417050c35ab9dc6a40ce5",
+    "semantic_hash": ""
+  },
+  "frontend/src/App.tsx": {
+    "mtime": 1791394608.240134,
+    "seen": 1791394874.906234,
+    "ast_hash": "6d2363bdc23898a62b769d3a60ef5c80",
+    "semantic_hash": ""
+  },
+  "frontend/src/main.tsx": {
+    "mtime": 1791394607.6845272,
+    "seen": 1791394874.906235,
+    "ast_hash": "abc0e9b85dbcfd215206943774677ecb",
+    "semantic_hash": ""
+  },
+  "frontend/src/vite-env.d.ts": {
+    "mtime": 1791394606.9105926,
+    "seen": 1791394874.906236,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": ""
+  },
+  "frontend/tsconfig.json": {
+    "mtime": 1791394605.5159538,
+    "seen": 1791394874.906236,
+    "ast_hash": "aadb02862344095776d7990d64a854c1",
+    "semantic_hash": ""
+  },
+  "frontend/vite.config.ts": {
+    "mtime": 1791394604.049192,
+    "seen": 1791394874.906237,
+    "ast_hash": "14da5dc944ff614d9f9a67c33f343cef",
+    "semantic_hash": ""
+  },
+  ".cursor/commands/generate-tests.md": {
+    "mtime": 1791376028.419614,
+    "seen": 1791394874.9062378,
+    "ast_hash": "2cb3e35e4ba51381eac2a3d324c6a163",
+    "semantic_hash": ""
+  },
+  ".cursor/commands/review-code.md": {
+    "mtime": 1790679817.7856312,
+    "seen": 1791394874.9062378,
+    "ast_hash": "8eb44baa18d3fde267578353c61aba9a",
+    "semantic_hash": ""
+  },
+  ".cursor/commands/review-rag-output.md": {
+    "mtime": 1791376076.9354398,
+    "seen": 1791394874.906239,
+    "ast_hash": "a8ccc935a2102907c2d6240904906b91",
+    "semantic_hash": ""
+  },
+  ".cursor/commands/review-spec.md": {
+    "mtime": 1790680429.442227,
+    "seen": 1791394874.906239,
+    "ast_hash": "a20a32a0291b799bd5b52145da1b0cd0",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/documentation/SKILL.md": {
+    "mtime": 1790680524.2689664,
+    "seen": 1791394874.90624,
+    "ast_hash": "0222972f01fd589084412c77e0419a62",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-analyze/SKILL.md": {
+    "mtime": 1790667420.187539,
+    "seen": 1791394874.906241,
+    "ast_hash": "50a84372d5cdd9668957efca86dc6828",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-checklist/SKILL.md": {
+    "mtime": 1790667420.2161095,
+    "seen": 1791394874.906241,
+    "ast_hash": "635e5ab3a4e99f65ae9b6281aa6ceeed",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-clarify/SKILL.md": {
+    "mtime": 1790667420.1943347,
+    "seen": 1791394874.9062421,
+    "ast_hash": "f39295544e2be25a9f4b4ffde341cb13",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-constitution/SKILL.md": {
+    "mtime": 1790667420.198932,
+    "seen": 1791394874.9062421,
+    "ast_hash": "d652c621774524df62c7c1680614548f",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-converge/SKILL.md": {
+    "mtime": 1790667420.2076015,
+    "seen": 1791394874.906243,
+    "ast_hash": "a6e70d1300770b1dbc435d1599aad0c2",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-implement/SKILL.md": {
+    "mtime": 1790667420.2032702,
+    "seen": 1791394874.906244,
+    "ast_hash": "02728803cff0198ad92d278ce0904832",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-plan/SKILL.md": {
+    "mtime": 1790667420.2108483,
+    "seen": 1791394874.906244,
+    "ast_hash": "f254b27310a808ce2f33bcc78ed18e7c",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-specify/SKILL.md": {
+    "mtime": 1790667420.2208116,
+    "seen": 1791394874.9062452,
+    "ast_hash": "74c4d6d4ecb2b364c29e945e14430a23",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-tasks/SKILL.md": {
+    "mtime": 1790667420.2245078,
+    "seen": 1791394874.9062452,
+    "ast_hash": "515f99383f8329c551187c59a8bb70f0",
+    "semantic_hash": ""
+  },
+  ".cursor/skills/speckit-taskstoissues/SKILL.md": {
+    "mtime": 1790667420.22742,
+    "seen": 1791394874.906246,
+    "ast_hash": "958c6b6372385c1d2339bde03cc8e9b3",
+    "semantic_hash": ""
+  },
+  ".specify/memory/constitution.md": {
+    "mtime": 1791376601.255876,
+    "seen": 1791394874.906247,
+    "ast_hash": "d175d9061e15187d1a04c907e75c7f41",
+    "semantic_hash": ""
+  },
+  ".specify/templates/checklist-template.md": {
+    "mtime": 1790667420.2417674,
+    "seen": 1791394874.906247,
+    "ast_hash": "5af23404f7e1314e93fab2bcfcfa5c23",
+    "semantic_hash": ""
+  },
+  ".specify/templates/constitution-template.md": {
+    "mtime": 1790667420.2412336,
+    "seen": 1791394874.9062479,
+    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
+    "semantic_hash": ""
+  },
+  ".specify/templates/plan-template.md": {
+    "mtime": 1790667420.243489,
+    "seen": 1791394874.906249,
+    "ast_hash": "311db0670c3d19d2f5b781de97529b79",
+    "semantic_hash": ""
+  },
+  ".specify/templates/spec-template.md": {
+    "mtime": 1790667420.2428403,
+    "seen": 1791394874.906249,
+    "ast_hash": "45ac8538bc1220324c9f0d610145b53f",
+    "semantic_hash": ""
+  },
+  ".specify/templates/tasks-template.md": {
+    "mtime": 1790667420.242299,
+    "seen": 1791394874.90625,
+    "ast_hash": "f8b4f62d384defa0a559bdbbaacb0540",
+    "semantic_hash": ""
+  },
+  ".specify/workflows/speckit/workflow.yml": {
+    "mtime": 1790070253.4324903,
+    "seen": 1791394874.90625,
+    "ast_hash": "e85bd795c8a1bad1168a223eec732604",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-09-29_08-24-53Z-create-the-following-project.md": {
+    "mtime": 1790670453.4092546,
+    "seen": 1791394874.906251,
+    "ast_hash": "9a70f2daa924dbc4ab03522c7d0ed92f",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-09-29_08-24-53Z-project-structure-creation.md": {
+    "mtime": 1791374056.3472185,
+    "seen": 1791394874.9062521,
+    "ast_hash": "529fc1473baf8c3fec81a03d9dccbc4a",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-09-30_07-46-29Z-ai-mistake-log-entry.md": {
+    "mtime": 1791377431.9621603,
+    "seen": 1791394874.9062521,
+    "ast_hash": "5f0205193a6a7a11670ce2e899d14ed6",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-10-07_15-06-48Z-speckit-clarify-command.md": {
+    "mtime": 1791388279.876433,
+    "seen": 1791394874.906253,
+    "ast_hash": "67c768f18e2dc0ccad7b88b6abf0a62c",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-10-07_16-12-31Z-speckit-task-plan-generation.md": {
+    "mtime": 1791391932.07143,
+    "seen": 1791394874.906253,
+    "ast_hash": "3dd52edfa057bb891377473c72498cdf",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-10-07_17-10-37Z-phase-1-setup-implementation.md": {
+    "mtime": 1791394212.0094728,
+    "seen": 1791394874.906254,
+    "ast_hash": "3bac3e93077ef5dbfd65fa1b9a5066d8",
+    "semantic_hash": ""
+  },
+  ".specstory/history/2026-10-07_17-30-01Z-support-ticket-phase-1.md": {
+    "mtime": 1791394251.8057413,
+    "seen": 1791394874.906255,
+    "ast_hash": "ab528b7387c1ee8cf78064378363cc04",
+    "semantic_hash": ""
+  },
+  "backend/src/main/resources/application.yml": {
+    "mtime": 1791394587.4671931,
+    "seen": 1791394874.906255,
+    "ast_hash": "628cc3d752d86bb6a68b7d786745f660",
+    "semantic_hash": ""
+  },
+  "docker-compose.yml": {
+    "mtime": 1791394649.740918,
+    "seen": 1791394874.906256,
+    "ast_hash": "afc39a0f65d446970c2b29db2c384b58",
+    "semantic_hash": ""
+  },
+  "docs/ai-mistakes.md": {
+    "mtime": 1791387840.3939576,
+    "seen": 1791394874.906257,
+    "ast_hash": "831878948ae0dec935d80747636012c1",
+    "semantic_hash": ""
+  },
+  "docs/prompt-history.md": {
+    "mtime": 1790676267.1595216,
+    "seen": 1791394874.906257,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "frontend/index.html": {
+    "mtime": 1791394606.518031,
+    "seen": 1791394874.9062579,
+    "ast_hash": "68ffb80b90e11fd04a9985e80f795666",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/checklists/requirements.md": {
+    "mtime": 1791377277.8868456,
+    "seen": 1791394874.9062579,
+    "ast_hash": "aaa444612c58148b0380556c0dd74533",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/contracts/tickets.openapi.yaml": {
+    "mtime": 1791387594.704309,
+    "seen": 1791394874.906259,
+    "ast_hash": "506b072af338be8dfa07eff69bc10174",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/contracts/ui.md": {
+    "mtime": 1791387000.407754,
+    "seen": 1791394874.906259,
+    "ast_hash": "6423419e83e874b7194a61c26e9e8c8c",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/data-model.md": {
+    "mtime": 1791387589.1669848,
+    "seen": 1791394874.90626,
+    "ast_hash": "7dbf2887fcee63693d77e83900e84b61",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/plan.md": {
+    "mtime": 1791387601.4458456,
+    "seen": 1791394874.906261,
+    "ast_hash": "b5372db6fbb1e62c5dc59cb4d9074257",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/quickstart.md": {
+    "mtime": 1791387589.509621,
+    "seen": 1791394874.906261,
+    "ast_hash": "91a5873cf4221470b9d187d348f77355",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/research.md": {
+    "mtime": 1791386938.9772675,
+    "seen": 1791394874.906262,
+    "ast_hash": "d14aed10a21b805f8fe0b98a852fa32c",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/spec.md": {
+    "mtime": 1791386614.187671,
+    "seen": 1791394874.906262,
+    "ast_hash": "a7cc91e5432f21af1504dcef8f6364ab",
+    "semantic_hash": ""
+  },
+  "specs/001-support-ticket-management/tasks.md": {
+    "mtime": 1791394874.6951828,
+    "seen": 1791394874.906263,
+    "ast_hash": "7ff0efdd11cc80d3a55a24282dbf8b5a",
+    "semantic_hash": ""
+  },
+  "specs/api-contract.md": {
+    "mtime": 1791388156.7849722,
+    "seen": 1791394874.906264,
+    "ast_hash": "c4018e36f772e54e23d942f6c4921e3d",
+    "semantic_hash": ""
+  },
+  "specs/architecture.md": {
+    "mtime": 1791388145.9076886,
+    "seen": 1791394874.906264,
+    "ast_hash": "557733c14ae7039fbb34cd2cd9788909",
+    "semantic_hash": ""
+  },
+  "specs/data-model.md": {
+    "mtime": 1791388150.8362157,
+    "seen": 1791394874.906265,
+    "ast_hash": "c28b7ed43598978e618c52def399c8ca",
+    "semantic_hash": ""
+  },
+  "specs/requirements.md": {
+    "mtime": 1791376823.0798497,
+    "seen": 1791394874.9062662,
+    "ast_hash": "34d6af54f805f51efc4d4776205b702c",
+    "semantic_hash": ""
+  },
+  "specs/state-machine.md": {
+    "mtime": 1791388307.3869405,
+    "seen": 1791394874.9062662,
+    "ast_hash": "a7f0767fc9181deb87e1436b9ecf0a64",
+    "semantic_hash": ""
+  },
+  "specs/test-strategy.md": {
+    "mtime": 1791388305.7706456,
+    "seen": 1791394874.906267,
+    "ast_hash": "30ddd088e7726c16ec6739a60de62a2e",
+    "semantic_hash": ""
+  },
+  "specs/ui-flow.md": {
+    "mtime": 1791388164.3152966,
+    "seen": 1791394874.906267,
+    "ast_hash": "a0feb03fa9766c1718ec9f178ce83bf3",
+    "semantic_hash": ""
+  },
+  "docs/c2-assignment-ticket-management-system.pdf": {
+    "mtime": 1790070127.6103795,
+    "seen": 1791394874.906268,
+    "ast_hash": "ba0d941b31c2e8dccae31dc9193a94c0",
+    "semantic_hash": ""
+  }
+}
