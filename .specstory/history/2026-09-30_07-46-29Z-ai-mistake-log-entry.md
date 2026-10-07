@@ -20,7 +20,92 @@ Append an entry to docs/ai-mistakes.md (only touch this file):
 
 _**Agent (auto-smart)**_
 
+<think><details><summary>Thought Process</summary>
+Appending the requested entry to docs/ai-mistakes.md.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+I'll read `docs/ai-mistakes.md` and append the entry you provided.
+
+
+_**Agent (auto-smart)**_
+
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
 <summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/docs/ai-mistakes.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The target file is empty. I will append the requested entry.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/docs/ai-mistakes.md</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<think><details><summary>Thought Process</summary>
+The entry was appended to docs/ai-mistakes.md.
+</details></think>
+
+_**Agent (auto-smart)**_
+
+Appended the entry to `docs/ai-mistakes.md`. The file was empty, so this is the first entry. It documents the `spec/` vs `specs/` path mix-up during the review-spec command setup on 2026-09-29.
+
+---
+
+_**User**_
+
+Write .cursor/rules/rag-vector-store.mdc (alwaysApply: true), short, in the same style as the other .mdc rules. Only touch this file.
+- Chunking: one knowledge document per ticket section (description, each comment, resolution notes); paragraph-based, max ~800 tokens, ~100 token overlap only when a section is split.
+- Every chunk carries metadata: ticketId, status, priority, assignee, category, sourceType.
+- Embedding model: Ollama nomic-embed-text (local, 768 dims); the justification lives in specs/architecture.md.
+- topK and similarityThreshold come from application.yml, never hardcoded.
+- Re-ingest on ticket create/update/comment/status change: delete the ticket's chunks by ticketId, then add new ones.
+- Grounding: answer only from retrieved context, cite ticket IDs, explicit "No relevant tickets found" when retrieval is empty (skip the LLM call), single retrieve→generate flow, no agentic actions.
+- The static system prompt is a constant prefix (prompt-caching friendly).
+
+---
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **0** results in **0** directories</summary>
+
+No results found
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/api-standards.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/java-springboot.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/testing.mdc</summary>
+
+</details></tool-use>
+
+_**Agent (auto-smart)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/rules/rag-vector-store.mdc</summary>
 
 </details></tool-use>

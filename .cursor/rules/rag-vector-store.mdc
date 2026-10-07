@@ -1,0 +1,43 @@
+---
+description: RAG vector store chunking, embedding, retrieval, and grounding rules
+globs:
+alwaysApply: true
+---
+
+# RAG Vector Store
+
+Reusable guidelines for ticket RAG indexing and retrieval. Apply them when designing or changing vector-store, embedding, or grounded-answer code.
+
+## Chunking
+
+- One knowledge document per ticket section: description, each comment, resolution notes.
+- Split paragraph-based; max ~800 tokens per chunk.
+- Use ~100 token overlap only when a single section must be split.
+
+## Metadata
+
+- Every chunk carries: `ticketId`, `status`, `priority`, `assignee`, `category`, `sourceType`.
+
+## Embedding
+
+- Use Ollama `nomic-embed-text` (local, 768 dimensions).
+- Model choice and rationale live in `specs/architecture.md`.
+
+## Retrieval configuration
+
+- Read `topK` and `similarityThreshold` from `application.yml`.
+- Never hardcode retrieval thresholds in code.
+
+## Re-ingestion
+
+- On ticket create, update, comment, or status change: delete all chunks for that `ticketId`, then index new ones.
+
+## Grounding
+
+- Answer only from retrieved context; cite ticket IDs in responses.
+- When retrieval is empty, return an explicit "No relevant tickets found" and skip the LLM call.
+- Use a single retrieve-then-generate flow; no agentic actions.
+
+## Prompting
+
+- Keep the static system prompt as a constant prefix for prompt-caching compatibility.
