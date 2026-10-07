@@ -1961,3 +1961,544 @@ Fix these issues in specs/001-support-ticket-management/ (only plan.md, data-mod
 5. In plan.md Testing, add tests for: blank comment → 400, unknown ticketId → 404, PATCH with status → 400.
 6. Fix plan.md Branch to `phase1` and the typo "Two screens flows".
 Do not change spec.md or anything else.
+
+---
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Starting work on the six specified fixes for the support ticket management specs.
+
+Checking whether "pay" matches "password" as a substring. The seed descriptions must explicitly include "pay" so search checks are verifiable.
+
+Confirmed that "pay" does not appear inside "password". The claim about substring matching will be removed, and the pay search check will be rewritten to list only seeded tickets whose title or description contains "pay".
+
+Only four files may be changed: plan.md, data-model.md, quickstart.md, and contracts/tickets.openapi.yaml. The research decision for item 2 belongs in plan.md, not in a separate research.md file.
+
+The page/size contract will reject requests where page is provided without size, and the documentation will drop the note that size is ignored when omitted.
+
+Reading all four target files to locate every instance of the required changes. Will add the Flyway version note, the three new testing cases, and correct the branch name and typo.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+I’ll correct the search examples, the PATCH and paging rules, and the plan notes in those four spec files only.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "specs/001-support-ticket-management/{plan.md,data-model.md,quickstart.md,contracts/tickets.openapi.yaml}",
+  "pattern": "pay|password|page|size|Ignored|screens flow|Branch|Flyway|fail-on-unknown|status/category|Testing"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "pattern": "pay|password|page|size|Ignored|screens flow|Branch|Flyway|fail-on-unknown|status/category|Testing",
+  "topFiles": [
+    {
+      "matchCount": 6,
+      "uri": "./specs/001-support-ticket-management/quickstart.md"
+    },
+    {
+      "matchCount": 9,
+      "uri": "./specs/001-support-ticket-management/data-model.md"
+    },
+    {
+      "matchCount": 14,
+      "uri": "./specs/001-support-ticket-management/plan.md"
+    },
+    {
+      "matchCount": 15,
+      "uri": "./specs/001-support-ticket-management/contracts/tickets.openapi.yaml"
+    }
+  ],
+  "totalFiles": 4,
+  "totalMatches": 44
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Reading the full seed table to identify which titles and descriptions contain "pay".
+
+Only TKT-1001 currently mentions "pay" in its description. I will add explicit description text to every seeded ticket so the `pay` search check can be verified against exact matches.
+
+Checking which seeded tickets actually contain "pay" or "payment failure" in their titles or descriptions. The word "reissued" appears only in resolution notes, so it cannot satisfy a search check. I am now reviewing the full seed table and all search checks across quickstart, data-model, and the OpenAPI contract to ensure every match is verifiable.
+
+I confirmed that `failure payment` does not match TKT-1001, and that `reissued` appears only in resolution notes while `checkout` belongs solely to TKT-1001. I will now read the full seed table to assign explicit descriptions to all 15 tickets.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/plan.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/quickstart.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Checking the OpenAPI UpdateTicketRequest contract to align omitted versus null field handling.
+
+The 400 enforcement details will be added to plan.md's Technical Context. research.md will remain unchanged since it falls outside the permitted files.
+
+The page/size contract will return 400 when page is provided without size. The "ignored when size is omitted" note will be removed. The data-model.md window rule will remain consistent.
+
+The OpenAPI size parameter description will clarify that omitting size alongside page returns every match. The data-model page parameter description may need a 400 note when size is absent. The plan.md summary already correctly states that omitting both fields returns every match.
+
+The OpenAPI size parameter description will be rewritten to explicitly state that omitting size together with page returns every match, while page without size remains a 400 error.
+
+The data-model page parameter description will explicitly state that omitting size with page is a 400 error.
+
+A note will be added to plan.md's Storage section explaining that Flyway versions are shared across db/migration and db/seed, and future migrations begin at V3.
+
+The plan.md Testing section will gain three new cases: blank comment → 400, unknown ticketId → 404, and PATCH with status → 400. These will be assigned to WebMvcTest and MockMvc or integration tests.
+
+Blank comment and PATCH-with-status will be tested in TicketValidationTest. The unknown ticketId 404 will be tested in a slice or status-transition test.
+
+The unknown ticketId 404 test will be placed in the SpringBootTest, since a @WebMvcTest with a mocked service would only stub the failure rather than exercise the real exception handler.
+
+The 404 unknown ticketId test will be placed in the Testcontainers integration test, since a missing ticket must actually exist in the database.
+
+The plan.md branch will be set to `phase1`, and the typo "Two screens flows" will be corrected to "Two screen flows".
+
+The seed descriptions will be rewritten so that only TKT-1001 ("Payment declined at checkout") contains the contiguous substring "pay". TKT-1002 through TKT-1004 will not match.
+
+Only TKT-1001 and TKT-1005 contain the contiguous substring "pay" among the seeded titles. TKT-1011 contains "password" but not "pay". All other seeded titles are excluded.
+
+The seed table lacks explicit Description values. Without them, implementers could inject "pay" into other seeded records and break the search check. A Description column with exact strings will be added so the "pay" matches are verifiable.
+
+Exact description strings will be added to every seed row so search checks are verifiable. The checks will target `pay`, the phrase `payment failure`, the reverse `failure payment`, `reissued` in TKT-1004 resolution notes, and `checkout` only in TKT-1001. Descriptions will be written carefully to avoid accidental matches.
+
+The exact seeded IDs whose titles or descriptions contain the contiguous substring "pay" will be listed. Descriptions will deliberately avoid words like payment, payload, or paypal to prevent accidental matches. Only TKT-1001 and TKT-1005 will carry the substring, since their titles already contain "pay".
+
+Every seed ticket will receive a quoted description string. The exact list of matches will be derived directly from those descriptions. This prioritizes verifiability over limiting matches.
+
+TKT-1001’s description will read “Card network returned a payment failure during checkout.” This places the contiguous substring “pay” inside the description itself, satisfying the search check. TKT-1002’s description will be “A second capture was taken for the same order,” which avoids “pay,” “payment,” and “checkout,” keeping it out of the match list.
+
+TKT-1003’s description is finalized as “The refund has not appeared after five days.” TKT-1004’s description is “The invoice used USD instead of EUR,” and its resolution notes will contain “reissued.” TKT-1005’s description is “Caller confirmed this report is a duplicate,” so only its title contains “pay.” TKT-1006’s description is “No carrier scan since handover.”
+
+TKT-1007, TKT-1008, TKT-1009, and TKT-1010 were checked and confirmed to contain no contiguous substring "pay". TKT-1011 was started but not completed.
+
+TKT-1011 through TKT-1014 were checked and confirmed to contain no contiguous substring "pay". TKT-1015 was started but not completed.
+
+TKT-1012 through TKT-1015 were checked and confirmed to contain no contiguous substring "pay". The phrase "payment failure" appears only in TKT-1001's description, and "failure payment" does not occur anywhere in the seeded data.
+
+The seed table will use separate Description and Other columns instead of one Notes field. This makes every seeded description explicit and verifiable.
+
+The seed table will use a five-column layout: ticketId, Title, Description, Priority, Status, and Other. Theme will remain in the title context. Quickstart will list only TKT-1001 and TKT-1005 as the exact tickets matching the substring "pay". The password claim will be removed entirely.
+
+A **Decision** paragraph will be added to plan.md's Technical Context to record the page/size contract, since research.md cannot be edited.
+
+Research.md will not be changed. Its existing rule that unknown JSON properties are rejected with 400 is noted, though it does not specify the Jackson mechanism or the difference between omitted and null fields. The implementation details will be documented in plan.md instead.
+
+PATCH /api/tickets/{ticketId} will reject unknown JSON properties with 400. Omitted properties are left unchanged. Blank required properties return 400. Empty resolutionNotes clears the notes. The plan.md decision will specify how 400 is enforced and how PATCH distinguishes omitted from null fields. Jackson options include @JsonIgnoreProperties(ignoreUnknown = false) on the update DTO or spring.jackson.deserialization.fail-on-unknown-properties=true.
+
+Global `fail-on-unknown-properties=true` is the chosen Jackson setting. It rejects unknown fields on PATCH, create, and status change, matching the OpenAPI `additionalProperties: false` constraints.
+
+Distinguishing omitted from explicit null fields is difficult with plain Java objects. Spring defaults missing properties to null, so the contract must choose a mechanism such as `JsonNullable`, `Optional`, or a custom setter with a presence flag.
+
+The chosen mechanism for distinguishing omitted from explicit null fields is `@JsonSetter(nulls = Nulls.FAIL)`. Missing properties deserialize to null in the DTO, leaving the field unchanged. Explicit null values trigger a 400 error. This avoids adding extra dependencies like `JsonNullable` or `Optional`.
+
+The OpenAPI contract currently omits that explicit null is rejected. It only states that resolutionNotes empty string clears the notes. The plan.md decision will clarify this missing detail.
+
+UpdateTicketRequest will be updated so null is rejected for every property with 400, while omitting a property leaves the field unchanged. nullable: true will be removed from update fields, though resolutionNotes may remain nullable in TicketDetail. The same omitted-versus-null distinction will apply only to PATCH, not to create.
+
+The global Jackson setting is chosen because the OpenAPI contract rejects unknown properties on every request body. The `@JsonSetter(nulls = Nulls.FAIL)` annotation will be applied only to the update DTO to distinguish omitted fields from explicit nulls. Create requests will also reject unknown properties, which aligns with the existing data-model rule that `status` is rejected on creation.
+
+The OpenAPI description will explicitly state that omitted properties leave fields unchanged, null is rejected with 400, and empty resolutionNotes clears the notes. Properties will not be marked nullable in the schema; the description will enforce that rule instead. The TicketPage size field description remains valid. The data-model list query paragraph and the plan storage note about V3 will also be updated.
+
+The plan.md testing section will gain three new cases: blank comment returns 400, unknown ticketId returns 404, and PATCH with status returns 400. The branch label will be corrected to `phase1`, and the typo "Two screen flows" will be fixed. The OpenAPI PATCH description for status and category fields also needs review.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Locating the PATCH operation description around lines 70–90.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The data-model validation summary will also be updated if it mentions omitted versus null fields.
+
+A sentence will be added to the data-model validation table clarifying that explicit null values trigger a 400 error while omitted fields leave existing values unchanged. The list query paragraph will be updated to reject requests where page is provided without size. The seed table will gain a Description column containing explicit quoted text so each search check is verifiable.
+
+Search checks will be rewritten to list exact seeded tickets. The quickstart pay row will reference only TKT-1001 and TKT-1005. The checkout row will remain limited to TKT-1001. The phrase row will also target only TKT-1001. Seed descriptions will be updated so each search result is verifiable. A JSON constraint will be added to the plan: unknown properties on PATCH will fail deserialization with a 400 error.
+
+The JSON constraint will be documented in plan.md Technical Context rather than research.md. The update DTO will use `@JsonSetter(nulls = Nulls.FAIL)` so explicit JSON nulls return 400. Blank strings clear fields. Omitted properties leave existing values unchanged.
+
+A new **Decision** line will be added to plan.md Technical Context. The Flyway version note will be placed under Storage instead.
+
+The Testing section will be rewritten for JUnit 5. TicketStatusTest will run without Spring. TicketStatusTransitionTest will use @SpringBootTest, MockMvc, and Testcontainers to validate all 25 status transitions plus an unknown ticketId returning 404. TicketValidationTest will use @WebMvcTest to verify blank comments return 400 and PATCH with a status property returns 400. The unknown ticketId 404 case belongs in the SpringBootTest because the row is actually absent.
+
+The PATCH contract description will be updated to explain that unknown properties such as status and category cause a 400 error. This keeps the contract consistent with the chosen null-versus-omitted behavior without referencing specific implementation classes.
+
+The UpdateTicketRequest contract description will state that every property is optional. Omitting a property leaves the stored value unchanged. An explicit null is 400. A blank title, description, priority, or assignee is 400. An empty string on resolutionNotes clears the notes. The contract describes the behavior without naming the annotation.
+
+The PATCH contract description will be updated to clarify that explicit JSON nulls are rejected, not merely additional properties. The data-model validation table will receive a separate explanatory sentence rather than crowding the Optional column cell. The seed table and its search checks will be fully replaced. A final scan will confirm that no seeded description still contains the word "pay".
+
+A manual scan of the seed table confirms that only TKT-1001 and TKT-1005 contain the letter sequence "pay". TKT-1002, TKT-1003, TKT-1004, TKT-1005, TKT-1006, TKT-1007, and TKT-1008 either lack the substring or match by coincidence.
+
+The pay search check will list only TKT-1001 and TKT-1005. A brief note will state that password does not contain the substring pay, removing the incorrect claim without restating the wrong match.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+"pay" is p-a-y, so it is not inside "password". I’ll make each seed description explicit, then align paging, PATCH, and the plan notes with that.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/quickstart.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/quickstart.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/tickets.openapi.yaml</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/plan.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/plan.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/plan.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The user requested adding a research.md decision.
+
+The decision was placed in plan.md under Technical Context as JSON body rules. I verified that the remaining claims are removed: password matching pay, "Ignored when size is omitted", "screens flows", and the branch name is now phase1.
+
+I scanned the four files for leftover claims and verified the pay search checks against the seeded descriptions. The OpenAPI GET description correctly states that page and size are omitted rather than ignored. The data-model ticket row may wrap oddly but is acceptable. Quickstart now explicitly names TKT-1001 instead of using a generic phrase.
+
+I am running a Python check to confirm that "pay" appears only in the seeded titles and descriptions for tickets 1001 and 1005. I will also grep the four files for leftover bad phrases.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "specs/001-support-ticket-management/{plan.md,data-model.md,quickstart.md,contracts/tickets.openapi.yaml}",
+  "pattern": "password|Ignored when|screens flow|001-support-ticket-management|page without"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "pattern": "password|Ignored when|screens flow|001-support-ticket-management|page without",
+  "topFiles": [
+    {
+      "matchCount": 4,
+      "uri": "./specs/001-support-ticket-management/plan.md"
+    },
+    {
+      "matchCount": 2,
+      "uri": "./specs/001-support-ticket-management/contracts/tickets.openapi.yaml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "./specs/001-support-ticket-management/quickstart.md"
+    },
+    {
+      "matchCount": 3,
+      "uri": "./specs/001-support-ticket-management/data-model.md"
+    }
+  ],
+  "totalFiles": 4,
+  "totalMatches": 10
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: python3 &lt;&lt; &#39;PY&#39;
+import re
+text=open(&#34;specs/001-support-ticket-management/data-model.md&#34;).read()
+# rows start with | TKT-
+rows=[]
+for line in text.splitlines():
+    if line.startswith(&#34;| TKT-&#34;):
+        parts=[p.strip() for p in line.strip(&#34;|&#34;).split(&#34;|&#34;)]
+        rows.append(parts)
+print(&#34;cols&#34;, len(rows[0]), &#34;rows&#34;, len(rows))
+def has(s, needle):
+    return needle.lower() in s.lower()
+pay=[]
+checkout=[]
+pf=[]
+fp=[]
+reissued_td=[]
+for p in rows:
+    tid, theme, title, desc, pri, status, other = p
+    blob=title+&#34; &#34;+desc
+    if has(blob,&#34;pay&#34;): pay.append(tid)
+    if has(blob,&#34;checkout&#34;): checkout.append(tid)
+    if has(blob,&#34;payment failure&#34;): pf.append(tid)
+    if has(blob,&#34;failure payment&#34;): fp.append(tid)
+    if has(blob,&#34;reissued&#34;): reissued_td.append(tid)
+    # show password hits for pay
+    if has(title+&#34; &#34;+desc,&#34;password&#34;):
+        print(&#34;password row&#34;, tid, &#34;pay?&#34;, has(blob,&#34;pay&#34;))
+print(&#34;pay&#34;, pay)
+print(&#34;checkout&#34;, checkout)
+print(&#34;payment failure&#34;, pf)
+print(&#34;failure payment&#34;, fp)
+print(&#34;reissued in title/desc&#34;, reissued_td)
+PY</summary>
+```bash
+python3 << 'PY'
+import re
+text=open("specs/001-support-ticket-management/data-model.md").read()
+# rows start with | TKT-
+rows=[]
+for line in text.splitlines():
+    if line.startswith("| TKT-"):
+        parts=[p.strip() for p in line.strip("|").split("|")]
+        rows.append(parts)
+print("cols", len(rows[0]), "rows", len(rows))
+def has(s, needle):
+    return needle.lower() in s.lower()
+pay=[]
+checkout=[]
+pf=[]
+fp=[]
+reissued_td=[]
+for p in rows:
+    tid, theme, title, desc, pri, status, other = p
+    blob=title+" "+desc
+    if has(blob,"pay"): pay.append(tid)
+    if has(blob,"checkout"): checkout.append(tid)
+    if has(blob,"payment failure"): pf.append(tid)
+    if has(blob,"failure payment"): fp.append(tid)
+    if has(blob,"reissued"): reissued_td.append(tid)
+    # show password hits for pay
+    if has(title+" "+desc,"password"):
+        print("password row", tid, "pay?", has(blob,"pay"))
+print("pay", pay)
+print("checkout", checkout)
+print("payment failure", pf)
+print("failure payment", fp)
+print("reissued in title/desc", reissued_td)
+PY
+```
+
+```
+cols 7 rows 15
+password row TKT-1011 pay? False
+password row TKT-1015 pay? False
+pay ['TKT-1001', 'TKT-1005']
+checkout ['TKT-1001']
+payment failure ['TKT-1001']
+failure payment []
+reissued in title/desc []
+
+```
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The pay search results are verified against the seed table. The password mention in data-model.md was a false claim that needs removal.
+
+The password explanation in data-model.md is kept to prevent the false claim from returning. The branch is set to phase1. JSON body rules are confirmed in Technical Context.
+
+research.md was left unchanged because the user restricted edits to the specified files. The decision text was added to plan.md Technical Context instead.
+
+The "Ignored" note about page/size was removed from the OpenAPI contract. The typo "Two screens flows" was corrected to "Two-screen flows". A concise summary of all changes will follow.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+"pay" is p-a-y, so it is not inside "password" (p-a-s-s). The four files now agree on the seed, paging, and the PATCH body rules.
+
+**Search.** Seed descriptions are written out in `data-model.md`. A search for `pay` matches only **TKT-1001** and **TKT-1005**. `checkout` and `payment failure` match only TKT-1001. `failure payment` and `reissued` match none. The quickstart expects that same set.
+
+**PATCH.** `plan.md` sets `spring.jackson.deserialization.fail-on-unknown-properties=true`, so a `status` or `category` property is 400 instead of being ignored. On the update DTO, `@JsonSetter(nulls = Nulls.FAIL)` makes an explicit null 400, while an omitted field stays unchanged. An empty `resolutionNotes` still clears the notes. The OpenAPI update schema says the same thing.
+
+**Paging.** `page` without `size` is 400. The "ignored when size is omitted" wording is gone.
+
+**Plan.** The branch is `phase1`. Flyway versions are shared, so the next migration is V3. Tests now include a blank comment → 400, an unknown `ticketId` → 404, and a field PATCH that sends `status` → 400.
+
+---
+
+_**User**_
+
+Append to docs/ai-mistakes.md (only this file):
+## Plan asserted "pay" matches "password" (ungrounded test expectation)
+- Phase: /speckit-plan for 001-support-ticket-management
+- What the AI produced: data-model.md and quickstart.md claimed a search for "pay" returns TKT-1011 because "password" contains "pay"
+- Why it was wrong: "password" is p-a-s-s; it does not contain "pay". The quickstart check would fail or push the implementation toward wrong search logic
+- How caught: manual review of the plan artefacts before /speckit-tasks
+- Fix: corrected search checks in commit <sha>
+- Also caught in same review: the contract relied on rejecting unknown JSON properties, which Spring Boot ignores by default; made explicit in the plan
+
+---
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/docs/ai-mistakes.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: git log -8 --oneline &amp;&amp; git status --short &amp;&amp; git log -5 --format=&#39;%H %s&#39;</summary>
+```bash
+git log -8 --oneline && git status --short && git log -5 --format='%H %s'
+```
+</details></tool-use>
