@@ -1,6 +1,6 @@
 # Implementation Plan: Support Ticket Management
 
-**Branch**: `001-support-ticket-management` | **Date**: 2026-10-07 | **Spec**: [spec.md](spec.md)
+**Branch**: `phase1` | **Date**: 2026-10-07 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification from `/specs/001-support-ticket-management/spec.md`
 
@@ -16,9 +16,11 @@ The app is a monorepo: a Spring Boot 3.5 API in `backend/`, a React + Vite + Typ
 
 **Primary Dependencies**: Spring Boot 3.5 (Web, Validation, Data JPA, Flyway), PostgreSQL driver, Testcontainers; React, Vite, TypeScript, react-router. HTTP calls use a typed `fetch` client. No extra HTTP library.
 
-**Storage**: PostgreSQL 16 via `pgvector/pgvector:pg16`. Flyway schema in `backend/src/main/resources/db/migration`. Flyway seed in `backend/src/main/resources/db/seed`. Hibernate `ddl-auto: validate`.
+**Storage**: PostgreSQL 16 via `pgvector/pgvector:pg16`. Flyway schema in `backend/src/main/resources/db/migration`. Flyway seed in `backend/src/main/resources/db/seed`. Hibernate `ddl-auto: validate`. Flyway version numbers are shared across those two locations: V1 is the schema and V2 is the seed, so later migrations start at V3.
 
-**Testing**: JUnit 5. `TicketStatusTest` (no Spring). `TicketStatusTransitionTest` (`@SpringBootTest`, MockMvc, Testcontainers, 25 status pairs). `TicketValidationTest` (`@WebMvcTest`).
+**Testing**: JUnit 5. `TicketStatusTest` (no Spring). `TicketStatusTransitionTest` (`@SpringBootTest`, MockMvc, Testcontainers, 25 status pairs, plus unknown `ticketId` → 404). `TicketValidationTest` (`@WebMvcTest`): field validation, a blank comment → 400, and `PATCH /api/tickets/{ticketId}` with a `status` property → 400.
+
+**JSON body rules**: Decision: set `spring.jackson.deserialization.fail-on-unknown-properties=true`. Spring Boot ignores unknown JSON properties by default, so without this a `status` or `category` field on `PATCH /api/tickets/{ticketId}` would be dropped. With it, those properties, and any other property absent from the DTO, fail deserialization with 400. This matches `additionalProperties: false` on every request schema. On the update DTO, each property uses `@JsonSetter(nulls = Nulls.FAIL)`. An omitted property deserializes as Java null and the service leaves the stored value unchanged. An explicit JSON null is 400. `resolutionNotes: ""` clears the notes.
 
 **Target Platform**: Local developer machine. API on port 8080. UI on port 5173.
 
@@ -28,7 +30,7 @@ The app is a monorepo: a Spring Boot 3.5 API in `backend/`, a React + Vite + Typ
 
 **Constraints**: Backend enforces validation and the state machine. No secrets beyond the published local database placeholder. No auth. No assistant, embeddings, or Spring AI in this feature. UI shows every match and does not page.
 
-**Scale/Scope**: One agent, no accounts. About 15 seeded tickets, plus tickets created during use. Two screens flows: list/create and detail. Show-all list is the intended volume.
+**Scale/Scope**: One agent, no accounts. About 15 seeded tickets, plus tickets created during use. Two screen flows: list/create and detail. Show-all list is the intended volume.
 
 ## Constitution Check
 

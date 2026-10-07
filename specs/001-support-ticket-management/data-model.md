@@ -85,41 +85,42 @@ Comments, resolution notes, category, assignee, and `ticketId` do not participat
 
 Order is always `createdAt` descending, then `ticketNumber` descending. Field edits, new comments, and status changes do not change `createdAt`, so they do not move the ticket.
 
-When `page` and `size` are omitted, every match is returned. See the contract for the window rules when `size` is present.
+When `page` and `size` are both omitted, every match is returned. `page` without `size` is 400. When `size` is present, `page` defaults to 0 if omitted. See the contract for the window bounds.
 
 ## Seed
 
 Flyway seed `V2__seed_tickets.sql` inserts these fifteen tickets. Created times increase with the id, one minute apart, so the list shows TKT-1015 first. The sequence is set so the next created ticket is TKT-1016.
 
-| ticketId | Theme | Title | Priority | Status | Notes and comments |
-|----------|--------|-------|----------|--------|--------------------|
-| TKT-1001 | Payment | Payment declined at checkout | HIGH | OPEN | Description contains the phrase "payment failure". One comment. No resolution notes. |
-| TKT-1002 | Payment | Customer charged twice for one order | HIGH | IN_PROGRESS | One comment that the duplicate capture is being traced. |
-| TKT-1003 | Payment | Refund still missing after five days | MEDIUM | RESOLVED | Resolution notes say the refund posted. One comment. |
-| TKT-1004 | Payment | Invoice shows the wrong currency | LOW | CLOSED | Resolution notes say the invoice was reissued. |
-| TKT-1005 | Payment | Duplicate payment report, already handled | MEDIUM | CANCELLED | No resolution notes. |
-| TKT-1006 | Shipment | Shipment has not moved in four days | HIGH | OPEN | One comment with the carrier scan gap. |
-| TKT-1007 | Shipment | Tracking number does not update | MEDIUM | IN_PROGRESS | One comment that the carrier was contacted. |
-| TKT-1008 | Shipment | Parcel delivered to the wrong address | HIGH | RESOLVED | Resolution notes say a replacement was sent. |
-| TKT-1009 | Shipment | Delivery scan missing after handoff | LOW | CLOSED | Resolution notes say the scan was corrected. |
-| TKT-1010 | Shipment | Shipment cancelled by the customer | LOW | CANCELLED | No resolution notes. |
-| TKT-1011 | Login | Cannot sign in after a password reset | HIGH | OPEN | One comment that the reset mail arrived. |
-| TKT-1012 | Login | MFA code is rejected | MEDIUM | IN_PROGRESS | One comment that a new code was requested. |
-| TKT-1013 | Login | Account locked after failed attempts | HIGH | RESOLVED | Resolution notes say the lock was cleared. |
-| TKT-1014 | Login | SSO redirect loop on the login page | MEDIUM | CLOSED | Resolution notes say the redirect URL was corrected. |
-| TKT-1015 | Login | Second report of the password-reset failure | LOW | CANCELLED | Comment pointing at TKT-1011. |
+| ticketId | Theme | Title | Description | Priority | Status | Other |
+|----------|--------|-------|-------------|----------|--------|-------|
+| TKT-1001 | Payment | Payment declined at checkout | Card network returned a payment failure during checkout. | HIGH | OPEN | One comment. No resolution notes. |
+| TKT-1002 | Payment | Customer charged twice for one order | A second capture was taken for the same order. | HIGH | IN_PROGRESS | One comment that the duplicate capture is being traced. |
+| TKT-1003 | Payment | Refund still missing after five days | The refund has not appeared after five days. | MEDIUM | RESOLVED | Resolution notes: "The refund posted." One comment. |
+| TKT-1004 | Payment | Invoice shows the wrong currency | The invoice used USD instead of EUR. | LOW | CLOSED | Resolution notes: "The invoice was reissued." |
+| TKT-1005 | Payment | Duplicate payment report, already handled | Caller confirmed this report is a duplicate. | MEDIUM | CANCELLED | No resolution notes. |
+| TKT-1006 | Shipment | Shipment has not moved in four days | No carrier scan since handover. | HIGH | OPEN | One comment with the carrier scan gap. |
+| TKT-1007 | Shipment | Tracking number does not update | The tracking page has shown the same scan for two days. | MEDIUM | IN_PROGRESS | One comment that the carrier was contacted. |
+| TKT-1008 | Shipment | Parcel delivered to the wrong address | The parcel was left at a neighboring building. | HIGH | RESOLVED | Resolution notes: "A replacement was sent." |
+| TKT-1009 | Shipment | Delivery scan missing after handoff | The handoff scan was never recorded. | LOW | CLOSED | Resolution notes: "The scan was corrected." |
+| TKT-1010 | Shipment | Shipment cancelled by the customer | The customer asked to stop this shipment. | LOW | CANCELLED | No resolution notes. |
+| TKT-1011 | Login | Cannot sign in after a password reset | The reset mail arrived but sign-in still fails. | HIGH | OPEN | One comment that the reset mail arrived. |
+| TKT-1012 | Login | MFA code is rejected | The one-time code is rejected as expired. | MEDIUM | IN_PROGRESS | One comment that a new code was requested. |
+| TKT-1013 | Login | Account locked after failed attempts | Too many failed sign-in attempts locked the account. | HIGH | RESOLVED | Resolution notes: "The lock was cleared." |
+| TKT-1014 | Login | SSO redirect loop on the login page | The login page repeats the same redirect. | MEDIUM | CLOSED | Resolution notes: "The redirect URL was corrected." |
+| TKT-1015 | Login | Second report of the password-reset failure | Same reset problem already tracked on TKT-1011. | LOW | CANCELLED | Comment pointing at TKT-1011. |
 
-Search checks this seed supports:
+Search checks, using only title and description:
 
-- `pay` matches TKT-1001 because "Payment" contains that sequence. It also matches a login ticket whose title contains "password", such as TKT-1011. `checkout` matches TKT-1001 only.
-- `payment failure` matches TKT-1001 because that phrase is in the description. It does not match a ticket that only has those words separately or in reverse order.
-- A word that appears only in a comment or in resolution notes, such as `reissued` on TKT-1004, does not return that ticket.
+- `pay` matches only TKT-1001 and TKT-1005. TKT-1001 has it in "Payment" and in "payment failure". TKT-1005 has it in "payment". No other title or description contains that sequence. `password` is p-a-s-s, and `page` is p-a-g-e, so TKT-1011, TKT-1014, and TKT-1015 do not match.
+- `checkout` matches only TKT-1001.
+- `payment failure` matches only TKT-1001. `failure payment` matches none.
+- `reissued` matches none. It appears only in the resolution notes of TKT-1004.
 
 ## Validation summary
 
 | Action | Required after trim | Optional | Rejected if present |
 |--------|---------------------|----------|---------------------|
 | Create ticket | title, description, priority, assignee, category | resolutionNotes | status (server sets OPEN), ticketId |
-| Update ticket | none; each present required field must still be valid | title, description, priority, assignee, resolutionNotes | status, category, ticketId |
+| Update ticket | none; each present required field must still be valid. An omitted property stays unchanged. An explicit JSON null is rejected. | title, description, priority, assignee, resolutionNotes | status, category, ticketId, and any explicit null |
 | Change status | status, one of the five names | none | any other property |
 | Add comment | text | none | none |

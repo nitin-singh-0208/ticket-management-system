@@ -79,12 +79,12 @@ paths:
       operationId: updateTicket
       summary: Update editable ticket fields
       description: >
-        Does not change ticketId, category, status, or createdAt. Omitted
-        properties stay as they are. A present title, description, priority,
-        or assignee that is blank is 400. resolutionNotes set to an empty
-        string clears the notes. status or category in the body is 400
-        because additional properties are rejected. Allowed in every status,
-        including CLOSED and CANCELLED.
+        Does not change ticketId, category, status, or createdAt. An omitted
+        property stays unchanged. An explicit null is 400. A present title,
+        description, priority, or assignee that is blank is 400.
+        resolutionNotes set to an empty string clears the notes. status,
+        category, or any other unknown property is 400. Allowed in every
+        status, including CLOSED and CANCELLED.
       requestBody:
         required: true
         content:
@@ -206,8 +206,8 @@ components:
       in: query
       required: false
       description: >
-        Zero-based page index. Ignored when size is omitted. Sending page
-        without size is 400.
+        Zero-based page index. Sending page without size is 400. When size
+        is present and page is omitted, page is 0.
       schema:
         type: integer
         minimum: 0
@@ -216,8 +216,8 @@ components:
       in: query
       required: false
       description: >
-        Page size from 1 to 100. When omitted together with page, the
-        response contains every match.
+        Page size from 1 to 100. When page and size are both omitted, the
+        response contains every match. page without size is 400.
       schema:
         type: integer
         minimum: 1
@@ -359,7 +359,12 @@ components:
     UpdateTicketRequest:
       type: object
       additionalProperties: false
-      description: Every property is optional. At least the sent properties are validated.
+      description: >
+        Omit a property to leave the stored value unchanged. An explicit
+        null on any property is 400. A present title, description, priority,
+        or assignee must be non-blank. resolutionNotes set to an empty
+        string clears the notes. Unknown properties, including status and
+        category, are 400.
       properties:
         title:
           type: string

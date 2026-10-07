@@ -51,9 +51,9 @@ The running app, not the test database, contains TKT-1001 through TKT-1015. The 
 | Check | Action | Expected |
 |-------|--------|----------|
 | Order | Open `/tickets` | TKT-1015 is the first row. TKT-1001 is the last. |
-| Substring | Search `pay` | TKT-1001 appears. A login ticket whose title contains "password", such as TKT-1011, also appears. |
+| Substring | Search `pay` | Only TKT-1001 and TKT-1005. |
 | Exclusive word | Search `checkout` | Only TKT-1001 appears. |
-| Phrase | Search `payment failure` | TKT-1001 appears. A ticket that does not contain that sequence does not. |
+| Phrase | Search `payment failure` | Only TKT-1001. |
 | Word order | Search `failure payment` | TKT-1001 does not appear on the strength of the reversed words. |
 | Non-search field | Search `reissued` | TKT-1004 is not listed. That word is only in its resolution notes. |
 | Status | Filter `OPEN` | Only OPEN tickets remain, still newest first. |
