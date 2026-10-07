@@ -2489,6 +2489,18 @@ Append to docs/ai-mistakes.md (only this file):
 
 _**Agent (grok-4.7)**_
 
+<think><details><summary>Thought Process</summary>
+Appending the specified section to docs/ai-mistakes.md.
+
+Need to locate the actual commit SHA for the fix. The placeholder <sha> must be replaced with the real commit hash. I'll check git history since only docs/ai-mistakes.md will be modified.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+I’ll append that mistake entry to `docs/ai-mistakes.md` and use the commit that corrected the search checks.
+
+_**Agent (grok-4.7)**_
+
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
 <summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/docs/ai-mistakes.md</summary>
 
@@ -2501,4 +2513,247 @@ _**Agent (grok-4.7)**_
 ```bash
 git log -8 --oneline && git status --short && git log -5 --format='%H %s'
 ```
+
+```
+9dbf6db fix search seed claims, PATCH unknown-field handling and paging rules
+d48db5b speckit plan for phase 1
+f3e8e78 speckit clarify
+b7c9a02 add ticket management spe
+1113381 add requirements referred from assignment
+81b7cb9 docs: adopt constitution (principles, stack, and governance)
+6f261ab pin Java 21 and add cursorignore
+fb93f8c add review-rag-output hallucination check
+9dbf6dbfd76449bac7d922ca58bd8e63d12886b5 fix search seed claims, PATCH unknown-field handling and paging rules
+d48db5be68e57b80bf8254faf18e5b522b23c9be speckit plan for phase 1
+f3e8e78822aa26b8f214a206ad2de69fe5ed70d6 speckit clarify
+b7c9a02c249a9161596c350f50b16981b899352f add ticket management spe
+11133814de74d7c92a9a49b7292f16accabdc7bc add requirements referred from assignment
+
+```
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The fix commit is 9dbf6db. Existing entries use short SHAs like 7ddffdb.
+
+Appending the new entry after the last line, separated by a blank line. The exact text will be used with the SHA substituted.
+
+Commit 9dbf6db covers both the search fix and the unknown JSON properties correction. The user's exact "Fix:" text will be used rather than restyling to match prior entries.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/docs/ai-mistakes.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The entry was appended to docs/ai-mistakes.md.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+Appended the entry to `docs/ai-mistakes.md`. The fix commit is `9dbf6db`.
+
+---
+
+_**User**_
+
+Using the documentation skill, create the top-level files specs/architecture.md, specs/data-model.md, specs/api-contract.md, specs/state-machine.md, specs/ui-flow.md, and specs/test-strategy.md. Each is a concise summary that links to the source in @specs/001-support-ticket-management/ (plan.md, research.md, data-model.md, contracts/, quickstart.md). Don't duplicate full tables except the state-machine transition table plus a Mermaid stateDiagram. In architecture.md, add sections "RAG pipeline", "Chunking strategy", and "Embedding model choice", each marked "Phase 2 – TBD". Only create these six files.
+
+---
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+I will generate six top-level specification files from the existing source documents. Each file will link to its corresponding source material and include only the required tables and diagrams. The architecture document will also contain the three Phase 2 sections.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+I’ll follow the documentation skill and draft those six top-level specs as short summaries that point at the feature sources.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/.cursor/skills/documentation/SKILL.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Reading the source files in specs/001-support-ticket-management/ to prepare accurate summaries.
+
+The six target files are ready to be created. Architecture.md will include three Phase 2 – TBD sections: RAG pipeline, chunking strategy, and embedding model choice. Only the state-machine transition table and a Mermaid stateDiagram will be duplicated; all other content will link back to the source documents.
+
+Re-reading the source files to verify current contents after recent fixes. Checking for stale errors like the "pay matches password" mismatch and outdated paging rules before drafting the summaries.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/plan.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/contracts/ui.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/001-support-ticket-management/research.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/requirements.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+The API contract summary will include brief OpenAPI path overviews.
+
+I will check the quickstart for test-strategy links and architecture details. The six files will follow the documentation skill guidelines: concise summaries linking to the source directory, ADR-style decisions, Mermaid diagrams, and traceable factual statements.
+
+Relative links will point to `001-support-ticket-management/plan.md` and the other source files.
+
+The architecture document will cover the phase 1 stack and ADR-style decisions for monorepo layout, pgvector image, package structure, and Flyway. The RAG pipeline, chunking strategy, and embedding model sections will each be marked Phase 2 – TBD.
+
+The data model summary will describe entities and link to the source without duplicating the full field table or the 25-pair matrix.
+
+The state-machine file will contain the allowed-targets transition table and a Mermaid diagram. The 25-pair matrix will be linked from the feature data-model instead of duplicated.
+
+The API contract will list endpoints, status codes, error shapes, and a link to the OpenAPI spec without duplicating full schema tables.
+
+The UI flow will include a compact Mermaid flowchart mapping the three routes.
+
+The test strategy will cite the three test classes and their coverage, including the later additions such as blank comment 400 and unknown ticketId 404. It will reference plan.md and quickstart.md rather than duplicating the 25-pair matrix, noting five allowed targets and twenty refused ones. The plan.md Testing section is the current source, unlike the older research.md Tests section. Architecture decisions will be recorded briefly.
+
+Architecture will stay focused on system shape. Jackson fail-on-unknown is an API concern, so it belongs in the API contract instead. The OpenAPI endpoints are now mapped: GET and POST /api/tickets, GET and PATCH /api/tickets/{ticketId}, PATCH /api/tickets/{ticketId}/status, and POST /api/tickets/{ticketId}/comments.
+
+Error responses will return 400, 404, and 409 ProblemDetail. The state diagram will use explicit transitions from OPEN to IN_PROGRESS and CANCELLED, then from IN_PROGRESS to RESOLVED or CANCELLED, and from RESOLVED to CLOSED. CLOSED and CANCELLED will be terminal states.
+
+The state diagram will omit outgoing arrows from terminal states. Each top-level spec will link to its corresponding source file under `001-support-ticket-management/`. The data model summary will describe ticket and comment entities, human IDs, list ordering, search fields, and seed pointers without reproducing the full field table. The API contract will present a concise methods table rather than duplicating the OpenAPI schema definitions.
+
+The UI flow will use bullet points for routes rather than copying the full ui.md tables verbatim. The test strategy will list test layers and quickstart checks by category instead of reproducing the entire check table. The architecture document will place the three Phase 2 – TBD sections under the exact headings RAG pipeline, Chunking strategy, and Embedding model choice.
+
+The exact en dash will be used for "Phase 2 – TBD". These sections will cite plan constraints and research decisions to avoid inventing behavior. Constitution and cursor rules may contain RAG details, but they will not be reproduced because the user explicitly requires TBD.
+
+Only the six requested files will be created. No other workspace files will be modified.
+
+The architecture document will contain two or three short ADR-style decisions.
+
+Human IDs begin at 1001, seeded through 1015, with the next value being 1016. This detail will be traced back to the data model and research documents.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+The feature specs are the source of truth. I’ll add six short top-level summaries that link to them, and leave the RAG sections marked for Phase 2.
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/architecture.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/data-model.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/api-contract.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/state-machine.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<think><details><summary>Thought Process</summary>
+Only six files will be created. Each will link to the source documents without duplicating full tables. The architecture document will include Phase 2 sections marked as TBD.
+
+A Mermaid flowchart was added to ui-flow.md. Endpoint and route tables were kept as brief summaries rather than full copies. No new content was invented; all details were drawn directly from the source documents.
+</details></think>
+
+_**Agent (grok-4.7)**_
+
+Created the six assignment specs under `specs/`. Each one summarizes Phase 1 and links to `specs/001-support-ticket-management/` instead of copying the feature tables.
+
+- `specs/architecture.md` covers the monorepo, the PGVector image, feature packages, and Flyway. **RAG pipeline**, **Chunking strategy**, and **Embedding model choice** are each marked Phase 2 – TBD.
+- `specs/data-model.md` summarizes tickets, comments, ids, and search.
+- `specs/api-contract.md` lists the six operations and the problem-detail errors.
+- `specs/state-machine.md` has the allowed-transition table and a Mermaid `stateDiagram`.
+- `specs/ui-flow.md` describes the three routes.
+- `specs/test-strategy.md` describes the three backend test classes and points at the quickstart.
+
+---
+
+_**User**_
+
+Edit specs/test-strategy.md and specs/state-machine.md only:
+1. test-strategy.md: move "a blank comment is 400" out of TicketValidationTest into a new row: CommentValidationTest | @WebMvcTest(CommentController.class) | Blank comment is 400 and the service is not called. Add a row for ApiExceptionHandler behavior: unknown property / explicit null / bad enum → ProblemDetail 400 naming the property (covered in TicketValidationTest).
+2. test-strategy.md: add "Frontend" — no automated tests in Phase 1; UI error display (field errors, 409 detail, 404 detail) is verified manually via quickstart.md, mapped to the requirement AC for meaningful UI errors.
+3. test-strategy.md: add section "AI / retrieval evaluation" with "Phase 2 – TBD (stubbed-model unit tests, pgvector integration test, @Tag(\"ai-eval\") real-model suite excluded from default build)".
+4. state-machine.md: add CLOSED --> [*] and CANCELLED --> [*] to the Mermaid diagram.
+
+---
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (grok-4.7)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /Users/nitinkumarsingh/Work/nitin-personal-repos/ticket-management-system/specs/state-machine.md</summary>
+
 </details></tool-use>
