@@ -242,12 +242,12 @@ Finish the tasks in a phase, then make one commit for that phase, then start the
 
 > These are the quickstart checks. Confirm the expected copy before changing a form, and change a form only where the copy is missing.
 
-- [ ] T052 [US6] Check the blank-field, blank-comment, and refused-status rows in `specs/001-support-ticket-management/quickstart.md` against `frontend/src/pages/TicketCreatePage.tsx` and `frontend/src/pages/TicketDetailPage.tsx`. A blank title names the title field and does not create a ticket. A blank comment shows `Comment needs text` and is not posted. A 409 shows ProblemDetail `detail` and leaves the loaded status in place.
+- [X] T052 [US6] Check the blank-field, blank-comment, and refused-status rows in `specs/001-support-ticket-management/quickstart.md` against `frontend/src/pages/TicketCreatePage.tsx` and `frontend/src/pages/TicketDetailPage.tsx`. A blank title names the title field and does not create a ticket. A blank comment shows `Comment needs text` and is not posted. A 409 shows ProblemDetail `detail` and leaves the loaded status in place.
 
 ### Implementation for User Story 6
 
-- [ ] T053 [US6] Where T052 found a missing message, show each `errors[].message` beside `errors[].field` on `frontend/src/pages/TicketCreatePage.tsx` and `frontend/src/pages/TicketDetailPage.tsx`, show `Comment needs text` for a blank comment, and show the 409 `detail` without treating the refused status as saved. Do not send `status` on field update. Do not add page controls.
-- [ ] T054 [US6] Run the Restart section of `specs/001-support-ticket-management/quickstart.md`. Stop the backend, start it again, and do not remove the Docker volume. TKT-1001 through TKT-1016, including the edit and comment from the quickstart, are still present. One more create returns TKT-1017.
+- [X] T053 [US6] Where T052 found a missing message, show each `errors[].message` beside `errors[].field` on `frontend/src/pages/TicketCreatePage.tsx` and `frontend/src/pages/TicketDetailPage.tsx`, show `Comment needs text` for a blank comment, and show the 409 `detail` without treating the refused status as saved. Do not send `status` on field update. Do not add page controls.
+- [X] T054 [US6] Run the Restart section of `specs/001-support-ticket-management/quickstart.md`. Stop the backend, start it again, and do not remove the Docker volume. TKT-1001 through TKT-1016, including the edit and comment from the quickstart, are still present. One more create returns TKT-1017.
 
 **Checkpoint**: Restart and the remaining field copy are done. Commit: `test: confirm restart and name invalid fields`
 
