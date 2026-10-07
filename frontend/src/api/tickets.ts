@@ -44,6 +44,10 @@ export interface UpdateTicketRequest {
   resolutionNotes?: string;
 }
 
+export interface CreateCommentRequest {
+  text: string;
+}
+
 export interface FieldError {
   field: string;
   message: string;
@@ -144,6 +148,38 @@ export async function changeStatus(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ status }),
+    }
+  );
+
+  if (!response.ok) {
+    let problem: ProblemDetail;
+    try {
+      problem = await response.json();
+    } catch {
+      problem = {
+        title: response.statusText,
+        status: response.status,
+        detail: "Failed to parse error response",
+      };
+    }
+    throw new ApiError(response.status, problem);
+  }
+
+  return response.json();
+}
+
+export async function addComment(
+  ticketId: string,
+  request: CreateCommentRequest
+): Promise<CommentResponse> {
+  const response = await fetch(
+    `${API_BASE}/api/tickets/${encodeURIComponent(ticketId)}/comments`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request),
     }
   );
 

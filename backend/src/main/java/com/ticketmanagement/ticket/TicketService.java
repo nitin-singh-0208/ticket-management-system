@@ -1,5 +1,8 @@
 package com.ticketmanagement.ticket;
 
+import com.ticketmanagement.comment.Comment;
+import com.ticketmanagement.comment.CommentRepository;
+import com.ticketmanagement.comment.dto.CommentResponse;
 import com.ticketmanagement.common.TicketNotFoundException;
 import com.ticketmanagement.ticket.dto.CreateTicketRequest;
 import com.ticketmanagement.ticket.dto.TicketDetail;
@@ -14,9 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class TicketService {
 
     private final TicketRepository ticketRepository;
+    private final CommentRepository commentRepository;
 
-    public TicketService(TicketRepository ticketRepository) {
+    public TicketService(TicketRepository ticketRepository, CommentRepository commentRepository) {
         this.ticketRepository = ticketRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Transactional
@@ -79,7 +84,13 @@ public class TicketService {
         return toDetail(saved);
     }
 
-    private static TicketDetail toDetail(Ticket ticket) {
+    private TicketDetail toDetail(Ticket ticket) {
+        List<CommentResponse> comments = commentRepository
+                .findByTicket_TicketIdOrderByCreatedAtAscIdAsc(ticket.getTicketId())
+                .stream()
+                .map(TicketService::toCommentResponse)
+                .toList();
+
         return new TicketDetail(
                 ticket.getTicketId(),
                 ticket.getTitle(),
@@ -90,8 +101,12 @@ public class TicketService {
                 ticket.getResolutionNotes(),
                 ticket.getStatus(),
                 ticket.getCreatedAt(),
-                List.of(),
+                comments,
                 new ArrayList<>(ticket.getStatus().allowedNext())
         );
+    }
+
+    private static CommentResponse toCommentResponse(Comment comment) {
+        return new CommentResponse(comment.getId(), comment.getText(), comment.getCreatedAt());
     }
 }

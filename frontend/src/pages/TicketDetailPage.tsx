@@ -4,6 +4,7 @@ import {
   getTicket,
   updateTicket,
   changeStatus,
+  addComment,
   TicketDetail,
   TicketStatus,
   TicketPriority,
@@ -38,6 +39,10 @@ export function TicketDetailPage() {
   const [editFieldErrors, setEditFieldErrors] = useState<Record<string, string>>({});
   const [editGeneralError, setEditGeneralError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+
+  const [commentText, setCommentText] = useState("");
+  const [commentFieldError, setCommentFieldError] = useState<string | null>(null);
+  const [isAddingComment, setIsAddingComment] = useState(false);
 
   useEffect(() => {
     if (!ticketId) {
@@ -97,6 +102,44 @@ export function TicketDetailPage() {
       }
     } finally {
       setIsChangingStatus(false);
+    }
+  }
+
+  async function handleAddComment(e: React.FormEvent) {
+    e.preventDefault();
+    if (!ticketId || !ticket) {
+      return;
+    }
+
+    setCommentFieldError(null);
+
+    if (!commentText.trim()) {
+      setCommentFieldError("Comment needs text");
+      return;
+    }
+
+    setIsAddingComment(true);
+
+    try {
+      const newComment = await addComment(ticketId, { text: commentText });
+      setTicket({
+        ...ticket,
+        comments: [...ticket.comments, newComment],
+      });
+      setCommentText("");
+    } catch (err) {
+      if (err instanceof ApiError) {
+        if (err.problem.errors && err.problem.errors.length > 0) {
+          const textError = err.problem.errors.find((fe) => fe.field === "text");
+          setCommentFieldError(textError?.message || err.problem.detail || "Failed to add comment.");
+        } else {
+          setCommentFieldError(err.problem.detail || "Failed to add comment.");
+        }
+      } else {
+        setCommentFieldError("Failed to add comment.");
+      }
+    } finally {
+      setIsAddingComment(false);
     }
   }
 
@@ -481,6 +524,50 @@ export function TicketDetailPage() {
             ))}
           </ul>
         )}
+
+        <form onSubmit={handleAddComment} noValidate style={{ marginTop: "1rem" }}>
+          <label htmlFor="comment-text" style={{ display: "block", fontWeight: 600, marginBottom: 4 }}>
+            Add Comment
+          </label>
+          <textarea
+            id="comment-text"
+            name="text"
+            rows={3}
+            maxLength={5000}
+            value={commentText}
+            onChange={(e) => {
+              setCommentText(e.target.value);
+              if (commentFieldError) setCommentFieldError(null);
+            }}
+            style={{
+              width: "100%",
+              padding: "0.5rem",
+              borderRadius: 4,
+              border: commentFieldError ? "1px solid #dc2626" : "1px solid #d1d5db",
+            }}
+          />
+          {commentFieldError && (
+            <span style={{ color: "#dc2626", fontSize: "0.875rem", display: "block", marginTop: 4 }}>
+              {commentFieldError}
+            </span>
+          )}
+          <button
+            type="submit"
+            disabled={isAddingComment}
+            style={{
+              marginTop: "0.5rem",
+              backgroundColor: "#2563eb",
+              color: "white",
+              padding: "0.5rem 1rem",
+              border: "none",
+              borderRadius: 4,
+              fontWeight: 600,
+              cursor: isAddingComment ? "not-allowed" : "pointer",
+            }}
+          >
+            {isAddingComment ? "Adding..." : "Add Comment"}
+          </button>
+        </form>
       </section>
 
       <footer style={{ borderTop: "1px solid #e5e7eb", paddingTop: "1rem" }}>
