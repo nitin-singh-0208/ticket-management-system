@@ -1,50 +1,112 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+- Version change: unversioned template → 1.0.0
+- Modified principles:
+  - [PRINCIPLE_1_NAME] → I. Spec-First
+  - [PRINCIPLE_2_NAME] → II. Backend Is Source of Truth
+  - [PRINCIPLE_3_NAME] → III. Test-First for Deterministic Logic
+  - [PRINCIPLE_4_NAME] → IV. Grounded AI
+  - [PRINCIPLE_5_NAME] → V. Configuration over Constants
+- Added principles: VI. No Secrets in Git; VII. Atomic Commits
+- Added sections: Technology Stack; Binding Project Rules
+- Removed sections: none (placeholder section titles replaced)
+- Follow-up TODOs: none
+-->
+
+# AI-Powered Support Ticket Management System Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-First
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+No production code MUST be written without an approved spec, plan, and tasks.
+Every requirement MUST trace to `specs/requirements.md`.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+Rationale: Unapproved work and untraced requirements break the spec as the
+source of truth.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Backend Is Source of Truth
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+Validation and the ticket state machine MUST be enforced on the server.
+Allowed transitions are:
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- OPEN → IN_PROGRESS → RESOLVED → CLOSED
+- OPEN → CANCELLED
+- IN_PROGRESS → CANCELLED
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+Every other transition MUST be rejected with HTTP 409.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Rationale: Clients cannot be trusted to enforce workflow or validation rules.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### III. Test-First for Deterministic Logic
+
+Every valid state transition and every invalid state transition MUST have its
+own integration test before that behaviour is treated as complete.
+
+Rationale: The state machine is deterministic, so each transition can and MUST
+be asserted exactly.
+
+### IV. Grounded AI
+
+Answers MUST come only from retrieved ticket context and MUST cite ticket IDs.
+When retrieval is empty, the system MUST return an explicit
+"No relevant tickets found" and MUST NOT call the LLM.
+The flow MUST be a single retrieve-then-generate step. Agentic actions are
+prohibited.
+
+Rationale: Ungrounded or multi-step generation invents ticket facts.
+
+### V. Configuration over Constants
+
+`topK`, the similarity threshold, and model names MUST live in
+`application.yml`. They MUST NOT be hardcoded.
+
+Rationale: Retrieval and model settings change by environment without code
+edits.
+
+### VI. No Secrets in Git
+
+Secrets, credentials, tokens, and private keys MUST NOT be committed.
+
+Rationale: The repository is not a secret store.
+
+### VII. Atomic Commits
+
+Each commit MUST contain one logical change and MUST use a conventional
+commit message.
+
+Rationale: Small, conventional commits stay reviewable and revertable.
+
+## Technology Stack
+
+The project MUST use:
+
+- Java 21
+- Spring Boot 3.5
+- Spring AI
+- PostgreSQL with PGVector, run via Docker Compose
+- Ollama with `nomic-embed-text` and `llama3.1:8b`
+- React, Vite, and TypeScript
+
+## Binding Project Rules
+
+Rules in `.cursor/rules/` are binding. Implementation and reviews MUST comply
+with them.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes conflicting local practice. Amendments MUST be
+recorded in this file, versioned semantically, and checked for compliance
+before merge.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Versioning policy:
+
+- MAJOR: backward-incompatible governance or principle removal or redefinition
+- MINOR: a new principle or section, or materially expanded guidance
+- PATCH: clarifications, wording, and other non-semantic refinements
+
+Compliance review: every change MUST be checked against these principles and
+against `.cursor/rules/` before it is accepted. Runtime development guidance
+lives in `.cursor/rules/`.
+
+**Version**: 1.0.0 | **Ratified**: 2026-10-07 | **Last Amended**: 2026-10-07
