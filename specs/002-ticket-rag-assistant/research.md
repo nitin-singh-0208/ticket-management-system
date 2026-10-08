@@ -95,9 +95,9 @@ Retrieval uses `VectorStore.similaritySearch(SearchRequest.builder().query(...).
 
 ## nomic-embed-text task prefixes
 
-- **Decision**: Apply the prefixes in application code. Indexing embeds `search_document: ` plus the stored chunk text. Similarity search embeds `search_query: ` plus the user question. Stored chunk text and LLM context blocks do **not** include these prefixes.
-- **Rationale**: The upstream model card states that the prompt must include a task instruction prefix, and that a RAG index uses `search_document: ` for documents and `search_query: ` for queries. Ollama’s library page for `nomic-embed-text` shows raw input strings and does not mention or inject those prefixes, so the application has to add them. Nomic’s own API uses a `task_type` parameter instead of a prefix and says other libraries must supply the prefix themselves.
-- **Alternatives considered**: Embedding raw text, matching the Ollama README examples. Rejected because that omits the prefix the model was trained to expect and quietly lowers retrieval quality.
+- **Decision**: Prefixes not used: PgVectorStore embeds Document text internally, so asymmetric prefixes would need a custom EmbeddingModel wrapper; deferred, retrieval quality checked via threshold calibration.
+- **Rationale**: The model card recommends `search_document: ` and `search_query: ` prefixes, but `PgVectorStore` embeds `Document` text internally, so those asymmetric prefixes cannot be applied without a custom `EmbeddingModel` wrapper. Store and query text are embedded as-is; retrieval quality is checked later via threshold calibration.
+- **Alternatives considered**: A custom `EmbeddingModel` wrapper that prepends the nomic task prefixes. Deferred.
 - **Sources**:
   - [nomic-ai/nomic-embed-text-v1.5 model card](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) — "the text prompt must include a task instruction prefix"; RAG example uses `search_document: ` and `search_query: `.
   - [Ollama library: nomic-embed-text](https://ollama.com/library/nomic-embed-text) — examples pass the text with no prefix; no prefix is documented.
