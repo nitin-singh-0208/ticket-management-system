@@ -38,17 +38,17 @@ Expected source tickets are derived from seed data in `backend/src/main/resource
 
 | | |
 |--|--|
-| Starting value | `0.6` in `app.rag.similarity-threshold` |
-| Calibrated value | Not yet measured. The first `@Tag("ai-eval")` run has not been executed, so `0.6` stays in `application.yml` until that run. |
-| How to calibrate | Set `logging.level.com.ticketmanagement.rag=DEBUG`. Each retrieval logs `ticketId` and score. Run `mvn test -Dgroups=ai-eval` against the seeded index. |
+| Starting value | `0.6` |
+| Calibrated value | `0.547` in `app.rag.similarity-threshold` |
+| How to calibrate | DEBUG logs from `mvn test -Dgroups=ai-eval` on 8 Oct 2026 against the seeded index (plus two extra tickets, TKT-1016 and TKT-1017, left from an earlier restart check). |
 
-After that run, replace the row above with the chosen number and the reasoning, using the logged scores:
+After that run, `0.6` was too high for in-scope retrieval and was lowered to `0.547`:
 
-- Lower the threshold only if an in-scope question (Q1–Q5) misses an expected ticket whose score sits just under `0.6`.
-- Raise the threshold if an out-of-scope question (O1–O5) retrieves chunks and the model then produces a grounded answer.
-- Keep `0.6` when in-scope questions stay grounded and out-of-scope questions stay no-match.
-
-Do not invent a calibrated number before those scores exist.
+- Shipment question top scores were TKT-1007 `0.585`, TKT-1006 `0.577`, TKT-1008 `0.577`. All sit just under `0.6`, so that question returned no chunks.
+- "Similar resolved tickets" top score was TKT-1004 (CLOSED) at `0.5486`. The next chunk was TKT-1005 (CANCELLED) at `0.5470`. `0.547` keeps the closed ticket and drops the cancelled one.
+- Payment-failure retrieval already cleared `0.6` (TKT-1001 `0.695`, TKT-1005 `0.625`). The answer cited only TKT-1001.
+- Out-of-scope questions that still retrieve (weather top score TKT-1004 `0.581`) produced no ticket id, so the response stayed no-match. "What is the capital of France?" retrieved nothing above `0.547` (nearest chunk about `0.538`).
+- The threshold was not raised, because those out-of-scope calls did not come back `grounded: true`.
 
 ## Running eval
 

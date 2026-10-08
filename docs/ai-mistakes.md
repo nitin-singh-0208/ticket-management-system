@@ -32,3 +32,17 @@ The plan's own evaluation-strategy.md expected these questions to pass, so it co
 **Fix:** every chunk now starts with a header line, e.g. `Ticket TKT-1001 | Payment declined at checkout | status OPEN | priority HIGH | category Payment | section comment`, and the same header goes into the context sent to the LLM. Commit <sha>.
 
 **Takeaway:** metadata is for filtering and citations. The model only knows what's actually in the text you embed and the prompt you send. Check each eval question against that, not against the schema.
+
+## First live eval missed shipment tickets and dropped uncited answers
+
+**When:** 8 Oct, first `mvn test -Dgroups=ai-eval` run for 002-ticket-rag-assistant
+
+At similarity `0.6`, "Have we seen payment failures before?" retrieved TKT-1001 at `0.695` and grounded. "What are the common causes of shipment tracking issues?" retrieved nothing: the best shipment chunks were TKT-1007 `0.585`, TKT-1006 `0.577`, and TKT-1008 `0.577`. "Show me similar resolved tickets" also retrieved nothing; the best closed ticket, TKT-1004, scored `0.549`.
+
+The resolution question for TKT-1001 did retrieve that ticket, then the model answered that the tickets did not contain the answer and named no id. The grounding check correctly discarded that text, so a ticket that was in the context became a no-match.
+
+A later prompt also wrote ids it was rejecting ("TKT-1005 is not high priority"). Every `TKT-` id in the answer becomes a source, so naming a skipped ticket counted as citing it.
+
+**Fix:** `app.rag.similarity-threshold` is `0.547`, which keeps TKT-1004 (`0.5486`, CLOSED) and drops the next chunk TKT-1005 (`0.5470`, CANCELLED). The system prompt tells the model to cite a matching ticket even when the requested section is missing, and not to write ids that do not match the question. Re-run of the eval suite passed 10/10.
+
+**Takeaway:** log the score of the first chunk you expected, not only the chunks that passed the threshold. And treat every ticket id in the model text as a citation, including ids the model mentions in order to reject them.

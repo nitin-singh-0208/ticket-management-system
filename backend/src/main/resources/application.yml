@@ -44,7 +44,7 @@ spring:
 app:
   rag:
     top-k: 5
-    similarity-threshold: 0.6
+    similarity-threshold: 0.547
     indexing:
       enabled: true
     chat-model: llama3.1:8b

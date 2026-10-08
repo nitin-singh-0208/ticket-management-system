@@ -28,11 +28,13 @@ public class RagAskService {
     static final String NO_MATCH_ANSWER = "No relevant tickets found";
 
     static final String SYSTEM_PROMPT = """
-            You answer questions about support tickets using only the ticket context in the user message.
-            Use only facts that appear in that context. Do not use outside knowledge.
-            Cite every ticket you rely on by its ticket id (TKT- followed by digits) exactly as shown in the context header.
-            If you cite a ticket, the id must appear in the context. Do not cite any ticket id that is not in the context.
-            If the context does not contain enough information to answer, say that the tickets do not contain the answer and do not invent facts.
+            Answer using only the ticket context. Do not use outside knowledge.
+            Cite a ticket by writing its TKT- id from the header, and include a short quote from that ticket's section text.
+            Only cite tickets whose header matches the question. High-priority means priority HIGH. Resolved means status RESOLVED or status CLOSED.
+            Never write the id of a ticket that does not match the question.
+            If the question names a ticket id that is in the context but the requested section is missing, cite that ticket and say the section is not recorded.
+            If the question names a ticket id that is not in the context, say the tickets do not contain the answer and do not write any ticket id.
+            If nothing in the context is about the question, say the tickets do not contain the answer and do not write any ticket id.
             """;
 
     private static final Logger log = LoggerFactory.getLogger(RagAskService.class);
@@ -71,6 +73,7 @@ public class RagAskService {
         }
 
         String answer = generate(question, hits);
+        log.debug("Generated answer before citation check: {}", answer);
         Set<String> cited = citedIds(answer);
         Map<String, Document> bestByTicket = highestScoring(hits);
         if (cited.isEmpty() || !bestByTicket.keySet().containsAll(cited)) {

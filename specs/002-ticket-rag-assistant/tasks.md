@@ -147,7 +147,7 @@ Finish all tasks in a phase, then make **one commit** for that phase, then start
 - [X] T028 [P] [US3] Create `frontend/src/api/ai.ts` with `askQuestion(question: string)` calling `POST http://localhost:8080/api/ai/ask`; types match `specs/002-ticket-rag-assistant/contracts/ai.openapi.yaml` (`AskRequest`, `AskResponse`, `AskSource`).
 - [X] T029 [US3] Create `frontend/src/pages/AskAiPage.tsx`: question input and submit; display answer; when `grounded` is true, list sources with title and status as links to `/tickets/{ticketId}`; when `grounded` is false, show `No relevant tickets found` prominently with no source list; reject empty or whitespace-only questions on the client with a clear message and do not call the API.
 - [X] T030 [US3] Register route `/ask` and an "Ask AI" nav link in `frontend/src/App.tsx`.
-- [ ] T031 [US3] Manual check per `specs/002-ticket-rag-assistant/quickstart.md`: no-match question ("What is the weather in Paris today?"), blank-question UX, and regression that Phase 1 ticket flows still work.
+- [X] T031 [US3] Manual check per `specs/002-ticket-rag-assistant/quickstart.md`: no-match question ("What is the weather in Paris today?"), blank-question UX, and regression that Phase 1 ticket flows still work.
 
 **Checkpoint**: Ask AI UI complete. Commit this phase alone before Phase 6.
 
@@ -163,10 +163,10 @@ Finish all tasks in a phase, then make **one commit** for that phase, then start
 
 ### Eval and calibration
 
-- [ ] T032 [P] Create `backend/src/test/java/com/ticketmanagement/rag/RagAskEvalTest.java` as a plain JUnit 5 test tagged `@Tag("ai-eval")` with no Spring context. It calls the running app (`http://localhost:8080/api/ai/ask`, base URL overridable via system property) using `java.net.http.HttpClient`. Cover five in-scope questions (Q1–Q5) and five out-of-scope questions (O1–O5) from `specs/evaluation-strategy.md`; assert pass criteria (grounded, sources, no-match body). Excluded from default `mvn test`. Prerequisites: `docker compose up`, backend running with seed and indexing enabled, Ollama running.
-- [ ] T033 Run `mvn -f backend/pom.xml test -Dgroups=ai-eval` against that running app. Set `logging.level.com.ticketmanagement.rag=DEBUG` on the backend and record each question's response and retrieval scores (from backend DEBUG logs) for T034.
-- [ ] T034 **Threshold calibration**: from DEBUG logs, choose `app.rag.similarity-threshold` — lower only if an in-scope question misses an expected ticket just under 0.6; raise if an out-of-scope question retrieves chunks and grounds; keep 0.6 if both sides pass. Update `backend/src/main/resources/application.yml` with the chosen value and record the number and reasoning in `specs/evaluation-strategy.md` (replace the "Not yet measured" row).
-- [ ] T035 [P] If eval or manual testing surfaced a wrong citation, fabricated fact, or missed retrieval, record it in `docs/ai-mistakes.md` per AC-23.
+- [X] T032 [P] Create `backend/src/test/java/com/ticketmanagement/rag/RagAskEvalTest.java` as a plain JUnit 5 test tagged `@Tag("ai-eval")` with no Spring context. It calls the running app (`http://localhost:8080/api/ai/ask`, base URL overridable via system property) using `java.net.http.HttpClient`. Cover five in-scope questions (Q1–Q5) and five out-of-scope questions (O1–O5) from `specs/evaluation-strategy.md`; assert pass criteria (grounded, sources, no-match body). Excluded from default `mvn test`. Prerequisites: `docker compose up`, backend running with seed and indexing enabled, Ollama running.
+- [X] T033 Run `mvn -f backend/pom.xml test -Dgroups=ai-eval` against that running app. Set `logging.level.com.ticketmanagement.rag=DEBUG` on the backend and record each question's response and retrieval scores (from backend DEBUG logs) for T034.
+- [X] T034 **Threshold calibration**: from DEBUG logs, choose `app.rag.similarity-threshold` — lower only if an in-scope question misses an expected ticket just under 0.6; raise if an out-of-scope question retrieves chunks and grounds; keep 0.6 if both sides pass. Update `backend/src/main/resources/application.yml` with the chosen value and record the number and reasoning in `specs/evaluation-strategy.md` (replace the "Not yet measured" row).
+- [X] T035 [P] If eval or manual testing surfaced a wrong citation, fabricated fact, or missed retrieval, record it in `docs/ai-mistakes.md` per AC-23.
 
 **Checkpoint**: Eval suite and calibrated threshold documented. Commit this phase when eval is green.
 
