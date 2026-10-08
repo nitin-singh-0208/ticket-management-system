@@ -61,11 +61,11 @@ Finish all tasks in a phase, then make **one commit** for that phase, then start
 
 ### Implementation for Foundational
 
-- [ ] T005 Create `backend/src/main/java/com/ticketmanagement/rag/RagProperties.java` as `@ConfigurationProperties(prefix = "app.rag")` with fields `topK`, `similarityThreshold`, `indexing.enabled` (default `true`), `chatModel`, `embeddingModel`. Register via `@EnableConfigurationProperties` on the application class or a `@Configuration` in the `rag` package.
-- [ ] T006 Update `backend/src/test/resources/application.yml`: keep `spring.flyway.locations: classpath:db/migration` (no seed); add `app.rag.indexing.enabled: false` so `TicketIndexer` and `VectorStoreBackfill` are not created under `@ConditionalOnProperty(name = "app.rag.indexing.enabled", havingValue = "true", matchIfMissing = true)`.
-- [ ] T007 [P] Configure Surefire in `backend/pom.xml` to exclude `@Tag("ai-eval")` from the default test run (`<groups>!ai-eval</groups>` or equivalent `excludedGroups`). Document in a comment that `mvn test -Dgroups=ai-eval` runs the live-model suite.
-- [ ] T008 [P] Create a minimal `@SpringBootTest` smoke class at `backend/src/test/java/com/ticketmanagement/rag/RagContextSmokeTest.java` (or extend an existing full-context test) with `@MockitoBean EmbeddingModel` and `@MockitoBean ChatModel` so Spring AI auto-configuration loads without a live Ollama server when indexing is disabled.
-- [ ] T009 Run `mvn -f backend/pom.xml verify` with Ollama actually stopped (`pkill ollama` or quit the app) and confirm success. This is the gate for all later phases: default verify must not require embeddings or chat.
+- [X] T005 Create `backend/src/main/java/com/ticketmanagement/rag/RagProperties.java` as `@ConfigurationProperties(prefix = "app.rag")` with fields `topK`, `similarityThreshold`, `indexing.enabled` (default `true`), `chatModel`, `embeddingModel`. Register via `@EnableConfigurationProperties` on the application class or a `@Configuration` in the `rag` package.
+- [X] T006 Update `backend/src/test/resources/application.yml`: keep `spring.flyway.locations: classpath:db/migration` (no seed); add `app.rag.indexing.enabled: false` so `TicketIndexer` and `VectorStoreBackfill` are not created under `@ConditionalOnProperty(name = "app.rag.indexing.enabled", havingValue = "true", matchIfMissing = true)`.
+- [X] T007 [P] Configure Surefire in `backend/pom.xml` to exclude `@Tag("ai-eval")` from the default test run (`<groups>!ai-eval</groups>` or equivalent `excludedGroups`). Document in a comment that `mvn test -Dgroups=ai-eval` runs the live-model suite.
+- [X] T008 [P] Create a minimal `@SpringBootTest` smoke class at `backend/src/test/java/com/ticketmanagement/rag/RagContextSmokeTest.java` (or extend an existing full-context test) with `@MockitoBean EmbeddingModel` and `@MockitoBean ChatModel` so Spring AI auto-configuration loads without a live Ollama server when indexing is disabled.
+- [X] T009 Run `mvn -f backend/pom.xml verify` with Ollama actually stopped (`pkill ollama` or quit the app) and confirm success. This is the gate for all later phases: default verify must not require embeddings or chat.
 
 **Checkpoint**: Foundation ready — user story implementation can begin. Commit this phase before Phase 3.
 
