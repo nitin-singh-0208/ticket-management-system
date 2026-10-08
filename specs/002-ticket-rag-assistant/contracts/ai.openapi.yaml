@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Ticket RAG Assistant API
+  version: 1.0.0
+  description: >
+    Phase 2 grounded question-answering over ticket history.
+    Answers come only from retrieved ticket chunks. Field names are camelCase.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/ai/ask:
+    post:
+      operationId: askAi
+      summary: Ask a grounded question over ticket history
+      description: >
+        Runs similarity search over indexed ticket chunks. When no chunk meets
+        the configured similarity threshold, returns grounded=false and does not
+        call the language model. Otherwise performs a single retrieval followed
+        by a single generation step. Sources are retrieved chunks, one per
+        ticketId (highest score), limited to ids cited in the answer. If the
+        answer cites no retrieved id, or cites an id that was not retrieved,
+        the response is the no-match body with grounded=false.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AskRequest'
+      responses:
+        '200':
+          description: Grounded answer or explicit no-match response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AskResponse'
+        '400':
+          $ref: '#/components/responses/Problem'
+components:
+  schemas:
+    AskRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: Natural-language question. Trimmed; blank rejected.
+    AskResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - answer
+        - sources
+        - grounded
+      properties:
+        answer:
+          type: string
+          description: >
+            Grounded answer citing ticket IDs, or exactly
+            "No relevant tickets found" when grounded is false. The no-match
+            text is also used when the model cites no retrieved id or cites
+            an id that was not retrieved.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/AskSource'
+        grounded:
+          type: boolean
+          description: >
+            True only when retrieval returned chunks and the answer cites
+            at least one of those ticket ids and no id outside that set.
+    AskSource:
+      type: object
+      additionalProperties: false
+      required:
+        - ticketId
+        - title
+        - status
+        - score
+        - snippet
+      properties:
+        ticketId:
+          type: string
+          example: TKT-1001
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+            - OPEN
+            - IN_PROGRESS
+            - RESOLVED
+            - CLOSED
+            - CANCELLED
+        score:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+        snippet:
+          type: string
+          maxLength: 300
+  responses:
+    Problem:
+      description: RFC 7807 problem detail
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+              title:
+                type: string
+              status:
+                type: integer
+              detail:
+                type: string
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                    message:
+                      type: string

@@ -20,6 +20,19 @@ Manual checks in the quickstart cover list order, `pay` matching only TKT-1001 a
 
 No automated tests in Phase 1. UI error display (field errors, 409 `detail`, 404 `detail`) is verified manually via [001-support-ticket-management/quickstart.md](001-support-ticket-management/quickstart.md). That check maps to AC-13, "UI shows meaningful errors," in [requirements.md](requirements.md).
 
-## AI / retrieval evaluation
+## AI / retrieval (Phase 2)
 
-Phase 2 – TBD (stubbed-model unit tests, pgvector integration test, `@Tag("ai-eval")` real-model suite excluded from default build)
+RAG feature: [002-ticket-rag-assistant/plan.md](002-ticket-rag-assistant/plan.md). Eval questions and metrics: [evaluation-strategy.md](evaluation-strategy.md).
+
+| Test | Style | Proves |
+|------|--------|--------|
+| `TicketDocumentMapperTest` | JUnit, no Spring | Paragraph chunking; metadata (`ticketId`, `status`, `priority`, `assignee`, `category`, `sourceType`) on every document |
+| `TicketIndexerTest` | JUnit + mocked `VectorStore` | Re-ingest deletes all chunks for `ticketId` then adds new documents |
+| `RagAskServiceTest` | JUnit + stubbed `ChatModel` / `VectorStore` | No-match path returns `grounded: false` and **never** calls `ChatModel`; citation filter drops ticket IDs not in retrieval; grounded path cites only retrieved tickets |
+| `RagAskEvalTest` | `@SpringBootTest`, `@Tag("ai-eval")`, live Ollama + PGVector | Five PDF in-scope questions and three out-of-scope no-match questions per [evaluation-strategy.md](evaluation-strategy.md) |
+
+**Default build (`mvn test`)**: runs Phase 1 tests plus stubbed RAG unit tests. Does **not** require Ollama. AI beans are excluded or replaced in the test profile so existing tests keep passing.
+
+**Eval build**: `mvn test -Dgroups=ai-eval` runs `RagAskEvalTest` only. Requires `ollama pull nomic-embed-text` and `ollama pull llama3.1:8b`, plus seeded database with backfilled vectors.
+
+Surefire excludes `ai-eval` by default via `excludedGroups` in `pom.xml`.
