@@ -14,3 +14,21 @@
 - How caught: manual review of the plan artefacts before /speckit-tasks
 - Fix: corrected search checks in commit 9dbf6db
 - Also caught in same review: the contract relied on rejecting unknown JSON properties, which Spring Boot ignores by default; made explicit in the plan
+
+## RAG plan left ticket ID and priority out of the chunk text
+
+**When:** 8 Oct, while reviewing the /speckit-plan output for 002-ticket-rag-assistant
+
+The plan had each chunk store only the raw text: the description, a comment, or the resolution notes. Ticket ID, title, status and priority were only stored as metadata on the vector row.
+
+It looked fine until I went through the 5 questions from the assignment one by one:
+
+- "What was the resolution for ticket TKT-1001?" The string TKT-1001 isn't anywhere in the embedded text, so similarity search has nothing to match on. It might find it, it might not.
+- "Which high-priority tickets are related to payment?" The LLM can't answer this. It never sees the priority, because metadata doesn't go into the prompt unless you put it there.
+- Some seed comments are just "Noted." On its own that embeds as basically nothing.
+
+The plan's own evaluation-strategy.md expected these questions to pass, so it contradicted itself and nobody noticed. I caught it by asking Claude Code to review the plan and then checking each question by hand against the data model.
+
+**Fix:** every chunk now starts with a header line, e.g. `Ticket TKT-1001 | Payment declined at checkout | status OPEN | priority HIGH | category Payment | section comment`, and the same header goes into the context sent to the LLM. Commit <sha>.
+
+**Takeaway:** metadata is for filtering and citations. The model only knows what's actually in the text you embed and the prompt you send. Check each eval question against that, not against the schema.
