@@ -7,8 +7,27 @@ spring:
     username: tickets
     password: ${TICKETS_DB_PASSWORD:tickets}
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: validate
+  ai:
+    model:
+      chat: ollama
+      embedding: ollama
+    vectorstore:
+      pgvector:
+        dimensions: 768
+        initialize-schema: true
+        distance-type: COSINE_DISTANCE
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3.1:8b
+          temperature: 0
+      embedding:
+        options:
+          model: nomic-embed-text
   flyway:
     locations: classpath:db/migration,classpath:db/seed
   jackson:
@@ -17,3 +36,12 @@ spring:
   mvc:
     problemdetails:
       enabled: true
+
+app:
+  rag:
+    top-k: 5
+    similarity-threshold: 0.6
+    indexing:
+      enabled: true
+    chat-model: llama3.1:8b
+    embedding-model: nomic-embed-text
