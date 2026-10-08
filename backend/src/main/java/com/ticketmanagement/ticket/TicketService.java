@@ -9,8 +9,10 @@ import com.ticketmanagement.ticket.dto.TicketDetail;
 import com.ticketmanagement.ticket.dto.TicketPage;
 import com.ticketmanagement.ticket.dto.TicketSummary;
 import com.ticketmanagement.ticket.dto.UpdateTicketRequest;
+import com.ticketmanagement.ticket.event.TicketChangedEvent;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,10 +25,15 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
     private final CommentRepository commentRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public TicketService(TicketRepository ticketRepository, CommentRepository commentRepository) {
+    public TicketService(
+            TicketRepository ticketRepository,
+            CommentRepository commentRepository,
+            ApplicationEventPublisher eventPublisher) {
         this.ticketRepository = ticketRepository;
         this.commentRepository = commentRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
@@ -41,7 +48,9 @@ public class TicketService {
         ticket.setStatus(TicketStatus.OPEN);
 
         Ticket saved = ticketRepository.save(ticket);
-        return toDetail(saved);
+        TicketDetail detail = toDetail(saved);
+        eventPublisher.publishEvent(new TicketChangedEvent(saved.getTicketId()));
+        return detail;
     }
 
     public TicketPage listTickets(String q, TicketStatus status, Integer page, Integer size) {
@@ -94,7 +103,9 @@ public class TicketService {
         }
 
         Ticket saved = ticketRepository.save(ticket);
-        return toDetail(saved);
+        TicketDetail detail = toDetail(saved);
+        eventPublisher.publishEvent(new TicketChangedEvent(saved.getTicketId()));
+        return detail;
     }
 
     @Transactional
@@ -108,7 +119,9 @@ public class TicketService {
 
         ticket.setStatus(targetStatus);
         Ticket saved = ticketRepository.save(ticket);
-        return toDetail(saved);
+        TicketDetail detail = toDetail(saved);
+        eventPublisher.publishEvent(new TicketChangedEvent(saved.getTicketId()));
+        return detail;
     }
 
     private TicketDetail toDetail(Ticket ticket) {

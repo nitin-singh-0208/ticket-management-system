@@ -5,6 +5,8 @@ import com.ticketmanagement.comment.dto.CreateCommentRequest;
 import com.ticketmanagement.common.TicketNotFoundException;
 import com.ticketmanagement.ticket.Ticket;
 import com.ticketmanagement.ticket.TicketRepository;
+import com.ticketmanagement.ticket.event.TicketChangedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +16,15 @@ public class CommentService {
 
     private final TicketRepository ticketRepository;
     private final CommentRepository commentRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public CommentService(TicketRepository ticketRepository, CommentRepository commentRepository) {
+    public CommentService(
+            TicketRepository ticketRepository,
+            CommentRepository commentRepository,
+            ApplicationEventPublisher eventPublisher) {
         this.ticketRepository = ticketRepository;
         this.commentRepository = commentRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
@@ -30,6 +37,7 @@ public class CommentService {
         comment.setText(request.text());
 
         Comment saved = commentRepository.save(comment);
+        eventPublisher.publishEvent(new TicketChangedEvent(ticket.getTicketId()));
         return toResponse(saved);
     }
 
